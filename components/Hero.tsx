@@ -50,7 +50,7 @@ export default function Hero() {
               transition={{ delay: 0.3 }}
               className="text-white/50 font-mono text-sm tracking-widest uppercase"
             >
-              Hi there, I'm 👋
+              Hi there, I&apos;m 👋
             </motion.p>
 
             <motion.h1
