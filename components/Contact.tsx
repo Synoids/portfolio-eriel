@@ -4,13 +4,14 @@ import { motion } from "framer-motion";
 import { useState, useRef, FormEvent } from "react";
 import { Mail, Send, CheckCircle, Loader2 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { profile } from "@/data/profile";
 
 const contactLinks = [
   {
     icon: Mail,
     label: "Email",
-    value: "eriel473@gmail.com",
-    href: "mailto:eriel473@gmail.com",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
     color: "text-primary-400",
     bgColor: "bg-primary-500/10",
     borderColor: "border-primary-500/20",
@@ -18,8 +19,8 @@ const contactLinks = [
   {
     icon: FaGithub,
     label: "GitHub",
-    value: "github.com/Synoids",
-    href: "https://github.com/Synoids",
+    value: profile.social.github.display,
+    href: profile.social.github.url,
     color: "text-white",
     bgColor: "bg-white/5",
     borderColor: "border-white/10",
@@ -27,8 +28,8 @@ const contactLinks = [
   {
     icon: FaLinkedin,
     label: "LinkedIn",
-    value: "linkedin.com/in/erielbudiman",
-    href: "https://www.linkedin.com/in/eriel-budiman-029905373/",
+    value: profile.social.linkedin.display,
+    href: profile.social.linkedin.url,
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
     borderColor: "border-blue-500/20",
@@ -36,8 +37,8 @@ const contactLinks = [
   {
     icon: FaWhatsapp,
     label: "WhatsApp",
-    value: "+62 895-6315-83081",
-    href: "https://wa.me/62895631583081",
+    value: profile.whatsapp,
+    href: profile.whatsappHref,
     color: "text-green-400",
     bgColor: "bg-green-500/10",
     borderColor: "border-green-500/20",
@@ -210,7 +211,7 @@ export default function Contact() {
                   rows={5}
                   value={formState.message}
                   onChange={handleChange}
-                  placeholder="Hi Eriel, I'd love to talk about..."
+                  placeholder={`Hi ${profile.firstName}, I'd love to talk about...`}
                   className="w-full px-4 py-3 rounded-xl bg-white/4 border border-white/8 text-white placeholder-white/20 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm resize-none"
                   style={{
                     background: "rgba(255,255,255,0.03)",

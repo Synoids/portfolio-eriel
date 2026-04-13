@@ -3,51 +3,8 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Tag } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-
-const projects = [
-  {
-    id: 1,
-    title: "QRIS Cooperative System",
-    description:
-      "A cooperative management system with integrated QRIS payment gateway, enabling seamless digital transactions and member management for local cooperatives.",
-    tech: ["PHP", "MySQL", "QRIS API", "Bootstrap"],
-    emoji: "💳",
-    gradient: "from-primary-600/30 to-primary-900/50",
-    accentColor: "text-primary-400",
-    borderColor: "border-primary-500/20",
-    github: "https://github.com/Synoids",
-    demo: "#",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Laundry Service Info System",
-    description:
-      "Full-featured laundry management system with automated WhatsApp notifications for order updates, keeping customers informed throughout the laundry process.",
-    tech: ["PHP", "MySQL", "WhatsApp API", "Tailwind"],
-    emoji: "🧺",
-    gradient: "from-accent/20 to-blue-900/40",
-    accentColor: "text-accent",
-    borderColor: "border-accent/20",
-    github: "https://github.com/Synoids",
-    demo: "#",
-    featured: false,
-  },
-  {
-    id: 3,
-    title: "Dapur Wong Kito",
-    description:
-      "Traditional Palembang food ordering web app celebrating local cuisine. Features menu browsing, cart management, and order tracking for authentic Indonesian dishes.",
-    tech: ["PHP", "MySQL", "JavaScript", "CSS3"],
-    emoji: "🍛",
-    gradient: "from-emerald-600/20 to-teal-900/40",
-    accentColor: "text-emerald-400",
-    borderColor: "border-emerald-500/20",
-    github: "https://github.com/Synoids",
-    demo: "#",
-    featured: false,
-  },
-];
+import { projects } from "@/data/projects";
+import { profile } from "@/data/profile";
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
   return (
@@ -189,7 +146,7 @@ export default function Projects() {
           className="text-center mt-12"
         >
           <motion.a
-            href="https://github.com/Synoids"
+            href={profile.social.github.url}
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}

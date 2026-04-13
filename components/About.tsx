@@ -4,34 +4,16 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { BookOpen, Code2, GraduationCap, Lightbulb, MapPin } from "lucide-react";
+import { profile } from "@/data/profile";
 
-const stats = [
-  { label: "Projects Built", value: "10+" },
-  { label: "Technologies", value: "8+" },
-  { label: "Years Learning", value: "2+" },
-  { label: "Cups of Coffee", value: "∞" },
-];
+// Map icon string keys to actual Lucide components
+const iconMap = {
+  GraduationCap,
+  Code2,
+  Lightbulb,
+} as const;
 
-const highlights = [
-  {
-    icon: GraduationCap,
-    title: "Education",
-    description:
-      "Information Systems student at UIN Raden Fatah Palembang, diving deep into software engineering and web development.",
-  },
-  {
-    icon: Code2,
-    title: "Development",
-    description:
-      "Passionate about building functional, clean web apps. Currently exploring modern frameworks like Next.js and React.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Learning",
-    description:
-      "Always curious — learning about UI/UX principles, backend integration, and best practices in software engineering.",
-  },
-];
+type IconKey = keyof typeof iconMap;
 
 export default function About() {
   const ref = useRef(null);
@@ -70,7 +52,7 @@ export default function About() {
             <div className="space-y-4 text-white/60 text-lg leading-relaxed">
               <p>
                 Hey! I&apos;m{" "}
-                <span className="text-white font-semibold">Eriel Budiman</span>, a dedicated
+                <span className="text-white font-semibold">{profile.name}</span>, a dedicated
                 Information Systems student at{" "}
                 <span className="text-primary-400 font-semibold">
                   UIN Raden Fatah Palembang
@@ -94,17 +76,17 @@ export default function About() {
             <div className="flex flex-wrap gap-3 pt-2">
               <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-white/10 text-sm text-white/60">
                 <MapPin size={14} className="text-primary-400" />
-                Palembang, Indonesia
+                {profile.location}
               </div>
               <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-green-500/20 text-sm text-green-400">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                Open to opportunities
+                {profile.status}
               </div>
             </div>
 
             {/* CTA */}
             <motion.a
-              href="/resume.pdf"
+              href={profile.resume}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-500/10 border border-primary-500/30 hover:bg-primary-500/20 text-primary-300 hover:text-primary-200 font-medium text-sm transition-all duration-300"
@@ -123,7 +105,7 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="grid grid-cols-2 gap-4"
             >
-              {stats.map((stat, i) => (
+              {profile.stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -142,24 +124,27 @@ export default function About() {
 
             {/* Highlights */}
             <div className="space-y-4">
-              {highlights.map((item, i) => (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.5 + i * 0.15 }}
-                  className="flex gap-4 glass border rounded-2xl p-4 hover:border-primary-500/25 transition-all duration-300 group"
-                  style={{ borderColor: "rgba(255,255,255,0.06)" }}
-                >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary-500/15 border border-primary-500/20 flex items-center justify-center group-hover:bg-primary-500/25 transition-all">
-                    <item.icon size={18} className="text-primary-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-white font-semibold text-sm mb-1">{item.title}</h3>
-                    <p className="text-white/50 text-sm leading-relaxed">{item.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+              {profile.highlights.map((item, i) => {
+                const IconComponent = iconMap[item.icon as IconKey];
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.5 + i * 0.15 }}
+                    className="flex gap-4 glass border rounded-2xl p-4 hover:border-primary-500/25 transition-all duration-300 group"
+                    style={{ borderColor: "rgba(255,255,255,0.06)" }}
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary-500/15 border border-primary-500/20 flex items-center justify-center group-hover:bg-primary-500/25 transition-all">
+                      <IconComponent size={18} className="text-primary-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-white font-semibold text-sm mb-1">{item.title}</h3>
+                      <p className="text-white/50 text-sm leading-relaxed">{item.description}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>

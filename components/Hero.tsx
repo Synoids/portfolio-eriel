@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown, Mail, Sparkles } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { profile } from "@/data/profile";
 
 export default function Hero() {
   const handleScroll = (id: string) => {
@@ -40,7 +41,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/20 text-sm text-primary-300"
           >
             <Sparkles size={14} className="text-primary-400" />
-            Available for freelance work
+            {profile.availability}
           </motion.div>
 
           <div className="space-y-4">
@@ -59,9 +60,9 @@ export default function Hero() {
               transition={{ delay: 0.4, duration: 0.7 }}
               className="text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight"
             >
-              <span className="text-white">Eriel</span>
+              <span className="text-white">{profile.firstName}</span>
               <br />
-              <span className="gradient-text">Budiman</span>
+              <span className="gradient-text">{profile.lastName}</span>
             </motion.h1>
 
             <motion.p
@@ -71,7 +72,7 @@ export default function Hero() {
               className="text-xl font-semibold text-white/70"
             >
               Information Systems Student &{" "}
-              <span className="text-primary-400">Junior Web Developer</span>
+              <span className="text-primary-400">{profile.role}</span>
             </motion.p>
           </div>
 
@@ -81,8 +82,7 @@ export default function Hero() {
             transition={{ delay: 0.6 }}
             className="text-white/50 text-lg leading-relaxed max-w-md"
           >
-            I build simple, clean, and functional web applications using modern
-            web technologies.
+            {profile.description}
           </motion.p>
 
           {/* BUTTONS */}
@@ -113,23 +113,25 @@ export default function Hero() {
 
             <div className="flex gap-3">
               <a
-                href="https://github.com/Synoids"
+                href={profile.social.github.url}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-white/50 hover:text-primary-400"
               >
                 <FaGithub />
               </a>
 
               <a
-                href="https://www.linkedin.com/in/eriel-budiman-029905373/"
+                href={profile.social.linkedin.url}
                 target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-white/50 hover:text-primary-400"
               >
                 <FaLinkedin />
               </a>
 
               <a
-                href="mailto:eriel473@gmail.com"
+                href={`mailto:${profile.email}`}
                 className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-white/50 hover:text-primary-400"
               >
                 <Mail size={18} />
@@ -153,8 +155,8 @@ export default function Hero() {
 
             <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary-500/30">
               <Image
-                src="/eriel.jpg"
-                alt="Eriel Budiman"
+                src={profile.photo}
+                alt={profile.name}
                 fill
                 className="object-cover"
               />

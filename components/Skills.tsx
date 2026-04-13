@@ -3,49 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-
-const skillCategories = [
-  {
-    name: "Frontend",
-    color: "from-primary-500 to-primary-400",
-    borderColor: "border-primary-500/20",
-    bgColor: "bg-primary-500/8",
-    iconBg: "bg-primary-500/15",
-    skills: [
-      { name: "HTML5", level: 90, emoji: "🌐" },
-      { name: "CSS3", level: 85, emoji: "🎨" },
-      { name: "JavaScript", level: 78, emoji: "⚡" },
-      { name: "Next.js", level: 65, emoji: "▲" },
-      { name: "React", level: 68, emoji: "⚛️" },
-      { name: "Tailwind CSS", level: 80, emoji: "💨" },
-    ],
-  },
-  {
-    name: "Backend",
-    color: "from-accent to-blue-400",
-    borderColor: "border-accent/20",
-    bgColor: "bg-accent/5",
-    iconBg: "bg-accent/10",
-    skills: [
-      { name: "PHP", level: 75, emoji: "🐘" },
-      { name: "MySQL", level: 72, emoji: "🗄️" },
-      { name: "REST API", level: 60, emoji: "🔌" },
-    ],
-  },
-  {
-    name: "Tools & Others",
-    color: "from-emerald-400 to-teal-400",
-    borderColor: "border-emerald-500/20",
-    bgColor: "bg-emerald-500/5",
-    iconBg: "bg-emerald-500/10",
-    skills: [
-      { name: "Git", level: 80, emoji: "🌿" },
-      { name: "GitHub", level: 82, emoji: "🐙" },
-      { name: "VS Code", level: 90, emoji: "💻" },
-      { name: "Figma", level: 55, emoji: "🎭" },
-    ],
-  },
-];
+import { skillCategories, techBadges } from "@/data/skills";
 
 function SkillBar({ name, level, emoji, color, delay }: {
   name: string;
@@ -165,22 +123,20 @@ export default function Skills() {
           transition={{ delay: 0.5, duration: 0.6 }}
           className="mt-12 flex flex-wrap justify-center gap-3"
         >
-          {["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Next.js", "PHP", "MySQL", "Git", "GitHub", "Tailwind", "VS Code"].map(
-            (tech, i) => (
-              <motion.span
-                key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                whileHover={{ scale: 1.1, y: -2 }}
-                className="px-4 py-2 glass rounded-xl border border-white/8 text-sm text-white/60 hover:text-white/90 hover:border-primary-500/30 transition-all duration-300 cursor-default"
-                style={{ borderColor: "rgba(255,255,255,0.06)" }}
-              >
-                {tech}
-              </motion.span>
-            )
-          )}
+          {techBadges.map((tech, i) => (
+            <motion.span
+              key={tech}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              whileHover={{ scale: 1.1, y: -2 }}
+              className="px-4 py-2 glass rounded-xl border border-white/8 text-sm text-white/60 hover:text-white/90 hover:border-primary-500/30 transition-all duration-300 cursor-default"
+              style={{ borderColor: "rgba(255,255,255,0.06)" }}
+            >
+              {tech}
+            </motion.span>
+          ))}
         </motion.div>
       </div>
     </section>
