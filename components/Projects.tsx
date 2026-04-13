@@ -126,7 +126,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass border border-white/10 hover:border-primary-500/40 text-white/60 hover:text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
           >
-                        <FaGithub size={15} />
+            <FaGithub size={15} />
             GitHub
           </motion.a>
           <motion.a
@@ -189,14 +189,14 @@ export default function Projects() {
           className="text-center mt-12"
         >
           <motion.a
-            href="https://github.com/erielbudiman"
+            href="https://github.com/Synoids"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl glass border border-white/10 hover:border-primary-500/40 text-white/60 hover:text-white font-medium text-sm transition-all duration-300"
           >
-                        <FaGithub size={16} />
+            <FaGithub size={16} />
             View All on GitHub
           </motion.a>
         </motion.div>
