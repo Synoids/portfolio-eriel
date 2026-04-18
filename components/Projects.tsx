@@ -93,7 +93,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
           >
             <ExternalLink size={15} />
-            Live Demo
+            {project.demoLabel ?? "View App"}
           </motion.a>
         </div>
       </div>

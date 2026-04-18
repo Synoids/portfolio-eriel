@@ -8,6 +8,7 @@ export type Project = {
   accentColor: string;
   borderColor: string;
   github: string;
+  demoLabel?: string;
   demo: string;
   featured: boolean;
   image?: string;
@@ -24,8 +25,24 @@ export const projects: Project[] = [
     gradient: "from-green-600/30 to-green-900/50",
     accentColor: "text-green-400",
     borderColor: "border-green-500/20",
-    github: "",
+    github: "https://github.com/Synoids/finance-tracker",
     demo: "https://finance-tracker-indol-five.vercel.app/",
+    demoLabel: "View App",
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "Avion AC - Company Profile",
+    description:
+      "Company profile website for Avion AC, a professional air conditioning service provider in Palembang. Features service listings, gallery, contact information, and social media integration for residential and commercial clients.",
+    tech: ["Next.js", "React", "Tailwind CSS", "Vercel"],
+    emoji: "❄️",
+    gradient: "from-blue-600/30 to-blue-900/50",
+    accentColor: "text-blue-400",
+    borderColor: "border-blue-500/20",
+    github: "https://github.com/Synoids/Avion-AC",
+    demo: "https://avion-ac.vercel.app/",
+    demoLabel: "Visit Site",
     featured: true,
   },
 ];
