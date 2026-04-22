@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { skillCategories, techBadges } from "@/data/skills";
 
@@ -12,28 +11,26 @@ function SkillBar({ name, level, emoji, color, delay }: {
   color: string;
   delay: number;
 }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
   return (
     <motion.div
-      ref={ref}
       initial={{ opacity: 0, x: -20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
       transition={{ delay, duration: 0.5 }}
       className="space-y-1.5"
     >
       <div className="flex justify-between items-center text-sm">
-        <span className="flex items-center gap-2 text-white/80 font-medium">
+        <span className="flex items-center gap-2 text-white/90 font-medium">
           <span className="text-base leading-none">{emoji}</span>
           {name}
         </span>
-        <span className="text-white/30 text-xs font-mono">{level}%</span>
+        <span className="text-white/40 text-xs font-mono">{level}%</span>
       </div>
-      <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+      <div className="h-1.5 bg-white/15 rounded-full overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
-          animate={isInView ? { width: `${level}%` } : {}}
+          whileInView={{ width: `${level}%` }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ delay: delay + 0.2, duration: 1, ease: "easeOut" }}
           className={`h-full rounded-full bg-gradient-to-r ${color}`}
         />
@@ -79,7 +76,7 @@ export default function Skills() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: catIndex * 0.15, duration: 0.6 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className={`glass rounded-3xl p-6 border ${category.borderColor} hover:shadow-lg transition-all duration-300`}
+              className={`glass rounded-3xl p-6 border ${category.borderColor} ${category.bgColor} hover:shadow-lg transition-all duration-300`}
             >
               {/* Category Header */}
               <div className="flex items-center gap-3 mb-6">
@@ -92,11 +89,11 @@ export default function Skills() {
                 </div>
                 <div>
                   <h3
-                    className={`font-bold text-transparent bg-gradient-to-r ${category.color} bg-clip-text`}
+                    className={`text-lg font-bold text-transparent bg-gradient-to-r ${category.color} bg-clip-text`}
                   >
                     {category.name}
                   </h3>
-                  <p className="text-white/30 text-xs">{category.skills.length} skills</p>
+                  <p className="text-white/60 text-sm">{category.skills.length} skills</p>
                 </div>
               </div>
 

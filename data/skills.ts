@@ -10,6 +10,8 @@ export type SkillCategory = {
   borderColor: string;
   bgColor: string;
   iconBg: string;
+  gradientFrom: string;
+  gradientTo: string;
   skills: Skill[];
 };
 
@@ -20,6 +22,8 @@ export const skillCategories: SkillCategory[] = [
     borderColor: "border-primary-500/20",
     bgColor: "bg-primary-500/8",
     iconBg: "bg-primary-500/15",
+    gradientFrom: "#6C63FF",
+    gradientTo: "#8B85FF",
     skills: [
       { name: "HTML5", level: 90, emoji: "🌐" },
       { name: "CSS3", level: 85, emoji: "🎨" },
@@ -32,9 +36,11 @@ export const skillCategories: SkillCategory[] = [
   {
     name: "Backend",
     color: "from-accent to-blue-400",
-    borderColor: "border-accent/20",
-    bgColor: "bg-accent/5",
-    iconBg: "bg-accent/10",
+    borderColor: "border-blue-500/20",
+    bgColor: "bg-blue-500/5",
+    iconBg: "bg-blue-500/10",
+    gradientFrom: "#38BDF8",
+    gradientTo: "#60A5FA",
     skills: [
       { name: "PHP", level: 75, emoji: "🐘" },
       { name: "MySQL", level: 72, emoji: "🗄️" },
@@ -47,6 +53,8 @@ export const skillCategories: SkillCategory[] = [
     borderColor: "border-emerald-500/20",
     bgColor: "bg-emerald-500/5",
     iconBg: "bg-emerald-500/10",
+    gradientFrom: "#34D399",
+    gradientTo: "#2DD4BF",
     skills: [
       { name: "Git", level: 80, emoji: "🌿" },
       { name: "GitHub", level: 82, emoji: "🐙" },

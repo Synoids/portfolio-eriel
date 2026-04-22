@@ -26,7 +26,7 @@ export const projects: Project[] = [
     accentColor: "text-green-400",
     borderColor: "border-green-500/20",
     github: "https://github.com/Synoids/finance-tracker",
-    demo: "https://finance-tracker-indol-five.vercel.app/",
+    demo: "https://fintrack-id.vercel.app/",
     demoLabel: "View App",
     featured: true,
   },
