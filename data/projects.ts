@@ -45,4 +45,19 @@ export const projects: Project[] = [
     demoLabel: "Visit Site",
     featured: true,
   },
+  {
+    id: 3,
+    title: "Hutatus Coffee",
+    description:
+      "An artisanal coffee marketplace built with Next.js 14 and Supabase. Features an advanced cart system with composite unique keys, a secure 6-digit PIN admin dashboard, and automated WhatsApp order confirmation with QRIS integration.",
+    tech: ["Next.js 14", "Tailwind CSS", "Supabase", "Context API"],
+    emoji: "☕",
+    gradient: "from-amber-800/30 to-orange-950/50",
+    accentColor: "text-amber-500",
+    borderColor: "border-amber-500/20",
+    github: "https://github.com/Synoids/hutatus-coffe",
+    demo: "https://hutatus-coffe.vercel.app/",
+    demoLabel: "Visit Shop",
+    featured: true,
+  },
 ];
