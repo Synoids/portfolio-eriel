@@ -4,12 +4,9 @@ import { motion } from "framer-motion";
 import { 
   TrendingUp, 
   Wallet, 
-  PieChart, 
   Target, 
-  ExternalLink, 
   BrainCircuit,
   ShieldCheck,
-  Zap,
   BarChart3,
   Rocket
 } from "lucide-react";
