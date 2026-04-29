@@ -42,12 +42,11 @@ export async function deleteCredential(id: string) {
 
   if (error) {
     console.error('Error deleting credential record:', error);
-    throw new Error('Failed to delete credential record: ' + error.message);
+    return;
   }
 
   revalidatePath('/admin/databases');
   revalidatePath('/admin');
-  return { success: true };
 }
 
 export async function updateCredential(id: string, formData: FormData) {
@@ -61,7 +60,7 @@ export async function updateCredential(id: string, formData: FormData) {
     throw new Error('Project name is required');
   }
 
-  const updates: any = {
+  const updates: Record<string, string | null> = {
     project_name,
     email,
     notes,
@@ -91,11 +90,11 @@ export async function updateCredential(id: string, formData: FormData) {
 }
 
 // Separate Server Action to Decrypt a specific password on demand
-export async function getDecryptedPassword(encryptedPassword: string) {
+export async function getDecryptedPassword(encryptedPassword: string | null) {
   try {
     if (!encryptedPassword) return { success: true, password: '' };
     return { success: true, password: decrypt(encryptedPassword) };
-  } catch (error) {
+  } catch {
     return { error: 'Decryption failed' };
   }
 }

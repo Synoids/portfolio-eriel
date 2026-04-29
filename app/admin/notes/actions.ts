@@ -7,18 +7,20 @@ export async function createNote(formData: FormData) {
   const title = formData.get('title') as string;
   const content = formData.get('content') as string;
 
-  if (!title) return { error: 'Title is required' };
+  if (!title) {
+    console.error('Title is required');
+    return;
+  }
 
   const { error } = await supabaseAdmin.from('notes').insert([{ title, content }]);
 
   if (error) {
     console.error('Error creating note:', error);
-    return { error: 'Failed to create note' };
+    return;
   }
 
   revalidatePath('/admin/notes');
   revalidatePath('/admin');
-  return { success: true };
 }
 
 export async function deleteNote(id: string) {
@@ -26,10 +28,9 @@ export async function deleteNote(id: string) {
 
   if (error) {
     console.error('Error deleting note:', error);
-    return { error: 'Failed to delete note' };
+    return;
   }
 
   revalidatePath('/admin/notes');
   revalidatePath('/admin');
-  return { success: true };
 }

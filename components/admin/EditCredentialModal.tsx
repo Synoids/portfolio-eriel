@@ -4,7 +4,16 @@ import { useState } from 'react';
 import { Edit, X, Eye, EyeOff } from 'lucide-react';
 import { updateCredential } from '@/app/admin/databases/actions';
 
-export default function EditCredentialModal({ credential }: { credential: any }) {
+type CredentialType = {
+  id: string;
+  project_name: string;
+  notes?: string;
+  project_password_encrypted: string | null;
+  email?: string;
+  email_password_encrypted: string | null;
+};
+
+export default function EditCredentialModal({ credential }: { credential: CredentialType }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -21,8 +30,8 @@ export default function EditCredentialModal({ credential }: { credential: any })
     try {
       await updateCredential(credential.id, formData);
       setIsOpen(false);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
       setIsLoading(false);
     }

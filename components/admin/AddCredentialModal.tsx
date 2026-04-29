@@ -21,8 +21,8 @@ export default function AddCredentialModal() {
     try {
       await createCredential(formData);
       setIsOpen(false);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
       setIsLoading(false);
     }

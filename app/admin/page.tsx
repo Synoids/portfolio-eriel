@@ -33,7 +33,7 @@ export default async function AdminDashboardPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back, Admin</h1>
-        <p className="text-gray-500">Here's an overview of your secure data.</p>
+        <p className="text-gray-500">Here&apos;s an overview of your secure data.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

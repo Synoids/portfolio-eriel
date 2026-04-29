@@ -2,9 +2,17 @@
 
 import { useState } from 'react';
 import { Eye, EyeOff, Copy, Check, Trash2, FolderGit2 } from 'lucide-react';
-import { deleteDatabase, getDecryptedPassword } from '@/app/admin/databases/actions';
+import { deleteCredential, getDecryptedPassword } from '@/app/admin/databases/actions';
 
-export default function DatabaseRow({ database }: { database: any }) {
+type DatabaseType = {
+  id: string;
+  project_name?: string;
+  email: string;
+  notes?: string;
+  password_encrypted: string | null;
+};
+
+export default function DatabaseRow({ database }: { database: DatabaseType }) {
   const [isVisible, setIsVisible] = useState(false);
   const [password, setPassword] = useState('••••••••');
   const [isCopied, setIsCopied] = useState(false);
@@ -81,7 +89,7 @@ export default function DatabaseRow({ database }: { database: any }) {
           </button>
         </div>
 
-        <form action={deleteDatabase.bind(null, database.id)} className="w-full sm:w-auto">
+        <form action={deleteCredential.bind(null, database.id)} className="w-full sm:w-auto">
           <button
             type="submit"
             className="w-full sm:w-auto flex items-center justify-center p-2 text-gray-500 hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors"

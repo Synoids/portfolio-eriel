@@ -29,7 +29,7 @@ export default async function DatabasesPage() {
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">Belum Ada Data</h3>
             <p className="text-gray-500 max-w-sm mx-auto">
-              Silakan klik tombol "Tambah Database" di pojok kanan atas untuk menyimpan kredensial pertamamu.
+              Silakan klik tombol &quot;Tambah Database&quot; di pojok kanan atas untuk menyimpan kredensial pertamamu.
             </p>
           </div>
         ) : (

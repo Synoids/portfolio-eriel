@@ -2,15 +2,12 @@
 
 import { motion } from "framer-motion";
 import { 
-  TrendingUp, 
   Wallet, 
   Target, 
   BrainCircuit,
-  ShieldCheck,
   BarChart3,
   Rocket
 } from "lucide-react";
-import Image from "next/image";
 
 const fintrackFeatures = [
   {

@@ -74,7 +74,16 @@ function PasswordField({ encryptedValue, placeholder = '••••••••
   );
 }
 
-export default function CredentialRow({ credential }: { credential: any }) {
+type CredentialType = {
+  id: string;
+  project_name: string;
+  notes?: string;
+  project_password_encrypted: string | null;
+  email?: string;
+  email_password_encrypted: string | null;
+};
+
+export default function CredentialRow({ credential }: { credential: CredentialType }) {
   return (
     <tr className="border-b border-gray-200 hover:bg-gray-50 transition-colors group">
       <td className="p-4 align-top">
