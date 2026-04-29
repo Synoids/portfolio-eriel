@@ -6,7 +6,7 @@ import CredentialRow from '@/components/admin/CredentialRow';
 export const dynamic = 'force-dynamic';
 
 export default async function DatabasesPage() {
-  const { data: credentials } = await supabaseAdmin
+  const { data: credentials, error } = await supabaseAdmin
     .from('project_credentials')
     .select('*')
     .order('created_at', { ascending: false });
@@ -28,9 +28,20 @@ export default async function DatabasesPage() {
               <Database className="w-10 h-10 text-gray-400" />
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">Belum Ada Data</h3>
-            <p className="text-gray-500 max-w-sm mx-auto">
+            <p className="text-gray-500 max-w-sm mx-auto mb-4">
               Silakan klik tombol &quot;Tambah Database&quot; di pojok kanan atas untuk menyimpan kredensial pertamamu.
             </p>
+            {error && (
+              <div className="bg-red-50 text-red-600 p-4 rounded-lg border border-red-200 text-sm max-w-lg mx-auto overflow-auto text-left">
+                <strong>Error from Supabase:</strong>
+                <pre className="mt-2 text-xs">{JSON.stringify(error, null, 2)}</pre>
+                <p className="mt-2 font-semibold">Debug Info:</p>
+                <ul className="list-disc pl-5 mt-1 text-xs">
+                  <li>URL Length: {process.env.NEXT_PUBLIC_SUPABASE_URL?.length || 0}</li>
+                  <li>Key Length: {process.env.SUPABASE_SERVICE_ROLE_KEY?.length || 0}</li>
+                </ul>
+              </div>
+            )}
           </div>
         ) : (
           <div className="overflow-x-auto">
