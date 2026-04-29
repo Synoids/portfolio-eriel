@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'; // Prevent caching for dashboard data
 export default async function AdminDashboardPage() {
   const [notesResult, databasesResult] = await Promise.all([
     supabaseAdmin.from('notes').select('id', { count: 'exact', head: true }),
-    supabaseAdmin.from('databases').select('id', { count: 'exact', head: true }),
+    supabaseAdmin.from('project_credentials').select('id', { count: 'exact', head: true }),
   ]);
 
   const stats = [
