@@ -16,6 +16,21 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: 4,
+    title: "Employee Self-Service (ESS) Portal",
+    description:
+      "A modern, mobile-first human resource management portal featuring Role-Based Access Control, GPS geolocation attendance, leave management, automated payslip generation, and real-time notifications.",
+    tech: ["Next.js 16", "TypeScript", "Tailwind CSS", "Supabase"],
+    emoji: "👥",
+    gradient: "from-indigo-600/30 to-indigo-900/50",
+    accentColor: "text-indigo-400",
+    borderColor: "border-indigo-500/20",
+    github: "https://github.com/Synoids/employee-self-service",
+    demo: "#",
+    demoLabel: "Demo Coming Soon",
+    featured: true,
+  },
+  {
     id: 0,
     title: "HUBEKS HIMSI",
     description:
