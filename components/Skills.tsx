@@ -67,7 +67,7 @@ export default function Skills() {
 
         {/* Skill Categories */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillCategories.map((category, catIndex) => (
+          {skillCategories.map((category) => (
             <motion.div
               key={category.name}
               initial={{ opacity: 0, y: 20 }}
@@ -99,7 +99,7 @@ export default function Skills() {
 
               {/* Skills */}
               <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
+                {category.skills.map((skill) => (
                   <SkillBar
                     key={skill.name}
                     {...skill}
