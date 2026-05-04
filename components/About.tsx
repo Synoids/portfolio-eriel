@@ -32,10 +32,10 @@ export default function About() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
+          <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
             Get to know me
           </p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             About <span className="gradient-text">Me</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent rounded-full mx-auto" />
@@ -49,10 +49,10 @@ export default function About() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="space-y-6"
           >
-            <div className="space-y-4 text-white/60 text-lg leading-relaxed">
+            <div className="space-y-4 text-foreground/70 dark:text-foreground/60 text-lg leading-relaxed">
               <p>
                 Hey! I&apos;m{" "}
-                <span className="text-white font-semibold">{profile.name}</span>, a dedicated
+                <span className="text-foreground font-semibold">{profile.name}</span>, a dedicated
                 Information Systems student at{" "}
                 <span className="text-primary-400 font-semibold">
                   UIN Raden Fatah Palembang
@@ -62,7 +62,7 @@ export default function About() {
               <p>
                 I&apos;m passionate about web development and software engineering, with a
                 focus on creating{" "}
-                <span className="text-white/80">clean, efficient, and user-friendly</span>{" "}
+                <span className="text-foreground dark:text-foreground/80 font-medium">clean, efficient, and user-friendly</span>{" "}
                 applications that solve real problems.
               </p>
               <p>
@@ -74,12 +74,12 @@ export default function About() {
 
             {/* Location & Status */}
             <div className="flex flex-wrap gap-3 pt-2">
-              <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-white/10 text-sm text-white/60">
+              <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-foreground/10 text-sm text-foreground/60">
                 <MapPin size={14} className="text-primary-400" />
                 {profile.location}
               </div>
-              <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-green-500/20 text-sm text-green-400">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-green-500/20 text-sm text-green-600 dark:text-green-400">
+                <div className="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-full animate-pulse" />
                 {profile.status}
               </div>
             </div>
@@ -106,19 +106,19 @@ export default function About() {
               className="grid grid-cols-2 gap-4"
             >
               {profile.stats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ delay: 0.4 + i * 0.1 }}
-                  className="glass border border-white/8 rounded-2xl p-5 text-center hover:border-primary-500/30 transition-all duration-300 group"
-                  style={{ borderColor: "rgba(255,255,255,0.06)" }}
-                >
-                  <div className="text-3xl font-extrabold gradient-text group-hover:scale-110 transition-transform duration-300">
-                    {stat.value}
-                  </div>
-                  <div className="text-white/40 text-xs mt-1 font-medium">{stat.label}</div>
-                </motion.div>
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: 0.4 + i * 0.1 }}
+                    className="glass border border-foreground/10 rounded-2xl p-5 text-center hover:border-primary-500/30 transition-all duration-300 group"
+                    style={{ borderColor: "var(--border)" }}
+                  >
+                    <div className="text-3xl font-extrabold gradient-text group-hover:scale-110 transition-transform duration-300">
+                      {stat.value}
+                    </div>
+                    <div className="text-foreground/50 dark:text-foreground/40 text-xs mt-1 font-medium">{stat.label}</div>
+                  </motion.div>
               ))}
             </motion.div>
 
@@ -133,14 +133,14 @@ export default function About() {
                     animate={isInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ delay: 0.5 + i * 0.15 }}
                     className="flex gap-4 glass border rounded-2xl p-4 hover:border-primary-500/25 transition-all duration-300 group"
-                    style={{ borderColor: "rgba(255,255,255,0.06)" }}
+                    style={{ borderColor: "var(--border)" }}
                   >
                     <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary-500/15 border border-primary-500/20 flex items-center justify-center group-hover:bg-primary-500/25 transition-all">
                       <IconComponent size={18} className="text-primary-400" />
                     </div>
                     <div>
-                      <h3 className="text-white font-semibold text-sm mb-1">{item.title}</h3>
-                      <p className="text-white/50 text-sm leading-relaxed">{item.description}</p>
+                      <h3 className="text-foreground font-semibold text-sm mb-1">{item.title}</h3>
+                      <p className="text-foreground/60 dark:text-foreground/50 text-sm leading-relaxed">{item.description}</p>
                     </div>
                   </motion.div>
                 );

@@ -34,7 +34,7 @@ const fintrackFeatures = [
 
 export default function FeaturedProject() {
   return (
-    <section className="py-12 relative overflow-hidden bg-[#050508]">
+    <section className="py-12 relative overflow-hidden">
       {/* Glow Effects - Hidden on mobile */}
       <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-emerald-600/5 rounded-full blur-[80px] -z-10 hidden md:block" />
       <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-indigo-600/5 rounded-full blur-[80px] -z-10 hidden md:block" />
@@ -59,27 +59,27 @@ export default function FeaturedProject() {
               <div className="h-[1px] w-6 bg-emerald-500/30 hidden sm:block" />
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4 leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl font-black text-foreground mb-4 leading-[1.1]">
               FinanceFlow <span className="text-emerald-500">AI</span>
               <br />
-              <span className="text-slate-500 text-xl md:text-2xl font-medium tracking-tight">AI-Powered Financial Intelligence</span>
+              <span className="text-foreground/50 text-xl md:text-2xl font-medium tracking-tight">AI-Powered Financial Intelligence</span>
             </h2>
 
-            <p className="text-slate-400 text-base mb-8 leading-relaxed max-w-lg mx-auto">
+            <p className="text-foreground/70 dark:text-foreground/50 text-base mb-8 leading-relaxed max-w-lg mx-auto">
               A professional-grade financial management ecosystem that transcends conventional tracking. 
-              Utilizes <span className="text-white font-semibold">Generative AI</span> to transform raw data 
+              Utilizes <span className="text-primary-500 font-semibold">Generative AI</span> to transform raw data 
               into actionable coaching and contextual intelligence.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8 w-full text-left">
               {fintrackFeatures.map((f, i) => (
-                <div key={i} className="flex gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] hover:border-emerald-500/20 transition-all duration-300 group">
+                <div key={i} className="flex gap-3 p-3 rounded-xl glass border border-foreground/5 hover:bg-foreground/[0.05] hover:border-emerald-500/20 transition-all duration-300 group">
                   <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 group-hover:scale-110 transition-transform">
                     {f.icon}
                   </div>
                   <div>
-                    <h4 className="text-white font-bold text-[13px] mb-0.5">{f.title}</h4>
-                    <p className="text-slate-500 text-[11px] leading-tight">{f.desc}</p>
+                    <h4 className="text-foreground font-bold text-[13px] mb-0.5">{f.title}</h4>
+                    <p className="text-foreground/50 text-[11px] leading-tight">{f.desc}</p>
                   </div>
                 </div>
               ))}
@@ -99,7 +99,7 @@ export default function FeaturedProject() {
               
               <div className="flex items-center gap-2 group cursor-help">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-slate-500 text-xs font-medium group-hover:text-slate-300 transition-colors">
+                <span className="text-foreground/50 text-xs font-medium group-hover:text-foreground/80 transition-colors">
                   Next.js 16 & React 19 Ready
                 </span>
               </div>

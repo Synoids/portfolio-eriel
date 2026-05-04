@@ -23,9 +23,9 @@ export default function Hero() {
         <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-primary-700/5 rounded-full blur-2xl" />
 
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03] opacity-10"
           style={{
-            backgroundImage: `linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)`,
+            backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
             backgroundSize: "60px 60px",
           }}
         />
@@ -38,7 +38,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/20 text-sm text-primary-300"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/20 text-sm text-primary-500 dark:text-primary-300"
           >
             <Sparkles size={14} className="text-primary-400" />
             {profile.availability}
@@ -49,7 +49,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-white/50 font-mono text-sm tracking-widest uppercase"
+              className="text-foreground/60 dark:text-foreground/50 font-mono text-sm tracking-widest uppercase"
             >
               Hi there, I&apos;m 👋
             </motion.p>
@@ -60,7 +60,7 @@ export default function Hero() {
               transition={{ delay: 0.4, duration: 0.7 }}
               className="text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight"
             >
-              <span className="text-white">{profile.firstName}</span>
+              <span className="text-foreground">{profile.firstName}</span>
               <br />
               <span className="gradient-text">{profile.lastName}</span>
             </motion.h1>
@@ -69,7 +69,7 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-xl font-semibold text-white/70"
+              className="text-xl font-semibold text-foreground/70"
             >
               Information Systems Student &{" "}
               <span className="text-primary-400">{profile.role}</span>
@@ -80,7 +80,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-white/50 text-lg leading-relaxed max-w-md"
+            className="text-foreground/70 dark:text-foreground/50 text-lg leading-relaxed max-w-md"
           >
             {profile.description}
           </motion.p>
@@ -101,7 +101,7 @@ export default function Hero() {
 
             <button
               onClick={() => handleScroll("contact")}
-              className="px-7 py-3.5 rounded-2xl glass border border-white/10 text-white/80 hover:text-white font-semibold text-sm transition-all duration-300"
+              className="px-7 py-3.5 rounded-2xl glass border border-foreground/10 text-foreground/80 hover:text-foreground font-semibold text-sm transition-all duration-300"
             >
               Contact Me
             </button>
@@ -109,14 +109,14 @@ export default function Hero() {
 
           {/* SOCIAL */}
           <div className="flex items-center gap-4">
-            <span className="text-white/30 text-sm">Find me on</span>
+            <span className="text-foreground/30 text-sm">Find me on</span>
 
             <div className="flex gap-3">
               <a
                 href={profile.social.github.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-white/50 hover:text-primary-400"
+                className="w-10 h-10 rounded-xl glass border border-foreground/10 flex items-center justify-center text-foreground/50 hover:text-primary-400"
               >
                 <FaGithub />
               </a>
@@ -125,14 +125,14 @@ export default function Hero() {
                 href={profile.social.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-white/50 hover:text-primary-400"
+                className="w-10 h-10 rounded-xl glass border border-foreground/10 flex items-center justify-center text-foreground/50 hover:text-primary-400"
               >
                 <FaLinkedin />
               </a>
 
               <a
                 href={`mailto:${profile.email}`}
-                className="w-10 h-10 rounded-xl glass border border-white/10 flex items-center justify-center text-white/50 hover:text-primary-400"
+                className="w-10 h-10 rounded-xl glass border border-foreground/10 flex items-center justify-center text-foreground/50 hover:text-primary-400"
               >
                 <Mail size={18} />
               </a>
@@ -167,7 +167,7 @@ export default function Hero() {
 
       {/* SCROLL */}
       <div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 cursor-pointer"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-foreground/30 cursor-pointer"
         onClick={() => handleScroll("about")}
       >
         <span className="text-xs tracking-widest font-mono uppercase">

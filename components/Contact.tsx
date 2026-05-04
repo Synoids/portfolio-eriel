@@ -21,9 +21,9 @@ const contactLinks = [
     label: "GitHub",
     value: profile.social.github.display,
     href: profile.social.github.url,
-    color: "text-white",
-    bgColor: "bg-white/5",
-    borderColor: "border-white/10",
+    color: "text-foreground dark:text-white",
+    bgColor: "bg-foreground/5 dark:bg-white/5",
+    borderColor: "border-foreground/10 dark:border-white/10",
   },
   {
     icon: FaLinkedin,
@@ -79,13 +79,13 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
+          <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
             Let&apos;s talk
           </p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Get In <span className="gradient-text">Touch</span>
           </h2>
-          <p className="text-white/40 max-w-lg mx-auto">
+          <p className="text-foreground/50 dark:text-white/40 max-w-lg mx-auto">
             Have a project in mind, or just want to say hi? My inbox is always open. I&apos;ll
             get back to you as soon as possible!
           </p>
@@ -102,8 +102,8 @@ export default function Contact() {
             className="space-y-6"
           >
             <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-white">Let&apos;s connect</h3>
-              <p className="text-white/50 leading-relaxed">
+              <h3 className="text-2xl font-bold text-foreground">Let&apos;s connect</h3>
+              <p className="text-foreground/60 dark:text-white/50 leading-relaxed">
                 Whether you want to collaborate on a project, ask a question, or just
                 have a chat about tech — feel free to reach out through any channel.
               </p>
@@ -131,7 +131,7 @@ export default function Contact() {
                     <link.icon size={20} className={link.color} />
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs font-medium uppercase tracking-wider">
+                    <p className="text-foreground/50 dark:text-white/40 text-xs font-medium uppercase tracking-wider">
                       {link.label}
                     </p>
                     <p className={`font-semibold text-sm mt-0.5 ${link.color}`}>{link.value}</p>
@@ -151,15 +151,15 @@ export default function Contact() {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
-              className="glass border border-white/8 rounded-3xl p-8 space-y-5"
-              style={{ borderColor: "rgba(255,255,255,0.06)" }}
+              className="glass border border-foreground/10 rounded-3xl p-8 space-y-5"
+              style={{ borderColor: "var(--border)" }}
             >
-              <h3 className="text-xl font-bold text-white mb-1">Send a message</h3>
-              <p className="text-white/40 text-sm">I&apos;ll reply within 24 hours.</p>
+              <h3 className="text-xl font-bold text-foreground mb-1">Send a message</h3>
+              <p className="text-foreground/50 dark:text-white/40 text-sm">I&apos;ll reply within 24 hours.</p>
 
               {/* Name */}
               <div className="space-y-2">
-                <label className="text-white/50 text-sm font-medium" htmlFor="name">
+                <label className="text-foreground/70 dark:text-white/50 text-sm font-medium" htmlFor="name">
                   Your Name
                 </label>
                 <input
@@ -170,17 +170,17 @@ export default function Contact() {
                   value={formState.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="w-full px-4 py-3 rounded-xl bg-white/4 border border-white/8 text-white placeholder-white/20 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm"
+                  className="w-full px-4 py-3 rounded-xl bg-foreground/[0.03] border border-foreground/10 text-foreground placeholder-foreground/30 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    borderColor: "rgba(255,255,255,0.07)",
+                    background: "var(--glass-bg)",
+                    borderColor: "var(--glass-border)",
                   }}
                 />
               </div>
 
               {/* Email */}
               <div className="space-y-2">
-                <label className="text-white/50 text-sm font-medium" htmlFor="email">
+                <label className="text-foreground/70 dark:text-white/50 text-sm font-medium" htmlFor="email">
                   Email Address
                 </label>
                 <input
@@ -191,17 +191,17 @@ export default function Contact() {
                   value={formState.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
-                  className="w-full px-4 py-3 rounded-xl bg-white/4 border border-white/8 text-white placeholder-white/20 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm"
+                  className="w-full px-4 py-3 rounded-xl bg-foreground/[0.03] border border-foreground/10 text-foreground placeholder-foreground/30 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    borderColor: "rgba(255,255,255,0.07)",
+                    background: "var(--glass-bg)",
+                    borderColor: "var(--glass-border)",
                   }}
                 />
               </div>
 
               {/* Message */}
               <div className="space-y-2">
-                <label className="text-white/50 text-sm font-medium" htmlFor="message">
+                <label className="text-foreground/70 dark:text-white/50 text-sm font-medium" htmlFor="message">
                   Message
                 </label>
                 <textarea
@@ -212,10 +212,10 @@ export default function Contact() {
                   value={formState.message}
                   onChange={handleChange}
                   placeholder={`Hi ${profile.firstName}, I'd love to talk about...`}
-                  className="w-full px-4 py-3 rounded-xl bg-white/4 border border-white/8 text-white placeholder-white/20 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-foreground/[0.03] border border-foreground/10 text-foreground placeholder-foreground/30 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm resize-none"
                   style={{
-                    background: "rgba(255,255,255,0.03)",
-                    borderColor: "rgba(255,255,255,0.07)",
+                    background: "var(--glass-bg)",
+                    borderColor: "var(--glass-border)",
                   }}
                 />
               </div>

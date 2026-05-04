@@ -19,13 +19,13 @@ function SkillBar({ name, level, emoji, color }: {
       className="group space-y-2"
     >
       <div className="flex justify-between items-end text-sm">
-        <span className="flex items-center gap-2 text-white font-medium group-hover:text-primary-300 transition-colors">
+        <span className="flex items-center gap-2 text-foreground font-medium group-hover:text-primary-500 transition-colors">
           <span className="text-base leading-none">{emoji}</span>
           {name}
         </span>
-        <span className="text-white/40 text-xs font-mono">{level}%</span>
+        <span className="text-foreground/50 text-xs font-mono">{level}%</span>
       </div>
-      <div className="h-2 bg-white/10 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+      <div className="h-2 bg-foreground/10 rounded-full overflow-hidden backdrop-blur-sm border border-foreground/5">
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
@@ -56,10 +56,10 @@ export default function Skills() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
+          <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
             What I work with
           </p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             My <span className="gradient-text">Skills</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent rounded-full mx-auto" />
@@ -93,7 +93,7 @@ export default function Skills() {
                   >
                     {category.name}
                   </h3>
-                  <p className="text-white/50 text-xs font-mono uppercase tracking-wider">{category.skills.length} technical skills</p>
+                  <p className="text-foreground/50 text-xs font-mono uppercase tracking-wider">{category.skills.length} technical skills</p>
                 </div>
               </div>
 
@@ -127,8 +127,8 @@ export default function Skills() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
               whileHover={{ scale: 1.1, y: -2 }}
-              className="px-4 py-2 glass rounded-xl border border-white/8 text-sm text-white/60 hover:text-white/90 hover:border-primary-500/30 transition-all duration-300 cursor-default"
-              style={{ borderColor: "rgba(255,255,255,0.06)" }}
+              className="px-4 py-2 glass rounded-xl border border-foreground/10 text-sm text-foreground/60 hover:text-foreground/90 hover:border-primary-500/30 transition-all duration-300 cursor-default"
+              style={{ borderColor: "var(--border)" }}
             >
               {tech}
             </motion.span>

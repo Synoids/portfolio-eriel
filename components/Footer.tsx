@@ -16,7 +16,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-white/5 overflow-hidden">
+    <footer className="relative border-t border-foreground/5 overflow-hidden">
       {/* Background glow */}
       <div className="absolute inset-0 -top-20 bg-gradient-to-t from-primary-900/10 to-transparent pointer-events-none" />
 
@@ -30,10 +30,10 @@ export default function Footer() {
               </div>
               <span className="text-lg font-bold font-mono">
                 <span className="gradient-text">Eriel</span>
-                <span className="text-white/60">.dev</span>
+                <span className="text-foreground/70">.dev</span>
               </span>
             </div>
-            <p className="text-white/40 text-sm leading-relaxed max-w-xs">
+            <p className="text-foreground/50 dark:text-white/40 text-sm leading-relaxed max-w-xs">
               Information Systems student and junior web developer building clean, modern
               web applications.
             </p>
@@ -41,7 +41,7 @@ export default function Footer() {
 
           {/* Navigation */}
           <div className="space-y-4">
-            <h4 className="text-white/60 text-xs font-semibold uppercase tracking-widest">
+            <h4 className="text-foreground/60 dark:text-white/60 text-xs font-semibold uppercase tracking-widest">
               Navigation
             </h4>
             <div className="flex flex-col gap-2">
@@ -49,7 +49,7 @@ export default function Footer() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className="text-white/40 hover:text-primary-400 text-sm transition-colors duration-300 w-fit"
+                  className="text-foreground/50 dark:text-white/40 hover:text-primary-500 text-sm transition-colors duration-300 w-fit"
                 >
                   {link.label}
                 </a>
@@ -59,7 +59,7 @@ export default function Footer() {
 
           {/* Social */}
           <div className="space-y-4">
-            <h4 className="text-white/60 text-xs font-semibold uppercase tracking-widest">
+            <h4 className="text-foreground/60 dark:text-white/60 text-xs font-semibold uppercase tracking-widest">
               Connect
             </h4>
             <div className="flex gap-3">
@@ -77,26 +77,26 @@ export default function Footer() {
                   dragListener={false}
                   whileHover={{ scale: 1.15, y: -2 }}
                   whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 rounded-xl glass border border-white/10 hover:border-primary-500/40 flex items-center justify-center text-white/40 hover:text-primary-400 transition-all duration-300 cursor-pointer"
+                  className="w-10 h-10 rounded-xl glass border border-foreground/10 hover:border-primary-500/40 flex items-center justify-center text-foreground/50 dark:text-white/40 hover:text-primary-400 transition-all duration-300 cursor-pointer"
                 >
                   <Icon size={17} />
                 </motion.a>
               ))}
             </div>
-            <p className="text-white/30 text-xs">
+            <p className="text-foreground/40 dark:text-white/30 text-xs">
               Open to freelance opportunities
             </p>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-8" />
+        <div className="h-px bg-gradient-to-r from-transparent via-foreground/10 dark:via-white/8 to-transparent mb-8" />
 
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/30 text-sm flex items-center gap-1.5">
+          <p className="text-foreground/40 dark:text-white/30 text-sm flex items-center gap-1.5">
             © 2026 Eriel Budiman. Made with{" "}
-            <Heart size={13} className="text-primary-400 fill-primary-400 inline" /> using
+            <Heart size={13} className="text-primary-500 fill-primary-500 inline" /> using
             Next.js &amp; Tailwind
           </p>
 
@@ -105,7 +105,7 @@ export default function Footer() {
             onClick={scrollToTop}
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.9 }}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/10 hover:border-primary-500/30 text-white/40 hover:text-primary-400 text-sm transition-all duration-300"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl glass border border-foreground/10 hover:border-primary-500/30 text-foreground/50 dark:text-white/40 hover:text-primary-500 text-sm transition-all duration-300"
             id="back-to-top-btn"
           >
             <ArrowUp size={14} />

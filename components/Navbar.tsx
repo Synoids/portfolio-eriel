@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2 } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -69,7 +70,7 @@ export default function Navbar() {
             </div>
             <span className="text-xl font-bold font-mono">
               <span className="gradient-text">Eriel</span>
-              <span className="text-white/60">.dev</span>
+              <span className="text-foreground/70">.dev</span>
             </span>
           </motion.a>
 
@@ -82,8 +83,8 @@ export default function Navbar() {
                 onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
                 className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
                   activeSection === link.href.replace("#", "")
-                    ? "text-white"
-                    : "text-white/50 hover:text-white/80"
+                    ? "text-foreground"
+                    : "text-foreground/60 hover:text-foreground/90"
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -100,25 +101,30 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <motion.a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
-            className="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Hire Me
-          </motion.a>
+          <div className="hidden md:flex items-center gap-4">
+            <ThemeToggle />
+            <motion.a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Hire Me
+            </motion.a>
+          </div>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all"
-            whileTap={{ scale: 0.9 }}
-          >
-            {isOpen ? <X size={18} /> : <Menu size={18} />}
-          </motion.button>
+          {/* Mobile Actions */}
+          <div className="flex md:hidden items-center gap-3">
+            <ThemeToggle />
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-10 h-10 rounded-lg bg-foreground/5 border border-foreground/10 flex items-center justify-center text-foreground/70 hover:text-foreground hover:bg-foreground/10 transition-all"
+              whileTap={{ scale: 0.9 }}
+            >
+              {isOpen ? <X size={18} /> : <Menu size={18} />}
+            </motion.button>
+          </div>
         </div>
       </div>
 
@@ -143,8 +149,8 @@ export default function Navbar() {
                   transition={{ delay: i * 0.05 }}
                   className={`px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                     activeSection === link.href.replace("#", "")
-                      ? "bg-primary-500/15 text-primary-400 border border-primary-500/20"
-                      : "text-white/60 hover:text-white hover:bg-white/5"
+                      ? "bg-primary-500/15 text-primary-600 dark:text-primary-400 border border-primary-500/20"
+                      : "text-foreground/70 hover:text-foreground hover:bg-foreground/5"
                   }`}
                 >
                   {link.label}

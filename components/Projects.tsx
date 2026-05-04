@@ -15,7 +15,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
       transition={{ duration: 0.4 }}
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={`group glass border ${project.borderColor} rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl flex flex-col`}
-      style={{ borderColor: project.featured ? undefined : "rgba(255,255,255,0.06)" }}
+      style={{ borderColor: project.featured ? undefined : "var(--border)" }}
     >
       {/* Project Image / Banner */}
       <div className={`relative h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}>
@@ -53,10 +53,10 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
       {/* Content */}
       <div className="p-6 flex flex-col flex-1 space-y-4">
         <div>
-          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-300 transition-colors duration-300">
+          <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary-500 transition-colors duration-300">
             {project.title}
           </h3>
-          <p className="text-white/50 text-sm leading-relaxed">{project.description}</p>
+          <p className="text-foreground/70 dark:text-foreground/50 text-sm leading-relaxed">{project.description}</p>
         </div>
 
         {/* Tech stack */}
@@ -64,8 +64,8 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           {project.tech.map((t) => (
             <span
               key={t}
-              className={`flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium glass border border-white/8 ${project.accentColor} bg-white/2`}
-              style={{ borderColor: "rgba(255,255,255,0.06)" }}
+              className={`flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-medium glass border border-foreground/10 ${project.accentColor} bg-foreground/5`}
+              style={{ borderColor: "var(--border)" }}
             >
               <Tag size={10} />
               {t}
@@ -81,7 +81,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass border border-white/10 hover:border-primary-500/40 text-white/60 hover:text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass border border-foreground/10 hover:border-primary-500/40 text-foreground/60 hover:text-foreground text-sm font-medium transition-all duration-300 flex-1 justify-center"
           >
             <FaGithub size={15} />
             GitHub
@@ -117,13 +117,13 @@ export default function Projects() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <p className="text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
+          <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
             What I&apos;ve built
           </p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
             Featured <span className="gradient-text">Projects</span>
           </h2>
-          <p className="text-white/40 max-w-lg mx-auto">
+          <p className="text-foreground/40 max-w-lg mx-auto">
             A selection of projects I&apos;ve built during my learning journey — from management
             systems to food ordering apps.
           </p>
@@ -151,7 +151,7 @@ export default function Projects() {
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl glass border border-white/10 hover:border-primary-500/40 text-white/60 hover:text-white font-medium text-sm transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl glass border border-foreground/10 hover:border-primary-500/40 text-foreground/60 hover:text-foreground font-medium text-sm transition-all duration-300"
           >
             <FaGithub size={16} />
             View All on GitHub
