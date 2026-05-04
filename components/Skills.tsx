@@ -4,12 +4,11 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { skillCategories, techBadges } from "@/data/skills";
 
-function SkillBar({ name, level, emoji, color, delay }: {
+function SkillBar({ name, level, emoji, color }: {
   name: string;
   level: number;
   emoji: string;
   color: string;
-  delay: number;
 }) {
   return (
     <motion.div
@@ -105,7 +104,6 @@ export default function Skills() {
                     key={skill.name}
                     {...skill}
                     color={category.color}
-                    delay={catIndex * 0.1 + skillIndex * 0.08}
                   />
                 ))}
               </div>

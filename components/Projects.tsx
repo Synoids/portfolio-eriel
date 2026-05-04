@@ -6,7 +6,7 @@ import { FaGithub } from "react-icons/fa";
 import { projects } from "@/data/projects";
 import { profile } from "@/data/profile";
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function ProjectCard({ project }: { project: typeof projects[0] }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -132,8 +132,8 @@ export default function Projects() {
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
           ))}
         </div>
 
