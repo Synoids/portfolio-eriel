@@ -16,11 +16,11 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background blobs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-32 w-80 h-80 bg-primary-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="absolute top-1/3 -right-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-primary-700/15 rounded-full blur-3xl animate-blob animation-delay-4000" />
+      {/* Background blobs - Hidden on mobile, no animate-blob for performance */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
+        <div className="absolute top-1/4 -left-32 w-80 h-80 bg-primary-500/10 rounded-full blur-2xl" />
+        <div className="absolute top-1/3 -right-32 w-96 h-96 bg-accent/5 rounded-full blur-2xl" />
+        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-primary-700/5 rounded-full blur-2xl" />
 
         <div
           className="absolute inset-0 opacity-[0.03]"
@@ -142,16 +142,16 @@ export default function Hero() {
 
         {/* RIGHT CONTENT - PHOTO */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
           className="flex justify-center lg:justify-end"
         >
           <div className="relative w-72 h-72 lg:w-80 lg:h-80">
 
-            <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary-500/30 animate-spin [animation-duration:15s]" />
+            <div className="absolute inset-0 rounded-full border-2 border-dashed border-primary-500/30 hidden md:block md:animate-spin [animation-duration:20s]" />
 
-            <div className="absolute inset-3 rounded-full bg-gradient-to-br from-primary-500/30 to-accent/10 blur-2xl" />
+            <div className="absolute inset-3 rounded-full bg-gradient-to-br from-primary-500/20 to-accent/5 blur-xl" />
 
             <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-primary-500/30">
               <Image

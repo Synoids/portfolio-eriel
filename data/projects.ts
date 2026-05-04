@@ -48,10 +48,10 @@ export const projects: Project[] = [
   },
   {
     id: 1,
-    title: "Finance Tracker (Fintrack ID)",
+    title: "FinanceFlow AI",
     description:
-      "A modern financial ecosystem for personal growth. Features smart multi-wallet management, dynamic budgeting, AI-powered insights, and interactive financial analytics.",
-    tech: ["Next.js 16", "React 19", "Tailwind CSS 4", "Supabase"],
+      "A professional-grade financial management system powered by Google Gemini AI. It transforms raw transaction data into actionable financial intelligence through proactive analysis, goal-based budgeting, and automated professional reporting.",
+    tech: ["Next.js 16", "React 19", "Tailwind CSS 4", "Supabase", "Gemini AI"],
     emoji: "🚀",
     gradient: "from-emerald-600/30 to-emerald-900/50",
     accentColor: "text-emerald-400",

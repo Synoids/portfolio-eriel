@@ -6,38 +6,39 @@ import {
   Target, 
   BrainCircuit,
   BarChart3,
-  Rocket
+  Rocket,
+  FileText
 } from "lucide-react";
 
 const fintrackFeatures = [
   {
-    icon: <Wallet className="w-5 h-5" />,
-    title: "Multi-Wallet Hub",
-    desc: "Unified management for Cash, Bank, and E-Wallets."
+    icon: <BrainCircuit className="w-5 h-5" />,
+    title: "AI Finance Assistant",
+    desc: "Powered by Gemini 2.5 Flash for real-time contextual financial insights."
   },
   {
     icon: <BarChart3 className="w-5 h-5" />,
-    title: "Spending Forecast",
-    desc: "AI-driven weighted-average predictions for better planning."
+    title: "Advanced Analytics",
+    desc: "Dynamic visualizations using Recharts with deep category-wise distribution."
   },
   {
     icon: <Target className="w-5 h-5" />,
-    title: "Smart Piggy Bank",
-    desc: "Integrated financial goals with automated balance syncing."
+    title: "Goal-Driven Design",
+    desc: "Integrated savings target tracking and automated budget enforcement."
   },
   {
-    icon: <BrainCircuit className="w-5 h-5" />,
-    title: "AI Financial Insights",
-    desc: "Detects spending patterns and provides personal advice."
+    icon: <FileText className="w-5 h-5" />,
+    title: "Professional Reporting",
+    desc: "Automated PDF generation for audit-ready financial summaries."
   }
 ];
 
 export default function FeaturedProject() {
   return (
     <section className="py-12 relative overflow-hidden bg-[#050508]">
-      {/* Glow Effects */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-emerald-600/10 rounded-full blur-[140px] -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-[120px] -z-10" />
+      {/* Glow Effects - Hidden on mobile */}
+      <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-emerald-600/5 rounded-full blur-[80px] -z-10 hidden md:block" />
+      <div className="absolute bottom-0 right-1/4 w-[300px] h-[300px] bg-indigo-600/5 rounded-full blur-[80px] -z-10 hidden md:block" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-3xl mx-auto flex flex-col items-center text-center">
@@ -60,15 +61,15 @@ export default function FeaturedProject() {
             </div>
 
             <h2 className="text-4xl md:text-5xl font-black text-white mb-4 leading-[1.1]">
-              Fintrack <span className="text-emerald-500">ID</span>
+              FinanceFlow <span className="text-emerald-500">AI</span>
               <br />
-              <span className="text-slate-500 text-xl md:text-2xl font-medium tracking-tight">Modern Financial Ecosystem</span>
+              <span className="text-slate-500 text-xl md:text-2xl font-medium tracking-tight">AI-Powered Financial Intelligence</span>
             </h2>
 
             <p className="text-slate-400 text-base mb-8 leading-relaxed max-w-lg mx-auto">
-              A high-performance SaaS-ready finance management platform. 
-              Built with <span className="text-white font-semibold">Feature-Sliced Design</span> for extreme scalability, 
-              offering real-time analytics and AI-powered insights.
+              A professional-grade financial management ecosystem that transcends conventional tracking. 
+              Utilizes <span className="text-white font-semibold">Generative AI</span> to transform raw data 
+              into actionable coaching and contextual intelligence.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-3 mb-8 w-full text-left">
@@ -94,7 +95,7 @@ export default function FeaturedProject() {
                 whileTap={{ scale: 0.98 }}
                 className="w-full sm:w-auto px-8 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-xl font-bold text-sm text-center transition-all shadow-[0_10px_20px_rgba(16,185,129,0.2)]"
               >
-                Launch Fintrack ID
+                Launch FinanceFlow AI
               </motion.a>
               
               <div className="flex items-center gap-2 group cursor-help">

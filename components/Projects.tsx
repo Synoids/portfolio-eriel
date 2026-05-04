@@ -9,11 +9,11 @@ import { profile } from "@/data/profile";
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ delay: index * 0.15, duration: 0.6 }}
-      whileHover={{ y: -8, transition: { duration: 0.3 } }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.4 }}
+      whileHover={{ y: -4, transition: { duration: 0.2 } }}
       className={`group glass border ${project.borderColor} rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl flex flex-col`}
       style={{ borderColor: project.featured ? undefined : "rgba(255,255,255,0.06)" }}
     >
@@ -29,8 +29,8 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         />
 
         {/* Glowing orb */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-32 h-32 rounded-full bg-white/5 blur-2xl group-hover:scale-150 transition-transform duration-700" />
+        <div className="absolute inset-0 items-center justify-center hidden md:flex">
+          <div className="w-32 h-32 rounded-full bg-white/5 blur-xl group-hover:scale-110 transition-transform duration-500" />
         </div>
 
         {/* Emoji Icon */}
@@ -104,9 +104,9 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 export default function Projects() {
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
-      {/* Background glows */}
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-primary-500/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-1/4 right-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background glows - hidden on mobile */}
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-primary-500/5 rounded-full blur-2xl pointer-events-none hidden md:block" />
+      <div className="absolute top-1/4 right-0 w-64 h-64 bg-accent/5 rounded-full blur-2xl pointer-events-none hidden md:block" />
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Header */}

@@ -13,10 +13,10 @@ function SkillBar({ name, level, emoji, color, delay }: {
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
+      initial={{ opacity: 0, x: -10 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: "-20px" }}
-      transition={{ delay, duration: 0.5 }}
+      transition={{ duration: 0.3 }}
       className="group space-y-2"
     >
       <div className="flex justify-between items-end text-sm">
@@ -31,8 +31,8 @@ function SkillBar({ name, level, emoji, color, delay }: {
           initial={{ width: 0 }}
           whileInView={{ width: `${level}%` }}
           viewport={{ once: true }}
-          transition={{ delay: delay + 0.2, duration: 1.2, ease: "easeOut" }}
-          className={`h-full rounded-full bg-gradient-to-r shadow-[0_0_12px_rgba(0,0,0,0.2)] ${color}`}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className={`h-full rounded-full bg-gradient-to-r shadow-none md:shadow-[0_0_12px_rgba(0,0,0,0.2)] ${color}`}
         />
       </div>
     </motion.div>
@@ -45,8 +45,8 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section-padding relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/3 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Background glow - hidden on mobile */}
+      <div className="absolute top-1/3 right-0 w-80 h-80 bg-accent/5 rounded-full blur-2xl pointer-events-none hidden md:block" />
 
       <div className="max-w-6xl mx-auto px-6">
         {/* Section Header */}
@@ -71,15 +71,14 @@ export default function Skills() {
           {skillCategories.map((category, catIndex) => (
             <motion.div
               key={category.name}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
-              transition={{ delay: catIndex * 0.1, duration: 0.5 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className={`glass rounded-3xl p-7 border relative group overflow-hidden ${category.borderColor} ${category.bgColor} hover:shadow-2xl transition-all duration-500`}
+              transition={{ duration: 0.4 }}
+              className={`glass rounded-3xl p-7 border relative group overflow-hidden ${category.borderColor} ${category.bgColor} hover:shadow-xl transition-all duration-300`}
             >
-              {/* Decorative background glow */}
-              <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 blur-3xl transition-opacity duration-700`} />
+              {/* Decorative background glow - hidden on mobile */}
+              <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 blur-2xl transition-opacity duration-500 hidden md:block`} />
               {/* Category Header */}
               <div className="flex items-center gap-3 mb-6">
                 <div
