@@ -3,20 +3,24 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2 } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
-
-const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#contact", label: "Contact" },
-];
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
 
 export default function Navbar() {
+  const { lang, setLang } = useLanguage();
+  const t = translations[lang].nav;
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+
+  const navLinks = [
+    { href: "#home", label: t.home },
+    { href: "#about", label: t.about },
+    { href: "#skills", label: t.skills },
+    { href: "#projects", label: t.projects },
+    { href: "#contact", label: t.contact },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,7 +38,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lang]);
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
@@ -42,6 +46,10 @@ export default function Navbar() {
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const toggleLanguage = () => {
+    setLang(lang === "en" ? "id" : "en");
   };
 
   return (
@@ -102,6 +110,24 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center gap-4">
+            <div className="flex items-center gap-1 glass p-1 rounded-xl border border-foreground/5 mr-2">
+              <button
+                onClick={() => setLang("en")}
+                className={`px-2 py-1 text-[10px] font-bold rounded-lg transition-all ${
+                  lang === "en" ? "bg-primary-500 text-white" : "text-foreground/40 hover:text-foreground/60"
+                }`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLang("id")}
+                className={`px-2 py-1 text-[10px] font-bold rounded-lg transition-all ${
+                  lang === "id" ? "bg-primary-500 text-white" : "text-foreground/40 hover:text-foreground/60"
+                }`}
+              >
+                ID
+              </button>
+            </div>
             <ThemeToggle />
             <motion.a
               href="#contact"
@@ -110,12 +136,18 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Hire Me
+              {t.hireMe}
             </motion.a>
           </div>
 
           {/* Mobile Actions */}
           <div className="flex md:hidden items-center gap-3">
+            <button
+              onClick={toggleLanguage}
+              className="px-2 py-1.5 rounded-lg bg-foreground/5 border border-foreground/10 text-[10px] font-bold text-foreground/70"
+            >
+              {lang.toUpperCase()}
+            </button>
             <ThemeToggle />
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
@@ -164,7 +196,7 @@ export default function Navbar() {
                 transition={{ delay: 0.25 }}
                 className="mt-2 px-4 py-3 rounded-lg text-sm font-semibold bg-primary-500 text-white text-center"
               >
-                Hire Me
+                {t.hireMe}
               </motion.a>
             </div>
           </motion.div>

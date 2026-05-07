@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { BookOpen, Code2, GraduationCap, Lightbulb, MapPin } from "lucide-react";
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
 import { profile } from "@/data/profile";
 
 // Map icon string keys to actual Lucide components
@@ -18,6 +20,8 @@ type IconKey = keyof typeof iconMap;
 export default function About() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { lang } = useLanguage();
+  const t = translations[lang].about;
 
   return (
     <section id="about" className="section-padding relative overflow-hidden">
@@ -33,10 +37,10 @@ export default function About() {
           className="text-center mb-16"
         >
           <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
-            Get to know me
+            {t.subtitle}
           </p>
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            About <span className="gradient-text">Me</span>
+            {t.title.split(" ")[0]} <span className="gradient-text">{t.title.split(" ")[1]}</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent rounded-full mx-auto" />
         </motion.div>
@@ -50,26 +54,9 @@ export default function About() {
             className="space-y-6"
           >
             <div className="space-y-4 text-foreground/70 dark:text-foreground/60 text-lg leading-relaxed">
-              <p>
-                Hey! I&apos;m{" "}
-                <span className="text-foreground font-semibold">{profile.name}</span>, a dedicated
-                Information Systems student at{" "}
-                <span className="text-primary-400 font-semibold">
-                  UIN Raden Fatah Palembang
-                </span>
-                .
-              </p>
-              <p>
-                I&apos;m passionate about web development and software engineering, with a
-                focus on creating{" "}
-                <span className="text-foreground dark:text-foreground/80 font-medium">clean, efficient, and user-friendly</span>{" "}
-                applications that solve real problems.
-              </p>
-              <p>
-                Currently leveling up my skills in modern frameworks like{" "}
-                <span className="text-accent font-semibold">Next.js</span> and exploring the
-                full stack — from designing intuitive UIs to building robust backend systems.
-              </p>
+              {profile.bio[lang].map((paragraph, i) => (
+                <p key={i} dangerouslySetInnerHTML={{ __html: paragraph }} />
+              ))}
             </div>
 
             {/* Location & Status */}
@@ -80,7 +67,7 @@ export default function About() {
               </div>
               <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-green-500/20 text-sm text-green-600 dark:text-green-400">
                 <div className="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-full animate-pulse" />
-                {profile.status}
+                {profile.status[lang]}
               </div>
             </div>
 
@@ -92,7 +79,7 @@ export default function About() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-500/10 border border-primary-500/30 hover:bg-primary-500/20 text-primary-300 hover:text-primary-200 font-medium text-sm transition-all duration-300"
             >
               <BookOpen size={15} />
-              Download Resume
+              {lang === "en" ? "Download Resume" : "Unduh CV"}
             </motion.a>
           </motion.div>
 
@@ -105,9 +92,14 @@ export default function About() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="grid grid-cols-2 gap-4"
             >
-              {profile.stats.map((stat, i) => (
+              {[
+                { key: "projects", value: "10+" },
+                { key: "tech", value: "8+" },
+                { key: "years", value: "2+" },
+                { key: "coffee", value: "∞" },
+              ].map((stat, i) => (
                   <motion.div
-                    key={stat.label}
+                    key={stat.key}
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={isInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ delay: 0.4 + i * 0.1 }}
@@ -117,14 +109,16 @@ export default function About() {
                     <div className="text-3xl font-extrabold gradient-text group-hover:scale-110 transition-transform duration-300">
                       {stat.value}
                     </div>
-                    <div className="text-foreground/50 dark:text-foreground/40 text-xs mt-1 font-medium">{stat.label}</div>
+                    <div className="text-foreground/50 dark:text-foreground/40 text-xs mt-1 font-medium">
+                      {(t.stats as any)[stat.key]}
+                    </div>
                   </motion.div>
               ))}
             </motion.div>
 
             {/* Highlights */}
             <div className="space-y-4">
-              {profile.highlights.map((item, i) => {
+              {profile.highlights[lang].map((item, i) => {
                 const IconComponent = iconMap[item.icon as IconKey];
                 return (
                   <motion.div

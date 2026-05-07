@@ -4,15 +4,21 @@ import { motion } from "framer-motion";
 import { Code2, Heart, Mail, ArrowUp } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
+
 export default function Footer() {
+  const { lang } = useLanguage();
+  const t = translations[lang].nav;
+  const ft = translations[lang].footer;
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#about", label: "About" },
-    { href: "#skills", label: "Skills" },
-    { href: "#projects", label: "Projects" },
-    { href: "#contact", label: "Contact" },
+    { href: "#home", label: t.home },
+    { href: "#about", label: t.about },
+    { href: "#skills", label: t.skills },
+    { href: "#projects", label: t.projects },
+    { href: "#contact", label: t.contact },
   ];
 
   return (
@@ -34,15 +40,14 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-foreground/50 dark:text-white/40 text-sm leading-relaxed max-w-xs">
-              Information Systems student and junior web developer building clean, modern
-              web applications.
+              {ft.brandDesc}
             </p>
           </div>
 
           {/* Navigation */}
           <div className="space-y-4">
             <h4 className="text-foreground/60 dark:text-white/60 text-xs font-semibold uppercase tracking-widest">
-              Navigation
+              {ft.navigation}
             </h4>
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
@@ -60,7 +65,7 @@ export default function Footer() {
           {/* Social */}
           <div className="space-y-4">
             <h4 className="text-foreground/60 dark:text-white/60 text-xs font-semibold uppercase tracking-widest">
-              Connect
+              {ft.connect}
             </h4>
             <div className="flex gap-3">
               {[
@@ -84,7 +89,7 @@ export default function Footer() {
               ))}
             </div>
             <p className="text-foreground/40 dark:text-white/30 text-xs">
-              Open to freelance opportunities
+              {ft.opportunities}
             </p>
           </div>
         </div>
@@ -95,8 +100,8 @@ export default function Footer() {
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-foreground/40 dark:text-white/30 text-sm flex items-center gap-1.5">
-            © 2026 Eriel Budiman. Made with{" "}
-            <Heart size={13} className="text-primary-500 fill-primary-500 inline" /> using
+            © 2026 Eriel Budiman. {ft.madeWith}{" "}
+            <Heart size={13} className="text-primary-500 fill-primary-500 inline" /> {ft.using}
             Next.js &amp; Tailwind
           </p>
 
@@ -109,7 +114,7 @@ export default function Footer() {
             id="back-to-top-btn"
           >
             <ArrowUp size={14} />
-            Back to top
+            {ft.backToTop}
           </motion.button>
         </div>
       </div>

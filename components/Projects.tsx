@@ -3,10 +3,16 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Tag } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import Image from "next/image";
 import { projects } from "@/data/projects";
 import { profile } from "@/data/profile";
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
 
 function ProjectCard({ project }: { project: typeof projects[0] }) {
+  const { lang } = useLanguage();
+  const t = translations[lang].projects;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,19 +39,28 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           <div className="w-32 h-32 rounded-full bg-white/5 blur-xl group-hover:scale-110 transition-transform duration-500" />
         </div>
 
-        {/* Emoji Icon */}
-        <motion.div
-          initial={{ scale: 1 }}
-          whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-          className="relative z-10 text-7xl drop-shadow-2xl"
-        >
-          {project.emoji}
-        </motion.div>
+        {/* Screenshot Image or Emoji Icon */}
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
+          />
+        ) : (
+          <motion.div
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+            className="relative z-10 text-7xl drop-shadow-2xl"
+          >
+            {project.emoji}
+          </motion.div>
+        )}
 
         {/* Featured badge */}
         {project.featured && (
           <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary-500/80 text-xs font-semibold text-white backdrop-blur-sm">
-            ⭐ Featured
+            ⭐ {t.featured}
           </div>
         )}
       </div>
@@ -56,7 +71,9 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
           <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary-500 transition-colors duration-300">
             {project.title}
           </h3>
-          <p className="text-foreground/70 dark:text-foreground/50 text-sm leading-relaxed">{project.description}</p>
+          <p className="text-foreground/70 dark:text-foreground/50 text-sm leading-relaxed">
+            {project.description[lang]}
+          </p>
         </div>
 
         {/* Tech stack */}
@@ -93,7 +110,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
           >
             <ExternalLink size={15} />
-            {project.demoLabel ?? "View App"}
+            {project.demoLabel ? project.demoLabel[lang] : t.viewApp}
           </motion.a>
         </div>
       </div>
@@ -102,6 +119,9 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
 }
 
 export default function Projects() {
+  const { lang } = useLanguage();
+  const t = translations[lang].projects;
+
   return (
     <section id="projects" className="section-padding relative overflow-hidden">
       {/* Background glows - hidden on mobile */}
@@ -118,14 +138,13 @@ export default function Projects() {
           className="text-center mb-16"
         >
           <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
-            What I&apos;ve built
+            {t.subtitle}
           </p>
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Featured <span className="gradient-text">Projects</span>
+            {t.title.split(" ")[0]} <span className="gradient-text">{t.title.split(" ")[1]}</span>
           </h2>
           <p className="text-foreground/40 max-w-lg mx-auto">
-            A selection of projects I&apos;ve built during my learning journey — from management
-            systems to food ordering apps.
+            {t.description}
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent rounded-full mx-auto mt-4" />
         </motion.div>
@@ -154,7 +173,7 @@ export default function Projects() {
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl glass border border-foreground/10 hover:border-primary-500/40 text-foreground/60 hover:text-foreground font-medium text-sm transition-all duration-300"
           >
             <FaGithub size={16} />
-            View All on GitHub
+            {t.viewGithub}
           </motion.a>
         </motion.div>
       </div>

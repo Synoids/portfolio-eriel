@@ -5,7 +5,10 @@ export type Skill = {
 };
 
 export type SkillCategory = {
-  name: string;
+  name: {
+    en: string;
+    id: string;
+  };
   color: string;
   borderColor: string;
   bgColor: string;
@@ -17,7 +20,10 @@ export type SkillCategory = {
 
 export const skillCategories: SkillCategory[] = [
   {
-    name: "Frontend",
+    name: {
+      en: "Frontend",
+      id: "Frontend",
+    },
     color: "from-primary-500 to-primary-400",
     borderColor: "border-primary-500/20",
     bgColor: "bg-primary-500/8",
@@ -34,7 +40,10 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    name: "Backend",
+    name: {
+      en: "Backend",
+      id: "Backend",
+    },
     color: "from-accent to-blue-400",
     borderColor: "border-blue-500/20",
     bgColor: "bg-blue-500/5",
@@ -48,7 +57,10 @@ export const skillCategories: SkillCategory[] = [
     ],
   },
   {
-    name: "Tools & Others",
+    name: {
+      en: "Tools & Others",
+      id: "Tools & Lainnya",
+    },
     color: "from-emerald-400 to-teal-400",
     borderColor: "border-emerald-500/20",
     bgColor: "bg-emerald-500/5",

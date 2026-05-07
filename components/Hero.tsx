@@ -4,9 +4,14 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown, Mail, Sparkles } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
 import { profile } from "@/data/profile";
 
 export default function Hero() {
+  const { lang } = useLanguage();
+  const t = translations[lang].hero;
+
   const handleScroll = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -41,7 +46,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-primary-500/20 text-sm text-primary-500 dark:text-primary-300"
           >
             <Sparkles size={14} className="text-primary-400" />
-            {profile.availability}
+            {profile.availability[lang]}
           </motion.div>
 
           <div className="space-y-4">
@@ -51,7 +56,7 @@ export default function Hero() {
               transition={{ delay: 0.3 }}
               className="text-foreground/60 dark:text-foreground/50 font-mono text-sm tracking-widest uppercase"
             >
-              Hi there, I&apos;m 👋
+              {t.hi} 👋
             </motion.p>
 
             <motion.h1
@@ -71,8 +76,8 @@ export default function Hero() {
               transition={{ delay: 0.5 }}
               className="text-xl font-semibold text-foreground/70"
             >
-              Information Systems Student &{" "}
-              <span className="text-primary-400">{profile.role}</span>
+              {profile.tagline[lang].split("&")[0]} &{" "}
+              <span className="text-primary-400">{profile.role[lang]}</span>
             </motion.p>
           </div>
 
@@ -82,7 +87,7 @@ export default function Hero() {
             transition={{ delay: 0.6 }}
             className="text-foreground/70 dark:text-foreground/50 text-lg leading-relaxed max-w-md"
           >
-            {profile.description}
+            {profile.description[lang]}
           </motion.p>
 
           {/* BUTTONS */}
@@ -96,20 +101,20 @@ export default function Hero() {
               onClick={() => handleScroll("projects")}
               className="px-7 py-3.5 rounded-2xl bg-primary-500 hover:bg-primary-600 text-white font-semibold text-sm transition-all duration-300"
             >
-              View Projects →
+              {t.viewProjects} →
             </button>
 
             <button
               onClick={() => handleScroll("contact")}
               className="px-7 py-3.5 rounded-2xl glass border border-foreground/10 text-foreground/80 hover:text-foreground font-semibold text-sm transition-all duration-300"
             >
-              Contact Me
+              {t.contactMe}
             </button>
           </motion.div>
 
           {/* SOCIAL */}
           <div className="flex items-center gap-4">
-            <span className="text-foreground/30 text-sm">Find me on</span>
+            <span className="text-foreground/30 text-sm">{t.findMeOn}</span>
 
             <div className="flex gap-3">
               <a

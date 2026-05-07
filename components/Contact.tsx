@@ -5,50 +5,54 @@ import { useState, useRef, FormEvent } from "react";
 import { Mail, Send, CheckCircle, Loader2 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { profile } from "@/data/profile";
-
-const contactLinks = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: profile.email,
-    href: `mailto:${profile.email}`,
-    color: "text-primary-400",
-    bgColor: "bg-primary-500/10",
-    borderColor: "border-primary-500/20",
-  },
-  {
-    icon: FaGithub,
-    label: "GitHub",
-    value: profile.social.github.display,
-    href: profile.social.github.url,
-    color: "text-foreground dark:text-white",
-    bgColor: "bg-foreground/5 dark:bg-white/5",
-    borderColor: "border-foreground/10 dark:border-white/10",
-  },
-  {
-    icon: FaLinkedin,
-    label: "LinkedIn",
-    value: profile.social.linkedin.display,
-    href: profile.social.linkedin.url,
-    color: "text-blue-400",
-    bgColor: "bg-blue-500/10",
-    borderColor: "border-blue-500/20",
-  },
-  {
-    icon: FaWhatsapp,
-    label: "WhatsApp",
-    value: profile.whatsapp,
-    href: profile.whatsappHref,
-    color: "text-green-400",
-    bgColor: "bg-green-500/10",
-    borderColor: "border-green-500/20",
-  },
-];
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
 
 export default function Contact() {
+  const { lang } = useLanguage();
+  const t = translations[lang].contact;
   const [formState, setFormState] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
   const formRef = useRef<HTMLFormElement>(null);
+
+  const contactLinks = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: profile.email,
+      href: `mailto:${profile.email}`,
+      color: "text-primary-400",
+      bgColor: "bg-primary-500/10",
+      borderColor: "border-primary-500/20",
+    },
+    {
+      icon: FaGithub,
+      label: "GitHub",
+      value: profile.social.github.display,
+      href: profile.social.github.url,
+      color: "text-foreground dark:text-white",
+      bgColor: "bg-foreground/5 dark:bg-white/5",
+      borderColor: "border-foreground/10 dark:border-white/10",
+    },
+    {
+      icon: FaLinkedin,
+      label: "LinkedIn",
+      value: profile.social.linkedin.display,
+      href: profile.social.linkedin.url,
+      color: "text-blue-400",
+      bgColor: "bg-blue-500/10",
+      borderColor: "border-blue-500/20",
+    },
+    {
+      icon: FaWhatsapp,
+      label: "WhatsApp",
+      value: profile.whatsapp,
+      href: profile.whatsappHref,
+      color: "text-green-400",
+      bgColor: "bg-green-500/10",
+      borderColor: "border-green-500/20",
+    },
+  ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -80,14 +84,13 @@ export default function Contact() {
           className="text-center mb-16"
         >
           <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
-            Let&apos;s talk
+            {t.subtitle}
           </p>
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            Get In <span className="gradient-text">Touch</span>
+            {t.title.split(" ")[0]} {t.title.split(" ")[1]} <span className="gradient-text">{t.title.split(" ").slice(2).join(" ")}</span>
           </h2>
           <p className="text-foreground/50 dark:text-white/40 max-w-lg mx-auto">
-            Have a project in mind, or just want to say hi? My inbox is always open. I&apos;ll
-            get back to you as soon as possible!
+            {t.description}
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent rounded-full mx-auto mt-4" />
         </motion.div>
@@ -102,10 +105,11 @@ export default function Contact() {
             className="space-y-6"
           >
             <div className="space-y-3">
-              <h3 className="text-2xl font-bold text-foreground">Let&apos;s connect</h3>
+              <h3 className="text-2xl font-bold text-foreground">{lang === "en" ? "Let's connect" : "Mari terhubung"}</h3>
               <p className="text-foreground/60 dark:text-white/50 leading-relaxed">
-                Whether you want to collaborate on a project, ask a question, or just
-                have a chat about tech — feel free to reach out through any channel.
+                {lang === "en" 
+                  ? "Whether you want to collaborate on a project, ask a question, or just have a chat about tech — feel free to reach out through any channel."
+                  : "Apakah Anda ingin berkolaborasi dalam sebuah proyek, mengajukan pertanyaan, atau sekadar mengobrol tentang teknologi — jangan ragu untuk menghubungi melalui saluran apa pun."}
               </p>
             </div>
 
@@ -154,13 +158,13 @@ export default function Contact() {
               className="glass border border-foreground/10 rounded-3xl p-8 space-y-5"
               style={{ borderColor: "var(--border)" }}
             >
-              <h3 className="text-xl font-bold text-foreground mb-1">Send a message</h3>
-              <p className="text-foreground/50 dark:text-white/40 text-sm">I&apos;ll reply within 24 hours.</p>
+              <h3 className="text-xl font-bold text-foreground mb-1">{lang === "en" ? "Send a message" : "Kirim pesan"}</h3>
+              <p className="text-foreground/50 dark:text-white/40 text-sm">{lang === "en" ? "I'll reply within 24 hours." : "Saya akan membalas dalam waktu 24 jam."}</p>
 
               {/* Name */}
               <div className="space-y-2">
                 <label className="text-foreground/70 dark:text-white/50 text-sm font-medium" htmlFor="name">
-                  Your Name
+                  {t.form.name}
                 </label>
                 <input
                   id="name"
@@ -181,7 +185,7 @@ export default function Contact() {
               {/* Email */}
               <div className="space-y-2">
                 <label className="text-foreground/70 dark:text-white/50 text-sm font-medium" htmlFor="email">
-                  Email Address
+                  {t.form.email}
                 </label>
                 <input
                   id="email"
@@ -202,7 +206,7 @@ export default function Contact() {
               {/* Message */}
               <div className="space-y-2">
                 <label className="text-foreground/70 dark:text-white/50 text-sm font-medium" htmlFor="message">
-                  Message
+                  {t.form.message}
                 </label>
                 <textarea
                   id="message"
@@ -211,7 +215,7 @@ export default function Contact() {
                   rows={5}
                   value={formState.message}
                   onChange={handleChange}
-                  placeholder={`Hi ${profile.firstName}, I'd love to talk about...`}
+                  placeholder={lang === "en" ? `Hi ${profile.firstName}, I'd love to talk about...` : `Halo ${profile.firstName}, saya ingin berbicara tentang...`}
                   className="w-full px-4 py-3 rounded-xl bg-foreground/[0.03] border border-foreground/10 text-foreground placeholder-foreground/30 focus:outline-none focus:border-primary-500/50 focus:bg-primary-500/5 transition-all duration-300 text-sm resize-none"
                   style={{
                     background: "var(--glass-bg)",
@@ -235,7 +239,7 @@ export default function Contact() {
                 {status === "loading" && <Loader2 size={16} className="animate-spin" />}
                 {status === "success" && <CheckCircle size={16} />}
                 {status === "idle" && <Send size={16} />}
-                {status === "loading" ? "Sending..." : status === "success" ? "Message Sent!" : "Send Message"}
+                {status === "loading" ? t.form.sending : status === "success" ? t.form.success : t.form.send}
               </motion.button>
             </form>
           </motion.div>

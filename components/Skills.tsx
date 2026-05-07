@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { skillCategories, techBadges } from "@/data/skills";
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
 
 function SkillBar({ name, level, emoji, color }: {
   name: string;
@@ -41,6 +43,8 @@ function SkillBar({ name, level, emoji, color }: {
 export default function Skills() {
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true });
+  const { lang } = useLanguage();
+  const t = translations[lang].skills;
 
   return (
     <section id="skills" className="section-padding relative overflow-hidden">
@@ -57,10 +61,10 @@ export default function Skills() {
           className="text-center mb-16"
         >
           <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
-            What I work with
+            {t.subtitle}
           </p>
           <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            My <span className="gradient-text">Skills</span>
+            {t.title.split(" ")[0]} <span className="gradient-text">{t.title.split(" ")[1]}</span>
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent rounded-full mx-auto" />
         </motion.div>
@@ -69,7 +73,7 @@ export default function Skills() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skillCategories.map((category) => (
             <motion.div
-              key={category.name}
+              key={category.name.en}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
@@ -91,9 +95,11 @@ export default function Skills() {
                   <h3
                     className={`text-xl font-bold bg-gradient-to-r ${category.color} bg-clip-text text-transparent`}
                   >
-                    {category.name}
+                    {category.name[lang]}
                   </h3>
-                  <p className="text-foreground/50 text-xs font-mono uppercase tracking-wider">{category.skills.length} technical skills</p>
+                  <p className="text-foreground/50 text-xs font-mono uppercase tracking-wider">
+                    {category.skills.length} {lang === "en" ? "technical skills" : "keahlian teknis"}
+                  </p>
                 </div>
               </div>
 
