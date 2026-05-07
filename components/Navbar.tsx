@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2 } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -14,13 +14,13 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
-  const navLinks = [
+  const navLinks = useMemo(() => [
     { href: "#home", label: t.home },
     { href: "#about", label: t.about },
     { href: "#skills", label: t.skills },
     { href: "#projects", label: t.projects },
     { href: "#contact", label: t.contact },
-  ];
+  ], [t]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +38,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lang]);
+  }, [navLinks]);
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);

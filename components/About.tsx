@@ -110,7 +110,7 @@ export default function About() {
                       {stat.value}
                     </div>
                     <div className="text-foreground/50 dark:text-foreground/40 text-xs mt-1 font-medium">
-                      {(t.stats as any)[stat.key]}
+                      {t.stats[stat.key as keyof typeof t.stats]}
                     </div>
                   </motion.div>
               ))}
