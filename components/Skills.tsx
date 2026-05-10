@@ -6,10 +6,10 @@ import { skillCategories, techBadges } from "@/data/skills";
 import { useLanguage } from "@/components/LanguageProvider";
 import { translations } from "@/data/translations";
 
-function SkillBar({ name, level, emoji, color }: {
+function SkillBar({ name, level, icon: Icon, color }: {
   name: string;
   level: number;
-  emoji: string;
+  icon: any;
   color: string;
 }) {
   return (
@@ -22,7 +22,9 @@ function SkillBar({ name, level, emoji, color }: {
     >
       <div className="flex justify-between items-end text-sm">
         <span className="flex items-center gap-2 text-foreground font-medium group-hover:text-primary-500 transition-colors">
-          <span className="text-base leading-none">{emoji}</span>
+          <span className="text-lg leading-none opacity-80 group-hover:opacity-100 transition-opacity">
+            <Icon />
+          </span>
           {name}
         </span>
         <span className="text-foreground/50 text-xs font-mono">{level}%</span>

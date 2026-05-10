@@ -1,7 +1,15 @@
+import { IconType } from "react-icons";
+import { 
+  SiHtml5, SiJavascript, SiNextdotjs, SiReact, SiTailwindcss,
+  SiPhp, SiLaravel, SiMysql, SiPostgresql, SiGit, SiGithub, 
+  SiFigma, SiTypescript
+} from "react-icons/si";
+import { TbApi, TbBrandCss3, TbBrandVscode } from "react-icons/tb";
+
 export type Skill = {
   name: string;
   level: number;
-  emoji: string;
+  icon: IconType;
 };
 
 export type SkillCategory = {
@@ -31,12 +39,13 @@ export const skillCategories: SkillCategory[] = [
     gradientFrom: "#6C63FF",
     gradientTo: "#8B85FF",
     skills: [
-      { name: "HTML5", level: 90, emoji: "🌐" },
-      { name: "CSS3", level: 85, emoji: "🎨" },
-      { name: "JavaScript", level: 78, emoji: "⚡" },
-      { name: "Next.js", level: 65, emoji: "▲" },
-      { name: "React", level: 68, emoji: "⚛️" },
-      { name: "Tailwind CSS", level: 80, emoji: "💨" },
+      { name: "HTML5", level: 90, icon: SiHtml5 },
+      { name: "CSS3", level: 85, icon: TbBrandCss3 },
+      { name: "JavaScript", level: 78, icon: SiJavascript },
+      { name: "TypeScript", level: 82, icon: SiTypescript },
+      { name: "Next.js", level: 65, icon: SiNextdotjs },
+      { name: "React", level: 68, icon: SiReact },
+      { name: "Tailwind CSS", level: 80, icon: SiTailwindcss },
     ],
   },
   {
@@ -51,9 +60,11 @@ export const skillCategories: SkillCategory[] = [
     gradientFrom: "#38BDF8",
     gradientTo: "#60A5FA",
     skills: [
-      { name: "PHP", level: 75, emoji: "🐘" },
-      { name: "MySQL", level: 72, emoji: "🗄️" },
-      { name: "REST API", level: 60, emoji: "🔌" },
+      { name: "PHP", level: 75, icon: SiPhp },
+      { name: "Laravel", level: 70, icon: SiLaravel },
+      { name: "MySQL", level: 72, icon: SiMysql },
+      { name: "PostgreSQL", level: 65, icon: SiPostgresql },
+      { name: "REST API", level: 60, icon: TbApi },
     ],
   },
   {
@@ -68,10 +79,10 @@ export const skillCategories: SkillCategory[] = [
     gradientFrom: "#34D399",
     gradientTo: "#2DD4BF",
     skills: [
-      { name: "Git", level: 80, emoji: "🌿" },
-      { name: "GitHub", level: 82, emoji: "🐙" },
-      { name: "VS Code", level: 90, emoji: "💻" },
-      { name: "Figma", level: 55, emoji: "🎭" },
+      { name: "Git", level: 80, icon: SiGit },
+      { name: "GitHub", level: 82, icon: SiGithub },
+      { name: "VS Code", level: 90, icon: TbBrandVscode },
+      { name: "Figma", level: 55, icon: SiFigma },
     ],
   },
 ];
@@ -84,7 +95,9 @@ export const techBadges: string[] = [
   "React",
   "Next.js",
   "PHP",
+  "Laravel",
   "MySQL",
+  "PostgreSQL",
   "Git",
   "GitHub",
   "Tailwind",
