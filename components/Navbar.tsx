@@ -78,7 +78,7 @@ export default function Navbar() {
             </div>
             <span className="text-xl font-bold font-mono">
               <span className="gradient-text">Eriel</span>
-              <span className="text-foreground/70">.my.id</span>
+              <span className="text-foreground/70">budiman.my.id</span>
             </span>
           </motion.a>
 
