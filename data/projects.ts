@@ -15,12 +15,29 @@ export type Project = {
     en: string;
     id: string;
   };
-  demo: string;
+  demo?: string;
+  readme?: string;
   featured: boolean;
   image?: string;
 };
 
 export const projects: Project[] = [
+  {
+    id: 5,
+    title: "Modular PDF Generator",
+    description: {
+      en: "A Python-based workspace for generating modular and reusable PDFs. Specifically designed for AI-assisted workflows, it separates content (JSON/Markdown) from layout to ensure stability and maintainability.",
+      id: "Workspace pembuat PDF modular berbasis Python. Dirancang khusus untuk alur kerja berbantuan AI, memisahkan konten (JSON/Markdown) dari tata letak untuk menjamin stabilitas dan kemudahan pemeliharaan.",
+    },
+    tech: ["Python", "ReportLab", "JSON", "Markdown"],
+    emoji: "📄",
+    gradient: "from-slate-600/30 to-slate-900/50",
+    accentColor: "text-slate-400",
+    borderColor: "border-slate-500/20",
+    github: "https://github.com/Synoids/modular-pdf-generator",
+    readme: "https://github.com/Synoids/modular-pdf-generator#readme",
+    featured: true,
+  },
   {
     id: 4,
     title: "Employee Self-Service (ESS) Portal",

@@ -2,7 +2,7 @@ import { IconType } from "react-icons";
 import { 
   SiHtml5, SiJavascript, SiNextdotjs, SiReact, SiTailwindcss,
   SiPhp, SiLaravel, SiMysql, SiPostgresql, SiGit, SiGithub, 
-  SiFigma, SiTypescript
+  SiFigma, SiTypescript, SiPython
 } from "react-icons/si";
 import { TbApi, TbBrandCss3, TbBrandVscode } from "react-icons/tb";
 
@@ -64,6 +64,7 @@ export const skillCategories: SkillCategory[] = [
       { name: "Laravel", level: 70, icon: SiLaravel },
       { name: "MySQL", level: 72, icon: SiMysql },
       { name: "PostgreSQL", level: 65, icon: SiPostgresql },
+      { name: "Python", level: 65, icon: SiPython },
       { name: "REST API", level: 60, icon: TbApi },
     ],
   },
@@ -98,6 +99,7 @@ export const techBadges: string[] = [
   "Laravel",
   "MySQL",
   "PostgreSQL",
+  "Python",
   "Git",
   "GitHub",
   "Tailwind",

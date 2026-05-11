@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Tag } from "lucide-react";
+import { ExternalLink, Tag, FileText } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import { projects } from "@/data/projects";
@@ -103,15 +103,28 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
             <FaGithub size={15} />
             GitHub
           </motion.a>
-          <motion.a
-            href={project.demo}
-            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(108, 99, 255, 0.3)" }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
-          >
-            <ExternalLink size={15} />
-            {project.demoLabel ? project.demoLabel[lang] : t.viewApp}
-          </motion.a>
+          {project.demo && (
+            <motion.a
+              href={project.demo}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(108, 99, 255, 0.3)" }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
+            >
+              <ExternalLink size={15} />
+              {project.demoLabel ? project.demoLabel[lang] : t.viewApp}
+            </motion.a>
+          )}
+          {project.readme && (
+            <motion.a
+              href={project.readme}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(108, 99, 255, 0.3)" }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
+            >
+              <FileText size={15} />
+              {t.viewReadme}
+            </motion.a>
+          )}
         </div>
       </div>
     </motion.div>
