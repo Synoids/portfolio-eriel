@@ -18,7 +18,29 @@ export const metadata: Metadata = {
     title: "Eriel Budiman — Portfolio",
     description:
       "Information Systems Student & Junior Web Developer building clean, functional web applications.",
+    url: "https://portfolio-eril.vercel.app", // Sesuaikan dengan URL asli nanti
+    siteName: "Eriel Portfolio",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "Eriel Budiman Portfolio Preview",
+      },
+    ],
+    locale: "id_ID",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Eriel Budiman — Portfolio",
+    description: "Information Systems Student & Junior Web Developer building clean, functional web applications.",
+    images: ["/api/og"],
+  },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
   },
 };
 
