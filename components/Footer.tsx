@@ -36,7 +36,7 @@ export default function Footer() {
               </div>
               <span className="text-lg font-bold font-mono">
                 <span className="gradient-text">Eriel</span>
-                <span className="text-foreground/70">.dev</span>
+                <span className="text-foreground/70">.my.id</span>
               </span>
             </div>
             <p className="text-foreground/50 dark:text-white/40 text-sm leading-relaxed max-w-xs">
