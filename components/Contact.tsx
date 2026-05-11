@@ -61,11 +61,46 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setStatus("loading");
-    // Simulate form submission
-    await new Promise((r) => setTimeout(r, 1500));
-    setStatus("success");
-    setFormState({ name: "", email: "", message: "" });
-    setTimeout(() => setStatus("idle"), 4000);
+
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    
+    if (!accessKey) {
+      console.error("Web3Forms Access Key is missing");
+      setStatus("idle");
+      alert("Error: Contact form not configured yet.");
+      return;
+    }
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: accessKey,
+          name: formState.name,
+          email: formState.email,
+          message: formState.message,
+          subject: `New Message from ${formState.name} (Portfolio)`,
+          from_name: "Portfolio Contact Form",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setStatus("success");
+        setFormState({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 4000);
+      } else {
+        throw new Error("Submission failed");
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus("idle");
+      alert(lang === "en" ? "Something went wrong. Please try again." : "Terjadi kesalahan. Silakan coba lagi.");
+    }
   };
 
   return (
