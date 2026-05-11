@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, ElementType } from "react";
 import { skillCategories, techBadges } from "@/data/skills";
 import { useLanguage } from "@/components/LanguageProvider";
 import { translations } from "@/data/translations";
@@ -9,7 +9,7 @@ import { translations } from "@/data/translations";
 function SkillBar({ name, level, icon: Icon, color }: {
   name: string;
   level: number;
-  icon: any;
+  icon: ElementType;
   color: string;
 }) {
   return (
