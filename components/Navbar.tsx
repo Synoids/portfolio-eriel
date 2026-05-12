@@ -41,10 +41,19 @@ export default function Navbar() {
   }, [navLinks]);
 
   const handleNavClick = (href: string) => {
+    const isMobile = isOpen;
     setIsOpen(false);
+    
     const target = document.querySelector(href);
     if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
+      if (isMobile) {
+        // Wait for mobile menu closing animation to prevent scroll jitter
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: "smooth" });
+        }, 300);
+      } else {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
