@@ -153,3 +153,89 @@ body {
 .cursor-blink {
   animation: blink 1s step-end infinite;
 }
+
+/* Print Styles */
+@media print {
+  body {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  nav, 
+  footer,
+  .print-hidden,
+  button,
+  .top-actions {
+    display: none !important;
+  }
+
+  .print-bg-slate-900 {
+    background-color: #0f172a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-text-white {
+    color: white !important;
+  }
+
+  .print-primary-text {
+    color: #6C63FF !important;
+  }
+
+  /* Reset layout for print */
+  .max-w-4xl, 
+  .max-w-\[210mm\] {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .min-h-screen {
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+
+  .py-12 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Force light colors on main content if user is in dark mode */
+  .dark .bg-white {
+    background-color: white !important;
+  }
+
+  .dark .text-slate-900 {
+    color: #0f172a !important;
+  }
+
+  .dark .text-slate-600 {
+    color: #475569 !important;
+  }
+
+  .dark .border-slate-100 {
+    border-color: #f1f5f9 !important;
+  }
+
+  /* Ensure sidebar background is preserved */
+  .bg-slate-900 {
+    background-color: #0f172a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .text-primary-400 {
+    color: #818cf8 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    margin: 0;
+    size: auto;
+  }
+}
+

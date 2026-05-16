@@ -19,14 +19,15 @@ export default function Navbar() {
     { href: "#about", label: t.about },
     { href: "#skills", label: t.skills },
     { href: "#projects", label: t.projects },
+    { href: "/cv", label: lang === 'en' ? "CV" : "CV", isRoute: true },
     { href: "#contact", label: t.contact },
-  ], [t]);
+  ], [t, lang]);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = navLinks.map((l) => l.href.replace("#", ""));
+      const sections = navLinks.filter(l => !l.isRoute).map((l) => l.href.replace("#", ""));
       for (const section of sections.reverse()) {
         const el = document.getElementById(section);
         if (el && window.scrollY >= el.offsetTop - 120) {
@@ -40,11 +41,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [navLinks]);
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (link: { href: string, isRoute?: boolean }) => {
+    if (link.isRoute) {
+      window.location.href = link.href;
+      return;
+    }
+
     const isMobile = isOpen;
     setIsOpen(false);
     
-    const target = document.querySelector(href);
+    const target = document.querySelector(link.href);
     if (target) {
       if (isMobile) {
         // Wait for mobile menu closing animation to prevent scroll jitter
@@ -54,6 +60,9 @@ export default function Navbar() {
       } else {
         target.scrollIntoView({ behavior: "smooth" });
       }
+    } else {
+      // If target not found (e.g. on /cv page), go to home with hash
+      window.location.href = "/" + link.href;
     }
   };
 
@@ -76,8 +85,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.a
-            href="#home"
-            onClick={(e) => { e.preventDefault(); handleNavClick("#home"); }}
+            href="/"
+            onClick={(e) => { e.preventDefault(); handleNavClick({ href: "#home" }); }}
             className="flex items-center gap-2 group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -97,7 +106,7 @@ export default function Navbar() {
               <motion.a
                 key={link.href}
                 href={link.href}
-                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                onClick={(e) => { e.preventDefault(); handleNavClick(link); }}
                 className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
                   activeSection === link.href.replace("#", "")
                     ? "text-foreground"
@@ -140,7 +149,7 @@ export default function Navbar() {
             <ThemeToggle />
             <motion.a
               href="#contact"
-              onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
+              onClick={(e) => { e.preventDefault(); handleNavClick({ href: "#contact" }); }}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -148,6 +157,7 @@ export default function Navbar() {
               {t.hireMe}
             </motion.a>
           </div>
+
 
           {/* Mobile Actions */}
           <div className="flex md:hidden items-center gap-3">
@@ -184,7 +194,7 @@ export default function Navbar() {
                 <motion.a
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                  onClick={(e) => { e.preventDefault(); handleNavClick(link); }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
@@ -199,7 +209,7 @@ export default function Navbar() {
               ))}
               <motion.a
                 href="#contact"
-                onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
+                onClick={(e) => { e.preventDefault(); handleNavClick({ href: "#contact" }); }}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.25 }}
@@ -207,6 +217,7 @@ export default function Navbar() {
               >
                 {t.hireMe}
               </motion.a>
+
             </div>
           </motion.div>
         )}
