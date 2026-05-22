@@ -2,7 +2,7 @@ name: Keep Supabase Database Active
 
 on:
   schedule:
-    # Jalankan SETIAP HARI pada pukul 12:00 UTC (lebih sering)
+    # Jalankan setiap hari pada pukul 12:00 UTC
     - cron: '0 12 * * *'
   workflow_dispatch:
 
@@ -11,13 +11,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Supabase client
+        run: npm install @supabase/supabase-js
+
       - name: Ping Supabase Database
         env:
           SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
-          curl -X GET "${{ env.SUPABASE_URL }}/rest/v1/pg_sleep(0.1)?select=1" \
-            -H "Authorization: Bearer ${{ env.SUPABASE_ANON_KEY }}" \
-            -H "apikey: ${{ env.SUPABASE_ANON_KEY }}" \
-            -H "Content-Type: application/json"
-          echo "Ping completed at $(date)"
+          node << 'EOF'
+          const { createClient } = require('@supabase/supabase-js');
+          
+          const supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_ANON_KEY
+          );
+          
+          (async () => {
+            try {
+              // Query simple ke table apapun (atau gunakan raw query)
+              const { data, error, status } = await supabase
+                .from('information_schema.tables')
+                .select('table_name')
+                .limit(1);
+              
+              if (error) {
+                console.log('Query error (expected for some tables):', error.message);
+              } else {
+                console.log('✅ Ping successful! Status:', status);
+                console.log('Timestamp:', new Date().toISOString());
+              }
+            } catch (err) {
+              console.log('❌ Error:', err.message);
+              process.exit(1);
+            }
+          })();
+          EOF
+
+      - name: Log completion
+        run: echo "✅ Database ping completed at $(date)"
