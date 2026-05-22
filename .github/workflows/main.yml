@@ -2,7 +2,6 @@ name: Keep Supabase Database Active
 
 on:
   schedule:
-    # Jalankan setiap hari pada pukul 12:00 UTC
     - cron: '0 12 * * *'
   workflow_dispatch:
 
@@ -19,8 +18,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Supabase client
-        run: npm install @supabase/supabase-js
+      - name: Install dependencies
+        run: npm install @supabase/supabase-js ws
 
       - name: Ping Supabase Database
         env:
@@ -29,10 +28,16 @@ jobs:
         run: |
           node << 'EOF'
           const { createClient } = require('@supabase/supabase-js');
+          const WebSocket = require('ws');
           
           const supabase = createClient(
             process.env.SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_ROLE_KEY
+            process.env.SUPABASE_SERVICE_ROLE_KEY,
+            {
+              realtime: {
+                transport: WebSocket
+              }
+            }
           );
           
           (async () => {
