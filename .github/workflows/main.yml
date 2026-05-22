@@ -1,3 +1,27 @@
+name: Keep Supabase Database Active
+
+on:
+  schedule:
+    # Jalankan setiap hari pada pukul 12:00 UTC
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Supabase client
+        run: npm install @supabase/supabase-js
+
       - name: Ping Supabase Database
         env:
           SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -30,3 +54,6 @@
             }
           })();
           EOF
+
+      - name: Log completion
+        run: echo "✅ Database ping completed at $(date)"
