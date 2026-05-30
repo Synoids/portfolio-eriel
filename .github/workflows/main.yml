@@ -1,79 +1,37 @@
-name: Keep Supabase Database Active
+node << 'EOF'
+const { createClient } = require('@supabase/supabase-js');
+const WebSocket = require('ws');
 
-on:
-  schedule:
-    # Jalankan setiap 3 hari sekali pada pukul 00:00 UTC
-    - cron: '0 0 */3 * *'
-  workflow_dispatch:
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  {
+    realtime: { mode: 'manual' },
+    auth: { persistSession: false },
+    global: { fetch: globalThis.fetch },
+    transport: 'websocket',
+    fetch: globalThis.fetch,
+  }
+);
 
-jobs:
-  ping-database:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install @supabase/supabase-js ws
-
-      - name: Ping Supabase Database
-        env:
-          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: |
-          node << 'EOF'
-          const { createClient } = require('@supabase/supabase-js');
-          const ws = require('ws');
-          
-          const supabase = createClient(
-            process.env.SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_ROLE_KEY,
-            {
-              realtime: { mode: 'manual' },
-              auth: { persistSession: false },
-              global: { WebSocket: ws }
-            }
-          );
-          
-          (async () => {
-            try {
-              const { data, error, status } = await supabase
-                .from('project_credentials')
-                .select('id')
-                .limit(1);
-              
-              if (error) {
-                console.log('❌ Query error:', error.message);
-                process.exit(1);
-              } else {
-                console.log('✅ Ping successful! Status:', status);
-                console.log('Rows returned:', data.length);
-                console.log('Timestamp:', new Date().toISOString());
-              }
-            } catch (err) {
-              console.log('❌ Error:', err.message);
-              process.exit(1);
-            }
-          })();
-          EOF
-
-      - name: Keep GitHub Actions Alive
-        run: |
-          LAST_COMMIT_DATE=$(git log -1 --format=%ct)
-          CURRENT_DATE=$(date +%s)
-          DAYS_SINCE_COMMIT=$(( (CURRENT_DATE - LAST_COMMIT_DATE) / 86400 ))
-          
-          if [ "$DAYS_SINCE_COMMIT" -gt 50 ]; then
-            git config --global user.name 'github-actions[bot]'
-            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-            git commit --allow-empty -m "chore: keep github actions alive"
-            git push
-          else
-            echo "Last commit was $DAYS_SINCE_COMMIT days ago. No keepalive commit needed."
-          fi
+(async () => {
+  try {
+    const { data, error, status } = await supabase
+      .from('project_credentials')
+      .select('id')
+      .limit(1);
+    
+    if (error) {
+      console.log('❌ Query error:', error.message);
+      process.exit(1);
+    } else {
+      console.log('✅ Ping successful! Status:', status);
+      console.log('Rows returned:', data.length);
+      console.log('Timestamp:', new Date().toISOString());
+    }
+  } catch (err) {
+    console.log('❌ Error:', err.message);
+    process.exit(1);
+  }
+})();
+EOF
