@@ -20,7 +20,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install @supabase/supabase-js
+        run: npm install @supabase/supabase-js ws
 
       - name: Ping Supabase Database
         env:
@@ -29,12 +29,15 @@ jobs:
         run: |
           node << 'EOF'
           const { createClient } = require('@supabase/supabase-js');
+          const ws = require('ws');
           
           const supabase = createClient(
             process.env.SUPABASE_URL,
             process.env.SUPABASE_SERVICE_ROLE_KEY,
             {
-              realtime: { mode: 'manual' }
+              realtime: { mode: 'manual' },
+              auth: { persistSession: false },
+              global: { WebSocket: ws }
             }
           );
           
