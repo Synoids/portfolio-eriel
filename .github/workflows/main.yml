@@ -1,40 +1,66 @@
-- name: Install dependencies
-  run: npm install @supabase/supabase-js
+name: Keep Supabase Database Active
 
-- name: Ping Supabase Database
-  env:
-    SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-    SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-  run: |
-    node << 'EOF'
-    const { createClient } = require('@supabase/supabase-js');
-    
-    const supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY,
-      {
-        realtime: { mode: 'manual' }
-      }
-    );
-    
-    (async () => {
-      try {
-        const { data, error, status } = await supabase
-          .from('project_credentials')
-          .select('id')
-          .limit(1);
-        
-        if (error) {
-          console.log('❌ Query error:', error.message);
-          process.exit(1);
-        } else {
-          console.log('✅ Ping successful! Status:', status);
-          console.log('Rows returned:', data.length);
-          console.log('Timestamp:', new Date().toISOString());
-        }
-      } catch (err) {
-        console.log('❌ Error:', err.message);
-        process.exit(1);
-      }
-    })();
-    EOF
+on:
+  schedule:
+    # Jalankan setiap 3 hari sekali pada pukul 00:00 UTC
+    - cron: '0 0 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  ping-database:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install @supabase/supabase-js
+
+      - name: Ping Supabase Database
+        env:
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          node << 'EOF'
+          const { createClient } = require('@supabase/supabase-js');
+          
+          const supabase = createClient(
+            process.env.SUPABASE_URL,
+            process.env.SUPABASE_SERVICE_ROLE_KEY,
+            {
+              realtime: { mode: 'manual' }
+            }
+          );
+          
+          (async () => {
+            try {
+              const { data, error, status } = await supabase
+                .from('project_credentials')
+                .select('id')
+                .limit(1);
+              
+              if (error) {
+                console.log('❌ Query error:', error.message);
+                process.exit(1);
+              } else {
+                console.log('✅ Ping successful! Status:', status);
+                console.log('Rows returned:', data.length);
+                console.log('Timestamp:', new Date().toISOString());
+              }
+            } catch (err) {
+              console.log('❌ Error:', err.message);
+              process.exit(1);
+            }
+          })();
+          EOF
+
+      - name: Keep GitHub Actions Alive
+        uses: gautamkrishnar/keepalive-workflow@v2
+        with:
+          commit_message: "chore: keep github actions alive"
