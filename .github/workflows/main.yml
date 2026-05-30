@@ -29,7 +29,7 @@ jobs:
         run: |
           node << 'EOF'
           const { createClient } = require('@supabase/supabase-js');
-          const ws = require('ws');
+          const WebSocket = require('ws');
           
           if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
             console.log('⚠️ Missing Supabase secrets. Please ensure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in GitHub Secrets.');
@@ -40,9 +40,11 @@ jobs:
             process.env.SUPABASE_URL,
             process.env.SUPABASE_SERVICE_ROLE_KEY,
             {
-              realtime: { mode: 'manual' },
-              auth: { persistSession: false },
-              global: { WebSocket: ws }
+              realtime: { 
+                mode: 'manual',
+                transport: WebSocket
+              },
+              auth: { persistSession: false }
             }
           );
           
