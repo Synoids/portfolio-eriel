@@ -24,20 +24,20 @@ jobs:
 
       - name: Ping Supabase Database
         env:
-          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
           node << 'EOF'
           const { createClient } = require('@supabase/supabase-js');
           const WebSocket = require('ws');
           
-          if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+          if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
             console.log('⚠️ Missing Supabase secrets. Please ensure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in GitHub Secrets.');
             process.exit(0); // Exit successfully so it doesn't fail the workflow, but warns the user
           }
 
           const supabase = createClient(
-            process.env.SUPABASE_URL,
+            process.env.NEXT_PUBLIC_SUPABASE_URL,
             process.env.SUPABASE_SERVICE_ROLE_KEY,
             {
               realtime: { 
