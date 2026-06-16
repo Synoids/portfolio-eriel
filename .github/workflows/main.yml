@@ -20,7 +20,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install @supabase/supabase-js ws
+        run: npm install @supabase/supabase-js
 
       - name: Ping Supabase Database
         env:
@@ -29,42 +29,34 @@ jobs:
         run: |
           node << 'EOF'
           const { createClient } = require('@supabase/supabase-js');
-          const WebSocket = require('ws');
           
           if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            console.log('⚠️ Missing Supabase secrets. Please ensure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in GitHub Secrets.');
-            process.exit(0); // Exit successfully so it doesn't fail the workflow, but warns the user
+            console.log('⚠️ Missing Supabase secrets.');
+            process.exit(1);
           }
 
           const supabase = createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_ROLE_KEY,
-            {
-              realtime: { 
-                mode: 'manual',
-                transport: WebSocket
-              },
-              auth: { persistSession: false }
-            }
+            process.env.SUPABASE_SERVICE_ROLE_KEY
           );
           
           (async () => {
             try {
-              // Any API request counts as activity. We query a dummy table.
-              const { data, error, status } = await supabase
-                .from('_keep_alive')
-                .select('*')
-                .limit(1);
+              // Simple ping by checking auth status
+              const { data, error } = await supabase.auth.admin.listUsers();
               
-              console.log('✅ API Ping request sent. Supabase will record this activity.');
-              if (error) {
-                console.log('ℹ️ Note (Expected if table does not exist):', error.message);
-              } else {
-                console.log('✅ Rows returned:', data.length);
+              if (error && error.message === 'Unauthorized') {
+                console.log('❌ Service Role Key is invalid or expired');
+                process.exit(1);
               }
+              
+              console.log('✅ Successfully connected to Supabase');
+              console.log('✅ API request sent. Supabase will record this activity.');
               console.log('Timestamp:', new Date().toISOString());
+              
             } catch (err) {
               console.log('⚠️ Error during ping:', err.message);
+              process.exit(0);
             }
           })();
           EOF
