@@ -45,7 +45,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover object-top transition-transform duration-700 group-hover:scale-110"
+            className="object-contain object-center p-4 transition-transform duration-700 group-hover:scale-110"
           />
         ) : (
           <motion.div

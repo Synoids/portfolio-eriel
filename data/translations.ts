@@ -33,7 +33,7 @@ export const translations = {
     projects: {
       subtitle: "What I've built",
       title: "Featured Projects",
-      description: "A selection of projects I've built during my learning journey — from management systems to food ordering apps.",
+      description: "A selection of projects I've built during my learning journey — from management systems to modern web applications.",
       viewGithub: "View All on GitHub",
       viewApp: "View App",
       viewReadme: "View README",
@@ -128,7 +128,7 @@ export const translations = {
     projects: {
       subtitle: "Apa yang telah saya buat",
       title: "Proyek Unggulan",
-      description: "Kumpulan proyek yang saya bangun selama perjalanan belajar saya — mulai dari sistem manajemen hingga aplikasi pemesanan makanan.",
+      description: "Kumpulan proyek yang saya bangun selama perjalanan belajar saya — mulai dari sistem manajemen hingga aplikasi web modern.",
       viewGithub: "Lihat Semua di GitHub",
       viewApp: "Lihat Aplikasi",
       viewReadme: "Lihat README",

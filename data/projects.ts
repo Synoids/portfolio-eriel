@@ -23,6 +23,27 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: 7,
+    title: "PLN Pulse Check UPDL - Complaint Management System",
+    description: {
+      en: "A mobile-first Progressive Web App (PWA) complaint management system. Features include role-based access control (Superadmin/Staff) with PIN security, a Google Sheets backend via Google Apps Script, real-time rich Telegram bot notifications, and automated SLA tracking.",
+      id: "Sistem manajemen pengaduan Progressive Web App (PWA) yang dioptimalkan untuk perangkat seluler. Memiliki fitur kontrol akses berbasis peran dengan keamanan PIN, backend Google Sheets melalui Google Apps Script, notifikasi bot Telegram interaktif real-time, dan pelacakan durasi penanganan otomatis.",
+    },
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Google Apps Script", "Telegram API", "PWA"],
+    emoji: "🔔",
+    gradient: "from-blue-600/30 to-blue-900/50",
+    accentColor: "text-blue-400",
+    borderColor: "border-blue-500/20",
+    github: "https://github.com/Synoids/notif-pulsecheck",
+    demo: "https://notif-pulsecheck.vercel.app/demo",
+    demoLabel: {
+      en: "Live Demo",
+      id: "Demo Langsung",
+    },
+    featured: true,
+    image: "/icon-pulse-check.png",
+  },
+  {
     id: 6,
     title: "Digital Signage - PLN UPDL Palembang",
     description: {
@@ -37,6 +58,7 @@ export const projects: Project[] = [
     github: "https://github.com/Synoids/digital-signage-pln-updl",
     demo: "https://digital-signage-pln-updl.vercel.app/demo",
     featured: true,
+    image: "/digital-signage.png",
   },
   {
     id: 5,
