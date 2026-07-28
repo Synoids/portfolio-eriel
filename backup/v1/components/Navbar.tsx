@@ -1,0 +1,216 @@
+"use client";
+
+import { useState, useEffect, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Code2 } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
+
+export default function Navbar() {
+  const { lang, setLang } = useLanguage();
+  const t = translations[lang].nav;
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
+
+  const navLinks = useMemo(() => [
+    { href: "#home", label: t.home },
+    { href: "#about", label: t.about },
+    { href: "#skills", label: t.skills },
+    { href: "#projects", label: t.projects },
+    { href: "#contact", label: t.contact },
+  ], [t]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+
+      const sections = navLinks.map((l) => l.href.replace("#", ""));
+      for (const section of sections.reverse()) {
+        const el = document.getElementById(section);
+        if (el && window.scrollY >= el.offsetTop - 120) {
+          setActiveSection(section);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [navLinks]);
+
+  const handleNavClick = (href: string) => {
+    const isMobile = isOpen;
+    setIsOpen(false);
+    
+    const target = document.querySelector(href);
+    if (target) {
+      if (isMobile) {
+        // Wait for mobile menu closing animation to prevent scroll jitter
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: "smooth" });
+        }, 300);
+      } else {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
+  const toggleLanguage = () => {
+    setLang(lang === "en" ? "id" : "en");
+  };
+
+  return (
+    <motion.nav
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "glass border-b border-white/5 shadow-2xl shadow-black/20"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <motion.a
+            href="#home"
+            onClick={(e) => { e.preventDefault(); handleNavClick("#home"); }}
+            className="flex items-center gap-2 group"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <div className="relative w-9 h-9 rounded-lg bg-primary-500/20 border border-primary-500/30 flex items-center justify-center group-hover:bg-primary-500/30 transition-all">
+              <Code2 size={18} className="text-primary-400" />
+            </div>
+            <span className="text-xl font-bold font-mono">
+              <span className="gradient-text">Eriel</span>
+              <span className="text-foreground/70">budiman.my.id</span>
+            </span>
+          </motion.a>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <motion.a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  activeSection === link.href.replace("#", "")
+                    ? "text-foreground"
+                    : "text-foreground/60 hover:text-foreground/90"
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {activeSection === link.href.replace("#", "") && (
+                  <motion.span
+                    layoutId="activeNav"
+                    className="absolute inset-0 rounded-lg bg-primary-500/15 border border-primary-500/20"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative">{link.label}</span>
+              </motion.a>
+            ))}
+          </div>
+
+          <div className="hidden md:flex items-center gap-4">
+            <div className="flex items-center gap-1 glass p-1 rounded-xl border border-foreground/5 mr-2">
+              <button
+                onClick={() => setLang("en")}
+                className={`px-2 py-1 text-[10px] font-bold rounded-lg transition-all ${
+                  lang === "en" ? "bg-primary-500 text-white" : "text-foreground/40 hover:text-foreground/60"
+                }`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLang("id")}
+                className={`px-2 py-1 text-[10px] font-bold rounded-lg transition-all ${
+                  lang === "id" ? "bg-primary-500 text-white" : "text-foreground/40 hover:text-foreground/60"
+                }`}
+              >
+                ID
+              </button>
+            </div>
+            <ThemeToggle />
+            <motion.a
+              href="#contact"
+              onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/25"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {t.hireMe}
+            </motion.a>
+          </div>
+
+          {/* Mobile Actions */}
+          <div className="flex md:hidden items-center gap-3">
+            <button
+              onClick={toggleLanguage}
+              className="px-2 py-1.5 rounded-lg bg-foreground/5 border border-foreground/10 text-[10px] font-bold text-foreground/70"
+            >
+              {lang.toUpperCase()}
+            </button>
+            <ThemeToggle />
+            <motion.button
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-10 h-10 rounded-lg bg-foreground/5 border border-foreground/10 flex items-center justify-center text-foreground/70 hover:text-foreground hover:bg-foreground/10 transition-all"
+              whileTap={{ scale: 0.9 }}
+            >
+              {isOpen ? <X size={18} /> : <Menu size={18} />}
+            </motion.button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden border-t border-white/5 glass"
+          >
+            <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-2">
+              {navLinks.map((link, i) => (
+                <motion.a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-all ${
+                    activeSection === link.href.replace("#", "")
+                      ? "bg-primary-500/15 text-primary-600 dark:text-primary-400 border border-primary-500/20"
+                      : "text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                  }`}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+              <motion.a
+                href="#contact"
+                onClick={(e) => { e.preventDefault(); handleNavClick("#contact"); }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.25 }}
+                className="mt-2 px-4 py-3 rounded-lg text-sm font-semibold bg-primary-500 text-white text-center"
+              >
+                {t.hireMe}
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  );
+}

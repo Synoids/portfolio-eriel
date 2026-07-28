@@ -31,8 +31,8 @@ jobs:
           const WebSocket = require('ws');
           
           if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            console.log('⚠️ Missing Supabase secrets.');
-            process.exit(1);
+            console.error('❌ ERROR: Missing Supabase secrets. Please ensure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in GitHub Secrets.');
+            process.exit(1); // Gagalkan action jika secret tidak ada
           }
 
           const supabase = createClient(
@@ -46,29 +46,29 @@ jobs:
             }
           );
           
-          (async () => {
+          async function keepAlive() {
             try {
-              // Simple HTTP API call to keep database active
-              const { data, error } = await supabase.auth.admin.listUsers();
+              // Fetch 1 user to ensure a successful 200 OK API request
+              // This is better than querying a non-existent table which might return a 40x error
+              const { data, error } = await supabase.auth.admin.listUsers({
+                page: 1,
+                perPage: 1
+              });
               
               if (error) {
-                if (error.message.includes('Unauthorized')) {
-                  console.log('❌ Service Role Key is invalid or expired');
-                  process.exit(1);
-                }
-                console.log('⚠️ Note:', error.message);
+                console.error('⚠️ Error during Supabase ping:', error.message);
+                process.exit(1);
               } else {
-                console.log('✅ Successfully connected to Supabase');
+                console.log('✅ Supabase Ping successful! API is active.');
+                console.log('Timestamp:', new Date().toISOString());
               }
-              
-              console.log('✅ API request sent. Database activity recorded.');
-              console.log('Timestamp:', new Date().toISOString());
-              
             } catch (err) {
-              console.log('⚠️ Error during ping:', err.message);
-              process.exit(0);
+              console.error('⚠️ Unexpected error:', err.message);
+              process.exit(1);
             }
-          })();
+          }
+          
+          keepAlive();
           EOF
 
       - name: Keep GitHub Actions Alive

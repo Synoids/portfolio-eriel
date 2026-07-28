@@ -1,0 +1,148 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
+import { BookOpen, Code2, GraduationCap, Lightbulb, MapPin } from "lucide-react";
+import { useLanguage } from "@/components/LanguageProvider";
+import { translations } from "@/data/translations";
+import { profile } from "@/data/profile";
+
+// Map icon string keys to actual Lucide components
+const iconMap = {
+  GraduationCap,
+  Code2,
+  Lightbulb,
+} as const;
+
+type IconKey = keyof typeof iconMap;
+
+export default function About() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { lang } = useLanguage();
+  const t = translations[lang].about;
+
+  return (
+    <section id="about" className="section-padding relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-1/2 -translate-y-1/2 left-0 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6" ref={ref}>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <p className="text-primary-600 dark:text-primary-400 font-mono text-sm tracking-widest uppercase mb-3">
+            {t.subtitle}
+          </p>
+          <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            {t.title.split(" ")[0]} <span className="gradient-text">{t.title.split(" ")[1]}</span>
+          </h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-accent rounded-full mx-auto" />
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left - Main bio */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="space-y-6"
+          >
+            <div className="space-y-4 text-foreground/70 dark:text-foreground/60 text-lg leading-relaxed">
+              {profile.bio[lang].map((paragraph, i) => (
+                <p key={i} dangerouslySetInnerHTML={{ __html: paragraph }} />
+              ))}
+            </div>
+
+            {/* Location & Status */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-foreground/10 text-sm text-foreground/60">
+                <MapPin size={14} className="text-primary-400" />
+                {profile.location}
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 glass rounded-xl border border-green-500/20 text-sm text-green-600 dark:text-green-400">
+                <div className="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-full animate-pulse" />
+                {profile.status[lang]}
+              </div>
+            </div>
+
+            {/* CTA */}
+            <motion.a
+              href={profile.resume}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary-500/10 border border-primary-500/30 hover:bg-primary-500/20 text-primary-300 hover:text-primary-200 font-medium text-sm transition-all duration-300"
+            >
+              <BookOpen size={15} />
+              {lang === "en" ? "Download Resume" : "Unduh CV"}
+            </motion.a>
+          </motion.div>
+
+          {/* Right — Stats & Highlights */}
+          <div className="space-y-6">
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="grid grid-cols-2 gap-4"
+            >
+              {[
+                { key: "projects", value: "10+" },
+                { key: "tech", value: "8+" },
+                { key: "years", value: "2+" },
+                { key: "coffee", value: "∞" },
+              ].map((stat, i) => (
+                  <motion.div
+                    key={stat.key}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ delay: 0.4 + i * 0.1 }}
+                    className="glass border border-foreground/10 rounded-2xl p-5 text-center hover:border-primary-500/30 transition-all duration-300 group"
+                    style={{ borderColor: "var(--border)" }}
+                  >
+                    <div className="text-3xl font-extrabold gradient-text group-hover:scale-110 transition-transform duration-300">
+                      {stat.value}
+                    </div>
+                    <div className="text-foreground/50 dark:text-foreground/40 text-xs mt-1 font-medium">
+                      {t.stats[stat.key as keyof typeof t.stats]}
+                    </div>
+                  </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Highlights */}
+            <div className="space-y-4">
+              {profile.highlights[lang].map((item, i) => {
+                const IconComponent = iconMap[item.icon as IconKey];
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={isInView ? { opacity: 1, x: 0 } : {}}
+                    transition={{ delay: 0.5 + i * 0.15 }}
+                    className="flex gap-4 glass border rounded-2xl p-4 hover:border-primary-500/25 transition-all duration-300 group"
+                    style={{ borderColor: "var(--border)" }}
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary-500/15 border border-primary-500/20 flex items-center justify-center group-hover:bg-primary-500/25 transition-all">
+                      <IconComponent size={18} className="text-primary-400" />
+                    </div>
+                    <div>
+                      <h3 className="text-foreground font-semibold text-sm mb-1">{item.title}</h3>
+                      <p className="text-foreground/60 dark:text-foreground/50 text-sm leading-relaxed">{item.description}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

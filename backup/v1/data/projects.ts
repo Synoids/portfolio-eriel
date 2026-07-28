@@ -23,22 +23,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: 6,
-    title: "Digital Signage - PLN UPDL Palembang",
-    description: {
-      en: "A serverless digital signage system powered by Next.js and Google Workspace. It transforms Google Sheets data into a real-time, premium glassmorphism TV display for classroom schedules with zero learning curve for admins.",
-      id: "Sistem papan informasi digital tanpa server yang didukung oleh Next.js dan Google Workspace. Mengubah data Google Sheets menjadi tampilan TV berdesain glassmorphism premium secara real-time dengan kurva pembelajaran nol bagi admin.",
-    },
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Google Apps Script"],
-    emoji: "📺",
-    gradient: "from-sky-600/30 to-blue-900/50",
-    accentColor: "text-sky-400",
-    borderColor: "border-sky-500/20",
-    github: "https://github.com/Synoids/digital-signage-pln-updl",
-    demo: "https://digital-signage-pln-updl.vercel.app/demo",
-    featured: true,
-  },
-  {
     id: 5,
     title: "Modular PDF Generator",
     description: {
