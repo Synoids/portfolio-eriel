@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/components/ui/LanguageProvider";
 import { translations } from "@/data/translations";
 import { profile } from "@/data/profile";
