@@ -168,7 +168,7 @@ export default function CVPage() {
                           key={sIdx}
                           className="px-2.5 py-1.5 bg-slate-800/40 text-slate-300 text-[10px] font-bold rounded-lg border border-slate-700/50"
                         >
-                          {skill.name}
+                          {skill}
                         </span>
                       ))}
                     </div>
