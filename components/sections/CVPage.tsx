@@ -163,7 +163,7 @@ export default function CVPage() {
                   <div key={idx} className="space-y-3">
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{category.name[lang]}</p>
                     <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill, sIdx) => (
+                      {category.technologies.map((skill, sIdx) => (
                         <span
                           key={sIdx}
                           className="px-2.5 py-1.5 bg-slate-800/40 text-slate-300 text-[10px] font-bold rounded-lg border border-slate-700/50"
