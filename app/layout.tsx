@@ -2,50 +2,58 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Eriel Budiman — Portfolio",
+  metadataBase: new URL("https://portfolio-eril.vercel.app"),
+  title: {
+    template: "%s | Eriel Budiman",
+    default: "Eriel Budiman — Software Engineer",
+  },
   description:
-    "Personal portfolio of Eriel Budiman, Information Systems student and junior web developer at UIN Raden Fatah Palembang. Specializing in modern web technologies including Next.js, PHP, and MySQL.",
+    "Portfolio of Eriel Budiman, a Software Engineer focused on building clean, robust, and business-driven web applications.",
   keywords: [
     "Eriel Budiman",
-    "web developer",
-    "portfolio",
+    "Software Engineer",
+    "Full Stack Developer",
     "Next.js",
-    "Information Systems",
-    "UIN Raden Fatah",
+    "TypeScript",
+    "Engineering Portfolio"
   ],
-  authors: [{ name: "Eriel Budiman" }],
+  authors: [{ name: "Eriel Budiman", url: "https://portfolio-eril.vercel.app" }],
+  creator: "Eriel Budiman",
   openGraph: {
-    title: "Eriel Budiman — Portfolio",
+    title: "Eriel Budiman — Software Engineer",
     description:
-      "Information Systems Student & Junior Web Developer building clean, functional web applications.",
-    url: "https://portfolio-eril.vercel.app", // Sesuaikan dengan URL asli nanti
-    siteName: "Eriel Portfolio",
+      "Software Engineer focused on building clean, robust, and business-driven web applications.",
+    url: "https://portfolio-eril.vercel.app",
+    siteName: "Eriel Budiman Portfolio",
     images: [
       {
-        url: "/api/og",
+        url: "/api/og", // Ensure this endpoint exists or replace with a static image like /og-image.jpg
         width: 1200,
         height: 630,
-        alt: "Eriel Budiman Portfolio Preview",
+        alt: "Eriel Budiman — Software Engineer",
       },
     ],
-    locale: "id_ID",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eriel Budiman — Portfolio",
-    description: "Information Systems Student & Junior Web Developer building clean, functional web applications.",
-    images: ["/api/og"],
+    title: "Eriel Budiman — Software Engineer",
+    description: "Software Engineer focused on building clean, robust, and business-driven web applications.",
+    creator: "@erielbudiman",
   },
   icons: {
     icon: "/icon.png",
     shortcut: "/icon.png",
     apple: "/icon.png",
   },
+  alternates: {
+    canonical: "/",
+  },
 };
 
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { LanguageProvider } from "@/components/LanguageProvider";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import { LanguageProvider } from "@/components/ui/LanguageProvider";
 
 export default function RootLayout({
   children,
@@ -54,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className="antialiased gradient-bg min-h-screen">
+      <body className="antialiased min-h-screen">
         <LanguageProvider>
           <ThemeProvider
             attribute="class"

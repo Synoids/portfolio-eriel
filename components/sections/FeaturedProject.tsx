@@ -8,7 +8,7 @@ import {
   Rocket,
   FileText
 } from "lucide-react";
-import { useLanguage } from "@/components/LanguageProvider";
+import { useLanguage } from "@/components/ui/LanguageProvider";
 import { translations } from "@/data/translations";
 
 export default function FeaturedProject() {

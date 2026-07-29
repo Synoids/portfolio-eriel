@@ -11,7 +11,7 @@ export const translations = {
     hero: {
       hi: "HI THERE, I'M",
       available: "Available for freelance work",
-      viewProjects: "View Projects",
+      viewProjects: "Explore Case Studies",
       contactMe: "Contact Me",
       findMeOn: "Find me on",
     },
@@ -106,7 +106,7 @@ export const translations = {
     hero: {
       hi: "HALO, SAYA",
       available: "Tersedia untuk pekerjaan freelance",
-      viewProjects: "Lihat Proyek",
+      viewProjects: "Jelajahi Case Study",
       contactMe: "Hubungi Saya",
       findMeOn: "Temukan saya di",
     },

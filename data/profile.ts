@@ -3,27 +3,27 @@ export const profile = {
   firstName: "Eriel",
   lastName: "Budiman",
   role: {
-    en: "Junior Web Developer",
-    id: "Junior Web Developer",
+    en: "Software Engineer",
+    id: "Software Engineer",
   },
   tagline: {
-    en: "Information Systems Student & Junior Web Developer",
-    id: "Mahasiswa Sistem Informasi & Junior Web Developer",
+    en: "Software Engineer & Information Systems Student",
+    id: "Software Engineer & Mahasiswa Sistem Informasi",
   },
   description: {
-    en: "I build simple, clean, and functional web applications using modern web technologies.",
-    id: "Saya membangun aplikasi web yang simpel, bersih, dan fungsional menggunakan teknologi web modern.",
+    en: "An Information Systems student exploring how to build simple web applications to streamline daily workflows.",
+    id: "Mahasiswa Sistem Informasi yang sedang mengeksplorasi cara membangun aplikasi web simpel untuk merapikan alur kerja sehari-hari.",
   },
   bio: {
     en: [
-      "Hey! I'm <strong>Eriel Budiman</strong>, a dedicated Information Systems student at <strong>UIN Raden Fatah Palembang</strong>.",
-      "I'm passionate about web development and software engineering, with a focus on creating <em>clean, efficient, and user-friendly</em> applications that solve real problems.",
-      "Currently leveling up my skills in modern frameworks like <strong>Next.js</strong> and exploring the full stack — from designing intuitive UIs to building robust backend systems.",
+      "I am an Information Systems student and software engineer who believes that code is just a tool to solve real-world problems. My interest in technology started from observing how inefficient manual business processes can be transformed into streamlined digital workflows.",
+      "Rather than just writing code, I focus on understanding the business domain. For instance, when building the complaint management system for PLN UPDL Palembang, the real challenge wasn't just technical—it was designing a flow that actual staff members would find easier to use than their old paper-based habits.",
+      "I enjoy taking ownership of a problem from concept to deployment. I strive to build applications that are not only performant and scalable under the hood, but also intuitive and fast for the end user."
     ],
     id: [
-      "Halo! Saya <strong>Eriel Budiman</strong>, seorang mahasiswa Sistem Informasi yang berdedikasi di <strong>UIN Raden Fatah Palembang</strong>.",
-      "Saya sangat antusias dengan pengembangan web dan rekayasa perangkat lunak, dengan fokus pada pembuatan aplikasi yang <em>bersih, efisien, dan ramah pengguna</em> untuk menyelesaikan masalah nyata.",
-      "Saat ini saya sedang meningkatkan keahlian saya dalam framework modern seperti <strong>Next.js</strong> dan mengeksplorasi full stack — dari mendesain UI yang intuitif hingga membangun sistem backend yang kokoh.",
+      "Saya adalah mahasiswa Sistem Informasi dan software engineer yang percaya bahwa kode hanyalah alat untuk memecahkan masalah dunia nyata. Ketertarikan saya pada teknologi berawal dari mengamati bagaimana proses bisnis manual yang tidak efisien dapat diubah menjadi alur kerja digital yang mulus.",
+      "Daripada sekadar menulis kode, saya berfokus pada pemahaman domain bisnis. Misalnya, saat membangun sistem manajemen pengaduan untuk PLN UPDL Palembang, tantangan sebenarnya bukanlah hal teknis, melainkan merancang alur yang dirasa lebih mudah digunakan oleh staf dibandingkan dengan kebiasaan lama mereka yang berbasis kertas.",
+      "Saya senang mengambil tanggung jawab atas sebuah masalah mulai dari konsep hingga perilisan. Saya berusaha membangun aplikasi yang tidak hanya memiliki performa tinggi dan scalable di belakang layar, tetapi juga intuitif dan cepat bagi pengguna akhir."
     ],
   },
   location: "Palembang, Indonesia",

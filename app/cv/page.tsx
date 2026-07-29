@@ -1,5 +1,5 @@
 import React from "react";
-import CVPage from "@/components/CVPage";
+import CVPage from "@/components/sections/CVPage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

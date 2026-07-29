@@ -92,26 +92,30 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
 
         {/* Buttons */}
         <div className="flex gap-3 pt-2 mt-auto">
-          <motion.a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass border border-foreground/10 hover:border-primary-500/40 text-foreground/60 hover:text-foreground text-sm font-medium transition-all duration-300 flex-1 justify-center"
-          >
-            <FaGithub size={15} />
-            GitHub
-          </motion.a>
-          {project.demo && (
+          {project.links?.github && (
             <motion.a
-              href={project.demo}
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl glass border border-foreground/10 hover:border-primary-500/40 text-foreground/60 hover:text-foreground text-sm font-medium transition-all duration-300 flex-1 justify-center"
+            >
+              <FaGithub size={15} />
+              GitHub
+            </motion.a>
+          )}
+          {project.links?.demo && (
+            <motion.a
+              href={project.links.demo}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(108, 99, 255, 0.3)" }}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-500 hover:bg-primary-600 text-white text-sm font-medium transition-all duration-300 flex-1 justify-center"
             >
               <ExternalLink size={15} />
-              {project.demoLabel ? project.demoLabel[lang] : t.viewApp}
+              {project.links.demoLabel ? project.links.demoLabel[lang] : t.viewApp}
             </motion.a>
           )}
           {project.readme && (

@@ -1,107 +1,63 @@
-import { IconType } from "react-icons";
-import { 
-  SiHtml5, SiJavascript, SiNextdotjs, SiReact, SiTailwindcss,
-  SiPhp, SiLaravel, SiMysql, SiPostgresql, SiGit, SiGithub, 
-  SiFigma, SiTypescript, SiPython
-} from "react-icons/si";
-import { TbApi, TbBrandCss3, TbBrandVscode } from "react-icons/tb";
-
-export type Skill = {
-  name: string;
-  level: number;
-  icon: IconType;
-};
-
 export type SkillCategory = {
+  id: string;
   name: {
     en: string;
     id: string;
   };
-  color: string;
-  borderColor: string;
-  bgColor: string;
-  iconBg: string;
-  gradientFrom: string;
-  gradientTo: string;
-  skills: Skill[];
+  description: {
+    en: string;
+    id: string;
+  };
+  technologies: string[];
 };
 
 export const skillCategories: SkillCategory[] = [
   {
+    id: "frontend",
     name: {
-      en: "Frontend",
-      id: "Frontend",
+      en: "Frontend & UI Engineering",
+      id: "Frontend & UI Engineering",
     },
-    color: "from-primary-500 to-primary-400",
-    borderColor: "border-primary-500/20",
-    bgColor: "bg-primary-500/8",
-    iconBg: "bg-primary-500/15",
-    gradientFrom: "#6C63FF",
-    gradientTo: "#8B85FF",
-    skills: [
-      { name: "HTML5", level: 90, icon: SiHtml5 },
-      { name: "CSS3", level: 85, icon: TbBrandCss3 },
-      { name: "JavaScript", level: 78, icon: SiJavascript },
-      { name: "TypeScript", level: 82, icon: SiTypescript },
-      { name: "Next.js", level: 65, icon: SiNextdotjs },
-      { name: "React", level: 68, icon: SiReact },
-      { name: "Tailwind CSS", level: 80, icon: SiTailwindcss },
-    ],
+    description: {
+      en: "I don't just build interfaces; I build experiences. Using React and Next.js, I architect scalable component systems and ensure high performance through server-side rendering and static generation. Tailwind CSS allows me to translate complex designs into pixel-perfect, responsive layouts rapidly without writing bloated CSS files.",
+      id: "Saya tidak hanya membangun antarmuka; saya membangun pengalaman pengguna. Dengan React dan Next.js, saya merancang sistem komponen yang scalable dan memastikan performa tinggi melalui SSR dan SSG. Tailwind CSS memungkinkan saya menerjemahkan desain kompleks menjadi layout responsif yang presisi dengan cepat tanpa menulis file CSS yang membengkak.",
+    },
+    technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
   },
   {
+    id: "backend",
     name: {
-      en: "Backend",
-      id: "Backend",
+      en: "Backend & System Design",
+      id: "Backend & System Design",
     },
-    color: "from-accent to-blue-400",
-    borderColor: "border-blue-500/20",
-    bgColor: "bg-blue-500/5",
-    iconBg: "bg-blue-500/10",
-    gradientFrom: "#38BDF8",
-    gradientTo: "#60A5FA",
-    skills: [
-      { name: "PHP", level: 75, icon: SiPhp },
-      { name: "Laravel", level: 70, icon: SiLaravel },
-      { name: "MySQL", level: 72, icon: SiMysql },
-      { name: "PostgreSQL", level: 65, icon: SiPostgresql },
-      { name: "Python", level: 65, icon: SiPython },
-      { name: "REST API", level: 60, icon: TbApi },
-    ],
+    description: {
+      en: "A robust frontend needs a solid foundation. I design secure REST APIs and manage databases using PostgreSQL and MySQL. Whether I'm building a custom backend with Node.js/PHP or leveraging BaaS solutions like Supabase to accelerate development, my focus is always on data integrity, security, and scalability.",
+      id: "Frontend yang tangguh membutuhkan fondasi yang solid. Saya merancang REST API yang aman dan mengelola database menggunakan PostgreSQL dan MySQL. Baik membangun backend kustom dengan Node.js/PHP maupun memanfaatkan solusi BaaS seperti Supabase untuk mempercepat rilis, fokus saya selalu pada integritas data, keamanan, dan skalabilitas.",
+    },
+    technologies: ["Node.js", "PHP", "PostgreSQL", "MySQL", "Supabase", "REST API"],
   },
   {
+    id: "automation",
     name: {
-      en: "Tools & Others",
-      id: "Tools & Lainnya",
+      en: "Automation & Integration",
+      id: "Otomatisasi & Integrasi",
     },
-    color: "from-emerald-400 to-teal-400",
-    borderColor: "border-emerald-500/20",
-    bgColor: "bg-emerald-500/5",
-    iconBg: "bg-emerald-500/10",
-    gradientFrom: "#34D399",
-    gradientTo: "#2DD4BF",
-    skills: [
-      { name: "Git", level: 80, icon: SiGit },
-      { name: "GitHub", level: 82, icon: SiGithub },
-      { name: "VS Code", level: 90, icon: TbBrandVscode },
-      { name: "Figma", level: 55, icon: SiFigma },
-    ],
+    description: {
+      en: "I love automating repetitive workflows to save hours of manual labor. I frequently use Google Apps Script to turn Google Sheets into powerful headless CMS or trigger-based backends, integrating them with Telegram Bots or WhatsApp APIs for real-time notifications and operations.",
+      id: "Saya sangat suka mengotomatiskan alur kerja berulang untuk menghemat waktu kerja manual. Saya sering menggunakan Google Apps Script untuk mengubah Google Sheets menjadi CMS headless atau backend berbasis pemicu (trigger), dan mengintegrasikannya dengan Telegram Bot atau API WhatsApp untuk operasional dan notifikasi real-time.",
+    },
+    technologies: ["Google Apps Script", "Telegram API", "WhatsApp API", "Python"],
   },
-];
-
-export const techBadges: string[] = [
-  "HTML5",
-  "CSS3",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "PHP",
-  "Laravel",
-  "MySQL",
-  "PostgreSQL",
-  "Python",
-  "Git",
-  "GitHub",
-  "Tailwind",
-  "VS Code",
+  {
+    id: "tooling",
+    name: {
+      en: "Tooling & Environment",
+      id: "Tooling & Environment",
+    },
+    description: {
+      en: "Efficiency in development comes from mastering the right tools. I rely heavily on Git for version control and collaborative workflows, and GitHub Actions for simple CI/CD pipelines. My editor of choice is VS Code, deeply customized for my specific tech stack.",
+      id: "Efisiensi dalam pengembangan berasal dari penguasaan alat yang tepat. Saya sangat mengandalkan Git untuk version control dan alur kerja kolaboratif, serta GitHub Actions untuk pipeline CI/CD sederhana. Editor andalan saya adalah VS Code, yang disesuaikan secara mendalam untuk stack teknologi saya.",
+    },
+    technologies: ["Git", "GitHub", "VS Code", "Vercel", "Figma"],
+  },
 ];

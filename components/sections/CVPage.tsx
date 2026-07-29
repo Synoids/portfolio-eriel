@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import {
   Mail, MapPin, GraduationCap, Code2, ArrowLeft
 } from "lucide-react";
-import { useLanguage } from "@/components/LanguageProvider";
+import { useLanguage } from "@/components/ui/LanguageProvider";
 import { profile } from "@/data/profile";
 import { skillCategories } from "@/data/skills";
 import { projects } from "@/data/projects";
@@ -322,16 +322,18 @@ export default function CVPage() {
                       {project.description[lang]}
                     </p>
                     <div className="flex gap-5">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        className="text-[11px] font-black text-primary-500 hover:text-primary-600 flex items-center gap-1.5 transition-colors"
-                      >
-                        <FaGithub size={12} /> {lang === 'en' ? 'Repository' : 'Repositori'}
-                      </a>
-                      {project.demo && project.demo !== '#' && (
+                      {project.links?.github && (
                         <a
-                          href={project.demo}
+                          href={project.links.github}
+                          target="_blank"
+                          className="text-[11px] font-black text-primary-500 hover:text-primary-600 flex items-center gap-1.5 transition-colors"
+                        >
+                          <FaGithub size={12} /> {lang === 'en' ? 'Repository' : 'Repositori'}
+                        </a>
+                      )}
+                      {project.links?.demo && project.links.demo !== '#' && (
+                        <a
+                          href={project.links.demo}
                           target="_blank"
                           className="text-[11px] font-black text-emerald-500 hover:text-emerald-600 flex items-center gap-1.5 transition-colors"
                         >
