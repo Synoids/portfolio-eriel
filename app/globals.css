@@ -52,13 +52,16 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--primary);
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #8a80ff;
 }
@@ -91,9 +94,17 @@ body {
 
 /* Cursor blink */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
+
 .cursor-blink {
   animation: blink 1s step-end infinite;
 }
@@ -105,7 +116,7 @@ body {
     color: black !important;
   }
 
-  nav, 
+  nav,
   footer,
   .print-hidden,
   button,
@@ -128,7 +139,7 @@ body {
   }
 
   /* Reset layout for print */
-  .max-w-4xl, 
+  .max-w-4xl,
   .max-w-\[210mm\] {
     max-width: 100% !important;
     width: 100% !important;
@@ -182,4 +193,3 @@ body {
     size: auto;
   }
 }
-

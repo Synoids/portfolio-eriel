@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { FaGithub } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { Project } from "@/data/projects";

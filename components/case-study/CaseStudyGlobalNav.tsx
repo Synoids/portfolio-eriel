@@ -1,12 +1,10 @@
 "use client";
 
-import { useLanguage } from "@/components/ui/LanguageProvider";
 import { projects } from "@/data/projects";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 export default function CaseStudyGlobalNav({ currentSlug }: { currentSlug: string }) {
-  const { lang } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Auto scroll to active item

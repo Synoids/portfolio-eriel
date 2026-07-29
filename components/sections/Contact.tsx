@@ -79,11 +79,11 @@ export default function Contact() {
                 {lang === "en" ? "Connect" : "Terhubung"}
               </p>
               <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
-                Let's build something together.
+                Let&apos;s build something together.
               </h2>
               <p className="text-foreground/70 text-lg leading-relaxed max-w-md">
                 {lang === "en" 
-                  ? "Whether you have a complex problem that needs solving, a project in mind, or just want to discuss software architecture—I'm always open to a conversation."
+                  ? "Whether you have a complex problem that needs solving, a project in mind, or just want to discuss software architecture—I&apos;m always open to a conversation."
                   : "Baik Anda memiliki masalah kompleks yang perlu diselesaikan, ide proyek baru, atau hanya ingin berdiskusi tentang arsitektur perangkat lunak—saya selalu terbuka untuk berbincang."}
               </p>
             </div>

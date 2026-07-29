@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Mail, Sparkles } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "@/components/ui/LanguageProvider";
 import { translations } from "@/data/translations";
 import { profile } from "@/data/profile";

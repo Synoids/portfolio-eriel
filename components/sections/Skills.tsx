@@ -29,7 +29,7 @@ export default function Skills() {
         </motion.div>
 
         <div className="space-y-16 md:space-y-24">
-          {skillCategories.map((category, index) => (
+          {skillCategories.map((category) => (
             <div
               key={category.id}
               className="flex flex-col md:flex-row gap-6 md:gap-16"
