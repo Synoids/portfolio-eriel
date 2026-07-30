@@ -126,7 +126,7 @@ export const projects: Project[] = [
     borderColor: "border-blue-500/20",
     links: {
       github: "https://github.com/Synoids/notif-pulsecheck",
-      demo: "https://notif-pulsecheck.vercel.app/",
+      demo: "https://notif-pulsecheck.vercel.app/demo",
       demoLabel: {
         en: "Live Demo",
         id: "Demo Langsung",
