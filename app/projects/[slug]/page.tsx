@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 import CaseStudyContent from "@/components/case-study/CaseStudyContent";
 import CaseStudyGlobalNav from "@/components/case-study/CaseStudyGlobalNav";
-import ReadingProgress from "@/components/ui/ReadingProgress";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 
@@ -63,10 +62,9 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
 
   return (
     <>
-      <ReadingProgress />
       <Navbar />
       <CaseStudyGlobalNav currentSlug={project.slug} />
-      <main className="min-h-screen bg-background text-foreground pb-20 pt-10 selection:bg-primary-500/30">
+      <main className="min-h-screen bg-background text-foreground pb-20 pt-4 selection:bg-primary-500/30">
         <CaseStudyContent project={project} />
       </main>
       <Footer />

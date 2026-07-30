@@ -17,7 +17,7 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
   const readingTime = calculateReadingTime(project, lang);
 
   return (
-    <div className="pt-24 md:pt-32 pb-12">
+    <div className="pt-8 md:pt-12 pb-12">
       <div className="max-w-4xl mx-auto px-6">
         {/* Back Button */}
         <Link 

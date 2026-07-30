@@ -17,7 +17,7 @@ export default function CaseStudyGlobalNav({ currentSlug }: { currentSlug: strin
   }, [currentSlug]);
 
   return (
-    <div className="w-full border-b border-foreground/5 bg-background sticky top-[72px] z-40">
+    <div className="w-full border-b border-foreground/5 bg-background relative z-30 pt-[72px]">
       <div className="max-w-4xl mx-auto px-6">
         <div 
           ref={scrollRef}

@@ -53,7 +53,6 @@ export default function Navbar() {
     const target = document.querySelector(link.href);
     if (target) {
       if (isMobile) {
-        // Wait for mobile menu closing animation to prevent scroll jitter
         setTimeout(() => {
           target.scrollIntoView({ behavior: "smooth" });
         }, 300);
@@ -82,7 +81,7 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-5xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4 lg:gap-8">
           {/* Logo */}
           <motion.a
             href="/"

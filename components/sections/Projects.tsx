@@ -107,7 +107,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-12 md:mb-16 flex justify-between items-end border-b border-foreground/10 pb-6"
+          className="mb-8 md:mb-10 flex justify-between items-end border-b border-foreground/10 pb-6"
         >
           <div>
             <p className="text-foreground/40 font-mono text-sm tracking-widest uppercase mb-2">

@@ -57,9 +57,9 @@ export type Project = {
   borderColor: string;
   featured: boolean;
   image?: string;
-  
+
   links?: ProjectLinks;
-  
+
   // Advanced Case Study Fields
   heroImage?: string;
   projectType?: LocalizedString;
@@ -72,9 +72,9 @@ export type Project = {
   responsive?: boolean;
   openSource?: boolean;
   highlightTech?: string[];
-  
+
   metrics?: Metric[];
-  
+
   // Story
   whyThisMatters?: LocalizedString;
   problem?: LocalizedString;
@@ -95,7 +95,7 @@ export type Project = {
   whatIdDoDifferently?: LocalizedString;
   developerNotes?: LocalizedString;
   futureImprovements?: { en: string[]; id: string[] };
-  
+
   // Technical Details
   features?: { en: string[]; id: string[] };
   techStack?: TechCategory[];
@@ -144,14 +144,14 @@ export const projects: Project[] = [
     year: "2026",
     responsive: true,
     highlightTech: ["Next.js", "FCM", "Capacitor", "Google Apps Script"],
-    
+
     whyThisMatters: {
       en: "A mobile-first Progressive Web App (PWA) complaint management system. Features include role-based access control (Superadmin/Staff) with PIN security, a Google Sheets backend via Google Apps Script, real-time rich notifications, and automated SLA tracking. Operational smoothness at PLN UPDL Palembang heavily relies on the response speed to broken facilities or service complaints. Delays in handling training facilities don't just disrupt the education of hundreds of PLN employees, but also decrease the efficiency of staff who have to repeatedly verify reports.",
       id: "Sistem manajemen pengaduan Progressive Web App (PWA) yang dioptimalkan untuk perangkat seluler. Memiliki fitur kontrol akses berbasis peran dengan keamanan PIN, backend Google Sheets melalui Google Apps Script, notifikasi instan, dan pelacakan SLA otomatis. Kelancaran operasional di PT PLN (Persero) UPDL Palembang sangat bergantung pada kecepatan respons terhadap fasilitas yang rusak. Keterlambatan penanganan fasilitas pelatihan tidak hanya menghambat proses pendidikan ratusan pegawai PLN, tetapi juga menurunkan efisiensi kerja staf."
     },
-    problem: { 
-      en: "The existing reporting system was highly passive. Users reported issues through a digital form, but facility admins had no way of knowing a report existed in real-time. This created a long time gap between when an issue was reported and when repairs began, purely due to the admins' lack of awareness.", 
-      id: "Sistem pelaporan masalah yang berjalan sangat pasif. Pengguna melaporkan masalah melalui form digital, namun admin fasilitas tidak memiliki cara untuk mengetahui adanya laporan secara seketika (real-time). Akibatnya, muncul jeda waktu yang panjang antara kapan masalah dilaporkan dan kapan perbaikan dimulai, murni karena ketidaktahuan admin." 
+    problem: {
+      en: "The existing reporting system was highly passive. Users reported issues through a digital form, but facility admins had no way of knowing a report existed in real-time. This created a long time gap between when an issue was reported and when repairs began, purely due to the admins' lack of awareness.",
+      id: "Sistem pelaporan masalah yang berjalan sangat pasif. Pengguna melaporkan masalah melalui form digital, namun admin fasilitas tidak memiliki cara untuk mengetahui adanya laporan secara seketika (real-time). Akibatnya, muncul jeda waktu yang panjang antara kapan masalah dilaporkan dan kapan perbaikan dimulai, murni karena ketidaktahuan admin."
     },
     existingWorkflow: [
       { step: { en: "QR Code Scan", id: "Scan QR Code" }, description: { en: "Users find a broken facility and scan the attached QR code.", id: "Pengguna menemukan fasilitas rusak dan memindai QR code." } },
