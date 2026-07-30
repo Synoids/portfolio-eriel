@@ -296,6 +296,160 @@ export const projects: Project[] = [
     },
     featured: true,
     image: "/digital-signage.png",
+    projectType: { en: "Internship Project", id: "Proyek Magang" },
+    organization: { en: "PT PLN (Persero) UPDL Palembang", id: "PT PLN (Persero) UPDL Palembang" },
+    whyThisMatters: {
+      en: "UPDL Palembang holds multiple training classes in different rooms every day. New participants often don't immediately know which room to go to. The front office also potentially receives the same questions repeatedly regarding classroom locations. Information that is easily accessible as soon as participants enter the building will improve the participant experience while reducing manual communication load.",
+      id: "UPDL Palembang setiap hari menyelenggarakan beberapa kelas pelatihan di ruangan yang berbeda. Peserta yang baru datang ke area UPDL sering tidak langsung mengetahui hari itu harus menuju ruangan mana. Front office juga berpotensi menerima pertanyaan yang sama berulang kali mengenai lokasi pembelajaran. Informasi yang mudah diakses sejak peserta memasuki gedung akan meningkatkan pengalaman peserta sekaligus mengurangi beban komunikasi manual."
+    },
+    problem: {
+      en: "The schedule data is actually available, but it was only used for internal operational needs. TVs in public areas were not utilized as real-time information media, so participants still had to ask the staff. As a result, information was not disseminated proactively.",
+      id: "Data jadwal sebenarnya sudah tersedia. Namun data tersebut hanya digunakan sebagai kebutuhan operasional internal. TV yang berada di area publik belum dimanfaatkan sebagai media informasi real-time sehingga peserta tetap harus bertanya kepada petugas. Akibatnya informasi tidak tersebar secara proaktif."
+    },
+    existingWorkflow: [
+      { step: { en: "Admin updates spreadsheet", id: "Admin memperbarui spreadsheet" }, description: { en: "Data is updated but only used for internal administration.", id: "Data tersebut hanya digunakan sebagai administrasi internal." } },
+      { step: { en: "Participants arrive", id: "Peserta datang" }, description: { en: "Participants arrive at the building.", id: "Peserta datang ke gedung." } },
+      { step: { en: "Manual inquiry", id: "Pencarian manual" }, description: { en: "Participants search for info manually or ask staff.", id: "Peserta mencari informasi secara manual atau bertanya kepada petugas." } },
+      { step: { en: "TV inactive", id: "TV tidak menampilkan info" }, description: { en: "TV does not display learning information.", id: "TV tidak menampilkan informasi pembelajaran hari itu." } }
+    ],
+    constraints: {
+      en: [
+        "Zero budget for commercial Digital Signage CMS.",
+        "Schedules are already managed via Google Spreadsheet, so we cannot change the admin's workflow.",
+        "Multiple TVs will display the same information.",
+        "TVs run continuously all day, so the page must be stable for long-term use.",
+        "The display must be easily readable from a distance."
+      ],
+      id: [
+        "Tidak ada budget untuk CMS Digital Signage komersial.",
+        "Jadwal sudah dikelola menggunakan Google Spreadsheet sehingga tidak boleh mengubah proses kerja admin.",
+        "Ada lebih dari satu TV yang akan menampilkan informasi yang sama.",
+        "TV berjalan terus sepanjang hari sehingga halaman harus stabil untuk penggunaan jangka panjang.",
+        "Tampilan harus mudah dibaca dari jarak beberapa meter."
+      ]
+    },
+    stakeholders: {
+      en: [
+        "Trainees (Peserta Diklat)",
+        "Front Office",
+        "Learning Admins (Admin Pembelajaran)",
+        "UPDL Management"
+      ],
+      id: [
+        "Peserta Diklat",
+        "Front Office",
+        "Admin Pembelajaran",
+        "Manajemen UPDL"
+      ]
+    },
+    successCriteria: {
+      en: [
+        "Admins continue working using the exact same spreadsheet.",
+        "The TV always displays today's learning schedule.",
+        "No manual browser refreshing is required.",
+        "All TVs always display the latest synced data.",
+        "The interface is highly legible from a distance."
+      ],
+      id: [
+        "Admin tetap bekerja menggunakan spreadsheet yang sama.",
+        "TV selalu menampilkan jadwal pembelajaran hari ini.",
+        "Tidak diperlukan refresh browser secara manual.",
+        "Semua TV selalu menampilkan data terbaru.",
+        "Tampilan mudah dibaca dari kejauhan."
+      ]
+    },
+    goals: {
+      en: [
+        "Transform a spreadsheet into a real-time data source.",
+        "Eliminate the need for manual TV updates.",
+        "Display information that participants actually need.",
+        "Ensure all TVs are always synchronized."
+      ],
+      id: [
+        "Mengubah spreadsheet menjadi sumber data real-time.",
+        "Menghilangkan kebutuhan update manual pada TV.",
+        "Menampilkan informasi yang benar-benar dibutuhkan peserta.",
+        "Memastikan seluruh TV selalu sinkron."
+      ]
+    },
+    beforeVsAfter: [
+      {
+        before: { en: "Spreadsheet was only used by admins.", id: "Spreadsheet hanya dipakai admin." },
+        after: { en: "Spreadsheet becomes the single source of truth.", id: "Spreadsheet menjadi single source of truth." }
+      },
+      {
+        before: { en: "TVs provided no contextual information.", id: "TV tidak memberikan informasi." },
+        after: { en: "TVs automatically update when the spreadsheet changes.", id: "TV otomatis berubah ketika spreadsheet berubah." }
+      },
+      {
+        before: { en: "Participants had to ask staff.", id: "Peserta bertanya ke petugas." },
+        after: { en: "Participants instantly know their room locations.", id: "Peserta langsung mengetahui lokasi pembelajaran." }
+      },
+      {
+        before: { en: "Manual or non-existent TV updates.", id: "Update TV dilakukan manual atau tidak ada." },
+        after: { en: "Zero manual refresh required.", id: "Tidak diperlukan refresh manual." }
+      }
+    ],
+    architecture: [
+      { title: { en: "Google Sheets", id: "Google Spreadsheet" }, description: { en: "Admin updates schedule", id: "Admin update jadwal" }, icon: "FileSpreadsheet" },
+      { title: { en: "Apps Script", id: "Google Apps Script" }, description: { en: "Acts as a REST API", id: "Bertindak sebagai REST API" }, icon: "Code" },
+      { title: { en: "Next.js", id: "Next.js Signage" }, description: { en: "Fetches & renders UI", id: "Mengambil data & me-render UI" }, icon: "Monitor" },
+      { title: { en: "Auto Polling", id: "Auto Refresh Data" }, description: { en: "Background sync", id: "Sinkronisasi berkala" }, icon: "RefreshCw" }
+    ],
+    engineeringDecisions: [
+      {
+        decision: "Google Spreadsheet as Source of Truth",
+        alternatives: "Custom Database (PostgreSQL/MongoDB) with Admin Panel",
+        reason: { en: "Respects the constraint of not changing the admin workflow. Building a new admin panel would require training and change management for a process that already works.", id: "Menghormati batasan (constraint) untuk tidak mengubah alur kerja admin. Membuat admin panel baru akan membutuhkan pelatihan dan manajemen perubahan untuk proses yang sebenarnya sudah berjalan baik." }
+      },
+      {
+        decision: "Google Apps Script as Backend API",
+        alternatives: "Node.js Server parsing Sheets API",
+        reason: { en: "Zero infrastructure cost and avoids managing complex OAuth credentials. GAS acts as a simple, stateless JSON endpoint.", id: "Nol biaya infrastruktur dan menghindari pengelolaan kredensial OAuth yang rumit. GAS bertindak sebagai endpoint JSON yang sederhana dan stateless." }
+      },
+      {
+        decision: "Next.js for Frontend",
+        alternatives: "Vanilla HTML/JS or React SPA",
+        reason: { en: "Next.js provides excellent routing, component encapsulation, and potential for future API route additions if the architecture scales.", id: "Next.js menyediakan routing yang sangat baik, enkapsulasi komponen, dan potensi penambahan API route di masa depan jika arsitekturnya perlu diperluas." }
+      },
+      {
+        decision: "Client-side Polling over Manual Refresh",
+        alternatives: "Manual Refresh by Admin or WebSockets",
+        reason: { en: "WebSockets weren't possible natively with GAS. Polling at reasonable intervals ensures TVs are always synced without any human intervention or heavy server load.", id: "WebSockets tidak memungkinkan secara native dengan GAS. Polling dengan interval yang wajar memastikan TV selalu tersinkronisasi tanpa intervensi manusia atau beban server yang berat." }
+      },
+      {
+        decision: "No Additional Database",
+        alternatives: "Caching layer (Redis/Supabase)",
+        reason: { en: "Keeps the architecture strictly serverless and zero-cost. The scale of requests (a few TVs polling every few minutes) is well within Google's quota limits.", id: "Menjaga arsitektur tetap serverless dan tanpa biaya. Skala request (beberapa TV yang melakukan polling setiap beberapa menit) masih sangat aman di dalam batas kuota Google." }
+      }
+    ],
+    implementation: {
+      en: "Admins only need to update their usual spreadsheet. Google Apps Script serves this data as a JSON REST API. The Next.js frontend, displayed on the TVs, periodically polls this API. If a schedule change occurs, the TV display updates automatically without anyone needing to touch the TV or refresh the browser.",
+      id: "Admin hanya mengubah spreadsheet seperti biasa. Google Apps Script menyajikan data ini dalam bentuk JSON. Frontend membaca API secara periodik. Jika ada perubahan jadwal, maka tampilan TV akan berubah otomatis. TV tidak perlu disentuh sama sekali."
+    },
+    challenges: {
+      en: "Designing a UI that remains legible across various TV sizes and distances was challenging. Another challenge was determining an efficient polling interval so data updates quickly without hitting Apps Script rate limits. Finally, ensuring the Single Page Application (SPA) remains stable without memory leaks when running continuously for hours on a Smart TV browser.",
+      id: "Mendesain UI yang tetap terbaca pada berbagai ukuran TV. Menentukan interval polling yang efisien agar data cepat berubah tetapi tidak membebani Apps Script. Selain itu, memastikan halaman tetap stabil (tanpa memory leak) ketika browser menyala berjam-jam."
+    },
+    businessImpact: {
+      en: "Information is now available proactively. Participants find their classrooms much faster, resulting in the front office receiving significantly fewer repetitive questions. The internal spreadsheet gained immense value by doubling as a public information source.",
+      id: "Informasi tersedia secara proaktif. Peserta lebih cepat menemukan ruang pembelajaran. Front office menerima lebih sedikit pertanyaan berulang. Spreadsheet memiliki nilai lebih karena beralih dari sekadar alat internal menjadi sumber informasi publik."
+    },
+    technicalAchievement: {
+      en: "Successfully transformed an internal operational spreadsheet into a real-time digital signage system using a serverless architecture with zero additional infrastructure costs.",
+      id: "Berhasil mengubah spreadsheet operasional internal menjadi sistem digital signage real-time menggunakan arsitektur serverless tanpa infrastruktur tambahan."
+    },
+    lessonsLearned: {
+      en: "Digital transformation does not always mean building a completely new system from scratch. In many cases, the best engineering solution is to extend the value of the systems the organization is already using comfortably.",
+      id: "Digital transformation tidak selalu berarti membangun sistem baru. Dalam banyak kasus, solusi terbaik adalah memperluas nilai dari sistem yang sudah digunakan organisasi."
+    },
+    whatIdDoDifferently: {
+      en: "If the data source were to change from Google Sheets, I would implement WebSockets or Server-Sent Events (SSE) instead of polling. I would also add remote device monitoring, offline caching for network drops, and a health check dashboard to manage multiple screens.",
+      id: "Menggunakan WebSocket atau SSE apabila sumber data tidak lagi Google Sheets. Saya juga akan menambahkan monitoring health check, offline cache, remote device monitoring, dan dashboard pengelolaan banyak layar."
+    },
+    gallery: [
+      { image: "/digital-signage.png", title: { en: "Real-time Display", id: "Tampilan Real-time" }, description: { en: "The main TV interface showing active classes.", id: "Antarmuka TV utama yang menampilkan kelas aktif." } }
+    ]
   },
   {
     id: 5,
