@@ -3,16 +3,21 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Code2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { useLanguage } from "@/components/ui/LanguageProvider";
 import { translations } from "@/data/translations";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const { lang, setLang } = useLanguage();
   const t = translations[lang].nav;
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState(
+    pathname?.startsWith("/projects") ? "projects" : 
+    pathname?.startsWith("/cv") ? "cv" : "home"
+  );
 
   const navLinks = useMemo(() => [
     { href: "#home", label: t.home },
@@ -24,22 +29,33 @@ export default function Navbar() {
   ], [t, lang]);
 
   useEffect(() => {
+    if (pathname?.startsWith("/projects")) {
+      setActiveSection("projects");
+    } else if (pathname?.startsWith("/cv")) {
+      setActiveSection("cv");
+    }
+  }, [pathname]);
+
+  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = navLinks.filter(l => !l.isRoute).map((l) => l.href.replace("#", ""));
-      for (const section of sections.reverse()) {
-        const el = document.getElementById(section);
-        if (el && window.scrollY >= el.offsetTop - 120) {
-          setActiveSection(section);
-          break;
+      // Only run scroll spy on the home page where these sections exist
+      if (pathname === "/") {
+        const sections = navLinks.filter(l => !l.isRoute).map((l) => l.href.replace("#", ""));
+        for (const section of sections.reverse()) {
+          const el = document.getElementById(section);
+          if (el && window.scrollY >= el.offsetTop - 120) {
+            setActiveSection(section);
+            break;
+          }
         }
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [navLinks]);
+  }, [navLinks, pathname]);
 
   const handleNavClick = (link: { href: string, isRoute?: boolean }) => {
     if (link.isRoute) {
