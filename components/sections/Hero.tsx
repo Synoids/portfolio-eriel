@@ -37,9 +37,8 @@ export default function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.4 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-foreground/10 text-[10px] sm:text-xs font-mono font-medium text-foreground/50 bg-foreground/5 uppercase tracking-widest"
+            className="inline-block border-b border-foreground/20 pb-1 text-[10px] sm:text-xs font-mono font-medium text-foreground/50 uppercase tracking-widest"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-foreground/40" />
             Engineering Portfolio // 2026
           </motion.div>
 
