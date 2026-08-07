@@ -10,6 +10,13 @@ export async function createCredential(formData: FormData) {
   const email = formData.get('email') as string;
   const email_password = formData.get('email_password') as string;
   const notes = formData.get('notes') as string;
+  
+  const project_url = formData.get('project_url') as string;
+  const region = formData.get('region') as string;
+  const provider = formData.get('provider') as string || 'Supabase';
+  const environment = formData.get('environment') as string || 'Development';
+  const anon_key = formData.get('anon_key') as string;
+  const service_role_key = formData.get('service_role_key') as string;
 
   if (!project_name) {
     throw new Error('Project name is required');
@@ -18,13 +25,28 @@ export async function createCredential(formData: FormData) {
   // Encrypt passwords if they are provided
   const project_password_encrypted = project_password ? encrypt(project_password) : null;
   const email_password_encrypted = email_password ? encrypt(email_password) : null;
+  const anon_key_encrypted = anon_key ? encrypt(anon_key) : null;
+  const service_role_key_encrypted = service_role_key ? encrypt(service_role_key) : null;
+
+  let project_id = '';
+  if (provider === 'Supabase' && project_url) {
+    const match = project_url.match(/^https?:\/\/([a-z0-9-]+)\.supabase\.co/i);
+    if (match) project_id = match[1];
+  }
 
   const { error } = await supabaseAdmin.from('project_credentials').insert([{
     project_name,
     project_password_encrypted,
     email,
     email_password_encrypted,
-    notes
+    notes,
+    project_url,
+    project_id: project_id || null,
+    region,
+    provider,
+    environment,
+    anon_key_encrypted,
+    service_role_key_encrypted,
   }]);
 
   if (error) {
@@ -56,14 +78,33 @@ export async function updateCredential(id: string, formData: FormData) {
   const email_password = formData.get('email_password') as string;
   const notes = formData.get('notes') as string;
 
+  const project_url = formData.get('project_url') as string;
+  const region = formData.get('region') as string;
+  const provider = formData.get('provider') as string || 'Supabase';
+  const environment = formData.get('environment') as string || 'Development';
+  const anon_key = formData.get('anon_key') as string;
+  const service_role_key = formData.get('service_role_key') as string;
+
   if (!project_name) {
     throw new Error('Project name is required');
+  }
+
+  let project_id = '';
+  if (provider === 'Supabase' && project_url) {
+    const match = project_url.match(/^https?:\/\/([a-z0-9-]+)\.supabase\.co/i);
+    if (match) project_id = match[1];
   }
 
   const updates: Record<string, string | null> = {
     project_name,
     email,
     notes,
+    project_url,
+    project_id: project_id || null,
+    region,
+    provider,
+    environment,
+    updated_at: new Date().toISOString(),
   };
 
   // Only update passwords if they are provided (not empty)
@@ -72,6 +113,12 @@ export async function updateCredential(id: string, formData: FormData) {
   }
   if (email_password) {
     updates.email_password_encrypted = encrypt(email_password);
+  }
+  if (anon_key) {
+    updates.anon_key_encrypted = encrypt(anon_key);
+  }
+  if (service_role_key) {
+    updates.service_role_key_encrypted = encrypt(service_role_key);
   }
 
   const { error } = await supabaseAdmin

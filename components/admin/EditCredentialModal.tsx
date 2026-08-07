@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Edit, X, Eye, EyeOff } from 'lucide-react';
 import { updateCredential } from '@/app/admin/databases/actions';
+import { Provider, Environment, PROVIDERS, ENVIRONMENTS } from '@/lib/constants';
 
 type CredentialType = {
   id: string;
@@ -11,6 +12,12 @@ type CredentialType = {
   project_password_encrypted: string | null;
   email?: string;
   email_password_encrypted: string | null;
+  project_url?: string;
+  region?: string;
+  provider?: Provider;
+  environment?: Environment;
+  anon_key_encrypted?: string | null;
+  service_role_key_encrypted?: string | null;
 };
 
 export default function EditCredentialModal({ credential }: { credential: CredentialType }) {
@@ -20,6 +27,8 @@ export default function EditCredentialModal({ credential }: { credential: Creden
 
   const [showProjectPassword, setShowProjectPassword] = useState(false);
   const [showEmailPassword, setShowEmailPassword] = useState(false);
+  const [showAnonKey, setShowAnonKey] = useState(false);
+  const [showServiceRoleKey, setShowServiceRoleKey] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -85,6 +94,62 @@ export default function EditCredentialModal({ credential }: { credential: Creden
                       className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                     />
                   </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="provider">
+                        Provider
+                      </label>
+                      <select
+                        id="provider"
+                        name="provider"
+                        defaultValue={credential.provider || "Supabase"}
+                        className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                      >
+                        {PROVIDERS.map((p) => (
+                          <option key={p} value={p}>{p}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="environment">
+                        Environment
+                      </label>
+                      <select
+                        id="environment"
+                        name="environment"
+                        defaultValue={credential.environment || "Development"}
+                        className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                      >
+                        {ENVIRONMENTS.map((e) => (
+                          <option key={e} value={e}>{e}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="project_url">
+                      Project URL
+                    </label>
+                    <input
+                      id="project_url"
+                      name="project_url"
+                      type="url"
+                      defaultValue={credential.project_url || ''}
+                      className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="region">
+                      Region
+                    </label>
+                    <input
+                      id="region"
+                      name="region"
+                      type="text"
+                      defaultValue={credential.region || ''}
+                      className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    />
+                  </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="project_password">
                       Password Project (Kosongkan jika tidak ingin diubah)
@@ -103,6 +168,48 @@ export default function EditCredentialModal({ credential }: { credential: Creden
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
                       >
                         {showProjectPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="anon_key">
+                      Anon Key (Kosongkan jika tidak ingin diubah)
+                    </label>
+                    <div className="relative">
+                      <input
+                        id="anon_key"
+                        name="anon_key"
+                        type={showAnonKey ? "text" : "password"}
+                        className="w-full pl-4 pr-12 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                        placeholder="••••••••"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowAnonKey(!showAnonKey)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                      >
+                        {showAnonKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="service_role_key">
+                      Service Role Key (Kosongkan jika tidak ingin diubah)
+                    </label>
+                    <div className="relative">
+                      <input
+                        id="service_role_key"
+                        name="service_role_key"
+                        type={showServiceRoleKey ? "text" : "password"}
+                        className="w-full pl-4 pr-12 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                        placeholder="••••••••"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowServiceRoleKey(!showServiceRoleKey)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                      >
+                        {showServiceRoleKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
                   </div>
@@ -149,12 +256,12 @@ export default function EditCredentialModal({ credential }: { credential: Creden
                   <label className="block text-sm font-medium text-gray-700 mb-1.5" htmlFor="notes">
                     Notes Tambahan
                   </label>
-                  <input
+                  <textarea
                     id="notes"
                     name="notes"
-                    type="text"
+                    rows={4}
                     defaultValue={credential.notes || ''}
-                    className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    className="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-y"
                   />
                 </div>
               </form>

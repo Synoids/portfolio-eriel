@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Eye, EyeOff, Copy, Check, Trash2 } from 'lucide-react';
 import { deleteCredential, getDecryptedPassword } from '@/app/admin/databases/actions';
 import EditCredentialModal from '@/components/admin/EditCredentialModal';
+import DetailCredentialModal from '@/components/admin/DetailCredentialModal';
+import { Provider, Environment } from '@/lib/constants';
 
 function PasswordField({ encryptedValue, placeholder = '••••••••' }: { encryptedValue: string | null, placeholder?: string }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -81,6 +83,15 @@ type CredentialType = {
   project_password_encrypted: string | null;
   email?: string;
   email_password_encrypted: string | null;
+  project_url?: string;
+  project_id?: string;
+  region?: string;
+  provider?: Provider;
+  environment?: Environment;
+  anon_key_encrypted?: string | null;
+  service_role_key_encrypted?: string | null;
+  created_at?: string;
+  updated_at?: string;
 };
 
 export default function CredentialRow({ credential }: { credential: CredentialType }) {
@@ -106,6 +117,7 @@ export default function CredentialRow({ credential }: { credential: CredentialTy
         <PasswordField encryptedValue={credential.email_password_encrypted} />
       </td>
       <td className="p-4 align-top text-right whitespace-nowrap">
+        <DetailCredentialModal credential={credential} />
         <EditCredentialModal credential={credential} />
         <form action={deleteCredential.bind(null, credential.id)} className="inline-block ml-2">
           <button
