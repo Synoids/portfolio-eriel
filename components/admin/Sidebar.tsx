@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, StickyNote, Database, LogOut } from 'lucide-react';
+import { LayoutDashboard, StickyNote, Database, Activity, LogOut } from 'lucide-react';
 import { logoutAction } from '@/app/admin/actions';
 
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { name: 'Notes', href: '/admin/notes', icon: StickyNote },
+  { name: 'Monitoring', href: '/admin/monitoring', icon: Activity },
   { name: 'Databases', href: '/admin/databases', icon: Database },
+  { name: 'Notes', href: '/admin/notes', icon: StickyNote },
 ];
 
 export default function Sidebar() {

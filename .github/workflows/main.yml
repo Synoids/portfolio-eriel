@@ -1,4 +1,4 @@
-name: Keep Supabase Database Active
+name: Keep Infrastructure Automation Alive
 
 on:
   schedule:
@@ -6,70 +6,34 @@ on:
   workflow_dispatch:
 
 jobs:
-  ping-database:
+  trigger-dashboard:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Trigger Infrastructure Automation Engine
+        env:
+          DASHBOARD_URL: ${{ secrets.DASHBOARD_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$DASHBOARD_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "❌ ERROR: Missing DASHBOARD_URL or CRON_SECRET."
+            exit 1
+          fi
+
+          echo "Triggering Infrastructure Automation Engine at $DASHBOARD_URL..."
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$DASHBOARD_URL/api/infrastructure/automation/trigger" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            -H "Content-Type: application/json")
+
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "✅ Trigger successful (HTTP 200)."
+          else
+            echo "⚠️ Trigger failed with HTTP $HTTP_STATUS."
+            exit 1
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install @supabase/supabase-js ws
-
-      - name: Ping Supabase Database
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: |
-          node << 'EOF'
-          const { createClient } = require('@supabase/supabase-js');
-          const WebSocket = require('ws');
-          
-          if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-            console.error('❌ ERROR: Missing Supabase secrets. Please ensure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are set in GitHub Secrets.');
-            process.exit(1); // Gagalkan action jika secret tidak ada
-          }
-
-          const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL,
-            process.env.SUPABASE_SERVICE_ROLE_KEY,
-            {
-              realtime: {
-                transport: WebSocket
-              },
-              auth: { persistSession: false }
-            }
-          );
-          
-          async function keepAlive() {
-            try {
-              // Fetch 1 user to ensure a successful 200 OK API request
-              // This is better than querying a non-existent table which might return a 40x error
-              const { data, error } = await supabase.auth.admin.listUsers({
-                page: 1,
-                perPage: 1
-              });
-              
-              if (error) {
-                console.error('⚠️ Error during Supabase ping:', error.message);
-                process.exit(1);
-              } else {
-                console.log('✅ Supabase Ping successful! API is active.');
-                console.log('Timestamp:', new Date().toISOString());
-              }
-            } catch (err) {
-              console.error('⚠️ Unexpected error:', err.message);
-              process.exit(1);
-            }
-          }
-          
-          keepAlive();
-          EOF
 
       - name: Keep GitHub Actions Alive
         run: |

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FileText, X, ExternalLink, ShieldAlert, Server } from 'lucide-react';
 import { Provider, Environment } from '@/lib/constants';
 import { getDecryptedPassword } from '@/app/admin/databases/actions';
+import { generateDashboardUrl } from '@/lib/infrastructure/utils/generateDashboardUrl';
 import { Eye, EyeOff, Copy, Check } from 'lucide-react';
 
 type CredentialType = {
@@ -100,9 +101,7 @@ export default function DetailCredentialModal({ credential }: { credential: Cred
   const provider = credential.provider || 'Supabase';
   const environment = credential.environment || 'Development';
   
-  const dashboardUrl = provider === 'Supabase' && credential.project_id
-    ? `https://supabase.com/dashboard/project/${credential.project_id}`
-    : null;
+  const dashboardUrl = generateDashboardUrl(provider, credential.project_id);
 
   return (
     <>

@@ -2,6 +2,7 @@
 
 import { supabaseAdmin } from '@/lib/supabase';
 import { encrypt, decrypt } from '@/lib/crypto';
+import { extractProjectId } from '@/lib/infrastructure/utils/extractProjectId';
 import { revalidatePath } from 'next/cache';
 
 export async function createCredential(formData: FormData) {
@@ -28,11 +29,7 @@ export async function createCredential(formData: FormData) {
   const anon_key_encrypted = anon_key ? encrypt(anon_key) : null;
   const service_role_key_encrypted = service_role_key ? encrypt(service_role_key) : null;
 
-  let project_id = '';
-  if (provider === 'Supabase' && project_url) {
-    const match = project_url.match(/^https?:\/\/([a-z0-9-]+)\.supabase\.co/i);
-    if (match) project_id = match[1];
-  }
+  const project_id = extractProjectId(project_url, provider) || '';
 
   const { error } = await supabaseAdmin.from('project_credentials').insert([{
     project_name,
@@ -89,11 +86,7 @@ export async function updateCredential(id: string, formData: FormData) {
     throw new Error('Project name is required');
   }
 
-  let project_id = '';
-  if (provider === 'Supabase' && project_url) {
-    const match = project_url.match(/^https?:\/\/([a-z0-9-]+)\.supabase\.co/i);
-    if (match) project_id = match[1];
-  }
+  const project_id = extractProjectId(project_url, provider) || '';
 
   const updates: Record<string, string | null> = {
     project_name,
