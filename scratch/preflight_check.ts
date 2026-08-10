@@ -16,7 +16,7 @@ async function runPreflight() {
   try {
     const { data, error } = await supabaseAdmin.from('project_credentials').select('anon_key_encrypted').not('anon_key_encrypted', 'is', null).limit(1);
     assert(!error, 'Database registry is accessible');
-    assert(data && data.length > 0 && !!data[0].anon_key_encrypted, 'Project registry has project with anon_key_encrypted');
+    assert(Boolean(data && data.length > 0 && data[0].anon_key_encrypted), 'Project registry has project with anon_key_encrypted');
   } catch (err) {
     assert(false, `Database error: ${err}`);
   }

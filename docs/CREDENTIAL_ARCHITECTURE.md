@@ -88,12 +88,14 @@ Database (provider_management_credentials)
 
 **Why PAT Cannot Be Retrieved:** Once submitted, the PAT is encrypted and the plaintext is discarded. The application does not provide any API, route, or Server Action that decrypts the token back to the frontend.
 
-## Wake Engine Connection
-The Wake Engine requires a Management API Token to unpause projects via the provider's control plane.
-Currently, the Wake Engine remains **unsupported** because:
-1. The Wake capability flag explicitly disables it (`capabilities.wake = false`).
-2. There are no actual API calls made to `api.supabase.com/v1/projects/{ref}/restore`.
-In future sprints, when the UI provides a way to assign an Account to a Project, the Wake Engine will automatically leverage the `CredentialResolver` to obtain the token securely.
+## Wake Engine Connection & Execution (FROZEN)
+> [!WARNING]
+> The Wake Engine is explicitly **frozen** and is **NOT** part of the production Keep-Alive flow. 
 
-## Wake Engine Execution (Sprint 10)
-During a wake operation, the SupabaseProvider initiates a call to CredentialResolver.resolveCredential(). This securely decrypts the PAT strictly on the server side and assigns it to the Authorization header of a etch call to the Supabase Management API. The plaintext PAT is immediately garbage collected. Safety layers include WAKE_ENABLED configuration toggles and AbortSignal propagation, ensuring zero UI leakage and strict operational bounds.
+The Wake Engine would require a Management API Token (PAT) to unpause projects via the provider's control plane (`api.supabase.com/v1/projects/{ref}/restore`). 
+However, based on the final security audit and production architecture, the **Keep-Alive mechanism exclusively uses the `anon_key`** against the `PostgREST` endpoint (`GET /rest/v1/?limit=1`) to prevent projects from sleeping by simulating legitimate compute activity.
+
+**Key constraints of the final architecture:**
+1. PAT / Management API Tokens are NOT used for automation.
+2. Wake Engine is disabled (`WAKE_ENABLED = false`).
+3. `anon_key` is securely decrypted server-side solely for the purpose of the read-only Keep-Alive request.

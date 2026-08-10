@@ -41,13 +41,13 @@ Menggunakan fitur *Vercel Cron* (`vercel.json`) untuk memicu *Next.js API Route*
 - **Wake, Retry/Backoff:** Bergantung sepenuhnya pada limitasi 10-detik *Timeout*. *Retry* dengan penundaan (*delay/sleep*) akan gagal/meledak karena batas *Serverless*.
 - **Audit History & Control:** **Sempurna**. Semua tercatat rapi di pangkalan data Induk.
 
-### C. Hybrid Scheduler + Infrastructure Engine (Rekomendasi)
+### C. Hybrid Scheduler + Infrastructure Engine (Rekomendasi Final)
 Pemisahan murni antara **"Pelatuk" (Trigger/Scheduler)** dengan **"Otak" (Infrastructure Engine)**.
-Kita menggunakan Scheduler eksternal yang sangat stabil (*dumb trigger*), seperti **Supabase `pg_cron`** (dari Database Induk), *Upstash*, atau mengubah *GitHub Actions* hanya sekadar menjadi pelatuk `cURL` (tanpa rahasia apapun). Pelatuk ini menembak API Route Next.js yang diamankan dengan statik `CRON_SECRET`.
-API Route kemudian menjalankan `InfrastructureActionService.runAutomation()`.
-- **Reliability:** Sangat Tinggi. `pg_cron` (Supabase Induk) beroperasi statis 24/7 dan kebal dari penonaktifan 60 hari GitHub.
+Kita mengubah *GitHub Actions* hanya sekadar menjadi pelatuk `cURL` eksternal (tanpa rahasia Supabase apa pun). Pelatuk ini menembak API Route Next.js yang diamankan dengan statik `CRON_SECRET`.
+API Route kemudian menjalankan `InfrastructureActionService.runHealthCheckForAll()`.
+- **Reliability:** Sangat Tinggi. Pelatuk sepenuhnya dipisahkan dari logika bisnis dan basis data.
 - **Biaya:** Gratis (bawaan Supabase Database).
-- **Dependency:** Nol eksternal jika menggunakan `pg_cron` (langsung di DB Master).
+- **Dependency:** Hanya GitHub Actions dan Vercel API.
 - **Kemampuan Eksekusi:** Menjalankan *Health Check*, mencatatkan *History*, jika gagal mengeksekusi *Wake Engine*, dan melacak seluruh performanya di Dashboard.
 - **Retry / Bulk Queue:** Karena Engine kita mengontrol alur, kita bisa memanfaatkan *Edge Functions* atau mekanisme rotasi parsial agar terhindar dari *Timeout Serverless*.
 - **Dashboard Control:** **Sempurna.** Dashboard menjadi *Command Center* tunggal.
@@ -55,10 +55,10 @@ API Route kemudian menjalankan `InfrastructureActionService.runAutomation()`.
 ---
 
 ## 4. Rekomendasi Arsitektur Final
-**Kandidat Pemenang: Opsi C (Hybrid Scheduler: `pg_cron` + Infrastructure Engine)**
+**Kandidat Pemenang: Opsi C (Hybrid Scheduler: GitHub Actions Dumb Trigger + Infrastructure Engine)**
 
 **Alasan Pilihan:**
-1. **Sentralisasi Rahasia (Secret):** GitHub Actions tidak perlu lagi menyimpan `SUPABASE_SERVICE_ROLE_KEY` setiap proyek. Seluruh kunci berlindung di dalam `CredentialResolver` AES-256 kita.
-2. **Dashboard = Pusat Kendali Tunggal:** Seluruh laporan *Health Check*, keberhasilan pencegahan *Auto-Pause*, atau eksekusi *Wake* otomatis akan terlihat visualnya pada *Monitoring Dashboard* milik Anda.
-3. **Imunitas Tidur (Sleep Immunity):** Karena `pg_cron` berjalan pada *Host Supabase Master*, ia terjamin akan selalu bangun dan memicu Vercel/Next.js API secara reguler (misal: setiap jam atau setiap 3 hari) secara permanen.
+1. **Sentralisasi Rahasia (Secret):** GitHub Actions tidak perlu lagi menyimpan `SUPABASE_SERVICE_ROLE_KEY` setiap proyek. Seluruh kunci berlindung di dalam enkripsi AES-256 server kita.
+2. **Dashboard = Pusat Kendali Tunggal:** Seluruh laporan *Health Check*, keberhasilan pencegahan *Auto-Pause*, atau kegagalan koneksi akan terlihat visualnya pada *Monitoring Dashboard* milik Anda.
+3. **Imunitas Tidur (Sleep Immunity):** Mekanisme root PostgREST API mensimulasikan *compute* yang sah untuk menjaga pangkalan data. GitHub Actions dengan siklus commit preventif menjaga pelatuk tetap aktif.
 4. **Fleksibilitas Masa Depan:** API Route tersebut kelak dapat berevolusi menjadi sistem Antrean (*Queue Worker*) jika proyek bertambah melebihi 100+ tanpa perlu merombak ulang Github Actions.

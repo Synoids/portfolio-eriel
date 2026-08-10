@@ -72,10 +72,13 @@ The Infrastructure Engine follows a strict **Clean Architecture** and **Dependen
     BaseProvider -> PostgREST -> PostgreSQL -> StateRepository
 ```
 
-### Actual Wake Execution
-Sprint 10 unlocks the actual Wake Engine which connects to the Supabase Management API via the CredentialResolver.
+### Wake Engine Execution (FROZEN / DISABLED)
+> [!WARNING]
+> The Wake Engine is explicitly **frozen** and is **NOT** part of the production Keep-Alive flow. 
 
-`UI -> Server Action -> InfrastructureActionService -> InfrastructureManager -> SupabaseProvider -> Supabase Management API`
+Sprint 10 unlocked the foundation for the Wake Engine which connects to the Supabase Management API via the CredentialResolver, however it is currently disabled for security and operational safety.
+
+`UI -> Server Action -> InfrastructureActionService -> InfrastructureManager -> SupabaseProvider -> Supabase Management API (Frozen)`
 
 **Security Boundary**: The token is never returned to the UI or logged.
-**Configuration Safety**: WAKE_ENABLED config explicitly turns this feature on/off. WAKE_DRY_RUN performs execution without actual HTTP requests.
+**Configuration Safety**: WAKE_ENABLED config explicitly turns this feature on/off. It must remain `false` for normal Keep-Alive operations.

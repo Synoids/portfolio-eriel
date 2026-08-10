@@ -34,3 +34,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Production Status
+- Monitoring: Production Ready
+- Keep-Alive: Production Ready
+- GitHub Actions Dumb Trigger: Production Verified
+- Automation API: Production Verified
+- Wake Engine: Frozen / Disabled
+- Real Wake API: Not part of production Keep-Alive flow
+- Last validation: Production Keep-Alive Smoke Test — PASS
