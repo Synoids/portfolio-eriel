@@ -100,7 +100,7 @@ export default function CaseStudyHero({ project }: CaseStudyHeroProps) {
               src={project.heroImage || project.image || ""}
               alt={project.title}
               fill
-              className="object-cover"
+              className="object-cover transition-opacity duration-500 hover:opacity-95"
               priority
             />
           ) : (

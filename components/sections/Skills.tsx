@@ -20,9 +20,7 @@ export default function Skills() {
           transition={{ duration: 0.5 }}
           className="mb-16 md:mb-24"
         >
-          <p className="text-foreground/40 font-mono text-sm tracking-widest uppercase mb-2">
-            {t.subtitle}
-          </p>
+
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
             Technical Expertise
           </h2>

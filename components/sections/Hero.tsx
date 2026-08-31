@@ -33,14 +33,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-5xl mx-auto px-6 w-full flex-1 flex flex-col justify-between">
         {/* Main Content */}
         <div className="space-y-8 max-w-4xl mt-2 md:mt-8">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.4 }}
-            className="inline-block border-b border-foreground/20 pb-1 text-[10px] sm:text-xs font-mono font-medium text-foreground/50 uppercase tracking-widest"
-          >
-            Engineering Portfolio // 2026
-          </motion.div>
+
 
           <div className="space-y-4 sm:space-y-6">
             <motion.h1

@@ -24,9 +24,9 @@ export default function About() {
           transition={{ duration: 0.5 }}
           className="mb-12"
         >
-          <p className="text-foreground/40 font-mono text-sm tracking-widest uppercase mb-2">
+          <span className="block text-foreground/40 font-mono text-sm tracking-widest uppercase mb-2">
             {t.subtitle}
-          </p>
+          </span>
           <h2 className="text-3xl lg:text-4xl font-bold text-foreground tracking-tight">
             Engineering Mindset
           </h2>

@@ -22,7 +22,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
       transition={{ duration: 0.4, delay: index * 0.1 }}
       className={`group flex flex-col ${
         isFeatured ? "md:flex-row md:items-center gap-8 md:gap-12" : "gap-6"
-      } border border-foreground/10 rounded-2xl p-4 md:p-6 hover:border-foreground/30 transition-all duration-300 bg-foreground/[0.02]`}
+      } border border-foreground/10 rounded-2xl p-4 md:p-6 hover:border-foreground/30 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:hover:shadow-[0_8px_30px_rgba(255,255,255,0.02)] transition-all duration-300 bg-foreground/[0.02]`}
     >
       {/* Cover Image */}
       <div 
@@ -35,7 +35,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0], index: n
             src={project.image}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-opacity duration-500 group-hover:opacity-90"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-6xl bg-foreground/5">
@@ -109,13 +109,13 @@ export default function Projects() {
           transition={{ duration: 0.5 }}
           className="mb-8 md:mb-10 flex justify-between items-end border-b border-foreground/10 pb-6"
         >
-          <div>
-            <p className="text-foreground/40 font-mono text-sm tracking-widest uppercase mb-2">
-              {t.subtitle}
-            </p>
+          <div className="w-full flex justify-between items-end">
             <h2 className="text-3xl lg:text-5xl font-bold text-foreground tracking-tight">
               Selected Work
             </h2>
+            <Link href="https://github.com/erielbudiman" target="_blank" className="text-sm font-medium hover:text-primary-500 transition-colors hidden sm:flex items-center gap-1">
+              View All <ArrowRight size={14} />
+            </Link>
           </div>
         </motion.div>
 

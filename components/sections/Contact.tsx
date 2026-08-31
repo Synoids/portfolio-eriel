@@ -75,12 +75,12 @@ export default function Contact() {
             className="space-y-8"
           >
             <div>
-              <p className="text-foreground/40 font-mono text-sm tracking-widest uppercase mb-4">
-                {lang === "en" ? "Connect" : "Terhubung"}
-              </p>
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight mb-6">
-                Let&apos;s build something together.
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground tracking-tight mb-3">
+                {lang === "en" ? "Have an idea in mind?" : "Punya ide proyek?"}
               </h2>
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-medium text-foreground/70 tracking-tight mb-6">
+                {lang === "en" ? "Let's build something together." : "Mari kita bangun bersama."}
+              </h3>
               <p className="text-foreground/70 text-lg leading-relaxed max-w-md">
                 {lang === "en" 
                   ? "Whether you have a complex problem that needs solving, a project in mind, or just want to discuss software architecture—I&apos;m always open to a conversation."

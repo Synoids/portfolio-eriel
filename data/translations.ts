@@ -16,7 +16,7 @@ export const translations = {
       findMeOn: "Find me on",
     },
     about: {
-      subtitle: "My Story",
+      subtitle: "How I Work",
       title: "About Me",
       stats: {
         projects: "Projects Built",
@@ -41,7 +41,7 @@ export const translations = {
       featured: "Featured",
     },
     contact: {
-      subtitle: "Let's talk",
+      subtitle: "Have an idea in mind?",
       title: "Get In Touch",
       description: "Have a project in mind, or just want to say hi? My inbox is always open. I'll get back to you as soon as possible!",
       form: {
@@ -111,7 +111,7 @@ export const translations = {
       findMeOn: "Temukan saya di",
     },
     about: {
-      subtitle: "Cerita Saya",
+      subtitle: "Bagaimana Saya Bekerja",
       title: "Tentang Saya",
       stats: {
         projects: "Proyek Selesai",
@@ -136,7 +136,7 @@ export const translations = {
       featured: "Unggulan",
     },
     contact: {
-      subtitle: "Mari berbicara",
+      subtitle: "Punya ide proyek?",
       title: "Hubungi Saya",
       description: "Punya proyek dalam pikiran, atau sekadar ingin menyapa? Kotak masuk saya selalu terbuka. Saya akan membalas Anda secepat mungkin!",
       form: {

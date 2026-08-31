@@ -29,7 +29,7 @@ export default function CaseStudyGallery({ gallery }: CaseStudyGalleryProps) {
                 src={item.image}
                 alt={item.title?.[lang] || "Gallery image"}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                className="object-cover transition-opacity duration-300 group-hover:opacity-90"
               />
             </div>
             {item.title && (
