@@ -108,6 +108,138 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: 8,
+    slug: "petty-cash-management",
+    title: "Petty Cash Management System",
+    description: {
+      en: "A role-based petty cash management system built to help internal teams track operational expenses, manage fund allocations, and handle receipt uploads.",
+      id: "Sistem informasi kas kecil berbasis peran (role-based) yang dibangun untuk membantu tim internal melacak pengeluaran operasional, mengelola alokasi dana, dan mengunggah kuitansi."
+    },
+    summary: {
+      en: "Digitizing internal petty cash tracking with a period-based system, role access, and automated Excel reporting.",
+      id: "Mendigitalisasi pencatatan kas kecil internal dengan sistem berbasis periode, hak akses peran, dan pembuatan laporan Excel."
+    },
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Supabase",
+      "PostgreSQL",
+      "ExcelJS"
+    ],
+    emoji: "💰",
+    gradient: "from-green-600/30 to-emerald-900/50",
+    accentColor: "text-green-400",
+    borderColor: "border-green-500/20",
+    featured: true,
+    image: "/app-logo-petty-cash.svg",
+    heroImage: "/Petty-Cash..png",
+    projectType: { 
+      en: "Web Application", 
+      id: "Aplikasi Web" 
+    },
+    organization: { 
+      en: "PT PLN (Persero) UPDL Palembang", 
+      id: "PT PLN (Persero) UPDL Palembang" 
+    },
+    status: { 
+      en: "Completed", 
+      id: "Selesai" 
+    },
+    myRole: { 
+      en: "Full Stack Developer", 
+      id: "Full Stack Developer" 
+    },
+    whyThisMatters: {
+      en: "Managing petty cash with spreadsheets often leads to unorganized records and missing physical receipts. This system provides a centralized platform to record expenses and attach receipts directly to each transaction.",
+      id: "Mengelola kas kecil dengan spreadsheet sering kali berujung pada pencatatan yang kurang rapi dan hilangnya bukti fisik kuitansi. Sistem ini menyediakan platform terpusat untuk mencatat pengeluaran dan melampirkan kuitansi secara langsung pada setiap transaksi."
+    },
+    problem: {
+      en: "The internal team was relying on manual spreadsheets for fund allocations and expenses, making it hard to track current balances and reconcile data at the end of the month.",
+      id: "Tim internal sebelumnya mengandalkan spreadsheet manual untuk mencatat alokasi dana dan pengeluaran, sehingga sulit untuk melacak saldo terkini dan merekap data di akhir bulan."
+    },
+    constraints: {
+      en: [
+        "Transaction history should be preserved to maintain a proper audit trail.",
+        "The system needs to support reimbursements (non-cash) workflows.",
+        "Fund holders should only access the cash sources specifically assigned to them."
+      ],
+      id: [
+        "Riwayat transaksi harus dipertahankan untuk keperluan pelacakan data.",
+        "Sistem harus mendukung alur kerja dana talangan (reimbursement).",
+        "Pemegang dana hanya boleh mengakses sumber dana yang ditugaskan kepada mereka."
+      ]
+    },
+    successCriteria: {
+      en: [
+        "Balances are calculated dynamically based on total cash-in and cash-out.",
+        "Users can generate and download monthly recap reports in Excel format.",
+        "Receipt images are compressed before upload to save storage space."
+      ],
+      id: [
+        "Saldo dihitung secara dinamis berdasarkan total dana masuk dan dana keluar.",
+        "Pengguna dapat mengunduh laporan rekap bulanan dalam format Excel.",
+        "Gambar kuitansi dikompresi sebelum diunggah untuk menghemat penggunaan storage."
+      ]
+    },
+    architecture: [
+      {
+        title: { en: "Role-Based Data Access", id: "Akses Data Berbasis Peran" },
+        description: { 
+          en: "Used Supabase Row Level Security (RLS) to limit what users can see based on assignments, while Admins manage the master data globally.",
+          id: "Menggunakan Row Level Security (RLS) Supabase untuk membatasi akses data berdasarkan peran, sementara Admin dapat mengelola master data secara keseluruhan."
+        },
+        icon: "ShieldCheck"
+      },
+      {
+        title: { en: "Database-Level Validation", id: "Validasi Tingkat Database" },
+        description: {
+          en: "Moved important validation logic (like balance checking and period status) to PostgreSQL functions to keep transaction processing more consistent and reduce reliance on client-side validation.",
+          id: "Memindahkan logika validasi penting (seperti cek saldo dan status periode) ke PostgreSQL functions (RPC) untuk menjaga konsistensi transaksi dan mengurangi ketergantungan pada validasi di frontend."
+        },
+        icon: "Database"
+      },
+      {
+        title: { en: "Dynamic Balance Calculation", id: "Kalkulasi Saldo Dinamis" },
+        description: {
+          en: "Balances are not stored as static numbers. Instead, they are calculated dynamically based on the total sum of incoming funds, allocations, and expenses to maintain data integrity.",
+          id: "Saldo tidak disimpan sebagai angka statis. Saldo dihitung secara dinamis berdasarkan total akumulasi dana masuk, alokasi, dan pengeluaran untuk menjaga integritas data."
+        },
+        icon: "Activity"
+      }
+    ],
+    engineeringDecisions: [
+      {
+        decision: "Soft Delete Implementation via Nominal Zeroing",
+        alternatives: "Standard database hard deletes or basic boolean 'is_deleted' columns.",
+        reason: {
+          en: "To keep a clear history of canceled transactions, the system sets the transaction amount to zero instead of deleting the row. This approach preserves the transaction record and makes it easier to trace data changes.",
+          id: "Untuk mempertahankan riwayat transaksi yang dibatalkan, sistem mengubah nominal transaksi menjadi nol alih-alih menghapus baris data. Pendekatan ini digunakan untuk menjaga riwayat transaksi dan memudahkan penelusuran perubahan data."
+        }
+      },
+      {
+        decision: "Client-Side Image Compression",
+        alternatives: "Uploading raw images directly or processing them on the server side.",
+        reason: {
+          en: "Since smartphone cameras produce large image files, the application compresses receipt photos on the client side before uploading them to Supabase to speed up the upload process and save storage space.",
+          id: "Karena foto dari kamera smartphone biasanya memiliki ukuran file besar, aplikasi mengompresi foto kuitansi di sisi client sebelum diunggah ke Supabase untuk mempercepat proses upload dan menghemat kapasitas storage."
+        }
+      }
+    ],
+    implementation: {
+      en: "The application uses an active period concept. Users can only input transactions if the current period is 'OPEN'. Once the period is closed, financial inputs are locked to keep past data organized, though receipt attachments can still be updated if needed.",
+      id: "Aplikasi ini menggunakan konsep periode. Transaksi hanya dapat dimasukkan jika periode saat ini berstatus 'OPEN'. Ketika periode ditutup, input keuangan dikunci agar data transaksi lama tetap tertata, meskipun lampiran kuitansi masih bisa dilengkapi sesuai aturan."
+    },
+    businessImpact: {
+      en: "Helped the administrative team transition from manual spreadsheets to a more structured digital process, making monthly recaps faster and providing a centralized view of petty cash balances.",
+      id: "Membantu tim administrasi beralih dari spreadsheet manual ke proses digital yang lebih terstruktur, membuat rekap bulanan lebih cepat dan menyediakan visibilitas terpusat terhadap saldo kas kecil."
+    },
+    technicalAchievement: {
+      en: "Designed the database structure and business rules to support petty cash transactions, fund allocation, reimbursements, and role-based access.",
+      id: "Merancang struktur database dan aturan bisnis untuk mendukung pencatatan transaksi kas kecil, alokasi dana, reimbursement, serta akses berbasis peran (role-based access)."
+    }
+  },
+  {
     id: 7,
     slug: "pln-pulse-check",
     title: "PLN Pulse Check UPDL - Complaint Management System",
